@@ -16,9 +16,9 @@ const css = `
 
   /* ── LEFT PANEL ── */
   .reg-left {
-    width: 420px; flex-shrink: 0; position: relative; overflow: hidden;
+    width: 460px; flex-shrink: 0; position: relative; overflow: hidden;
     display: flex; flex-direction: column;
-    padding: 80px 50px;
+    padding: 80px 60px;
   }
   
   .reg-left-bg {
@@ -33,9 +33,9 @@ const css = `
   }
   
   .reg-back {
-    position: absolute; top: 40px; left: 50px; z-index: 3;
+    position: absolute; top: 40px; left: 60px; z-index: 3;
     display: inline-flex; align-items: center; gap: 10px;
-    font-size: 11px; color: rgba(255,255,255,0.5); text-decoration: none;
+    font-size: 12px; color: rgba(255,255,255,0.6); text-decoration: none;
     letter-spacing: 0.25em; text-transform: uppercase; transition: 0.3s;
   }
   .reg-back:hover { color: #f0d48a; transform: translateX(-5px); }
@@ -48,38 +48,38 @@ const css = `
   
   .reg-left-logo {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 32px; color: #f0d48a; margin-bottom: 8px;
+    font-size: 38px; color: #f0d48a; margin-bottom: 8px;
     letter-spacing: 0.05em;
   }
   .reg-left-logo em { font-style: italic; color: #fff; }
   
   .reg-left-sub { 
-    font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; 
+    font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; 
     color: rgba(255,255,255,0.4); margin-bottom: 60px; 
   }
 
-  .reg-steps { display: flex; flex-direction: column; gap: 30px; }
+  .reg-steps { display: flex; flex-direction: column; gap: 32px; }
   
   .reg-step {
-    display: flex; align-items: flex-start; gap: 20px;
-    padding: 20px; background: rgba(255,255,255,0.03);
+    display: flex; align-items: flex-start; gap: 24px;
+    padding: 24px; background: rgba(255,255,255,0.03);
     backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 4px;
+    border-radius: 6px;
   }
   
   .reg-step-circle {
-    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
     background: #f0d48a; color: #0a1628;
-    font-size: 12px; font-weight: 700;
+    font-size: 13px; font-weight: 700;
     display: flex; align-items: center; justify-content: center;
   }
   
-  .reg-step-title { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
-  .reg-step-desc { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+  .reg-step-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+  .reg-step-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
 
   .reg-left-note {
     margin-top: auto; padding-top: 40px;
-    font-size: 12px; color: rgba(255,255,255,0.4);
+    font-size: 14px; color: rgba(255,255,255,0.45);
     line-height: 1.8; font-style: italic;
   }
 
@@ -90,77 +90,77 @@ const css = `
     padding: 80px; overflow-y: auto;
   }
   
-  .reg-right-inner { width: 100%; max-width: 580px; }
+  .reg-right-inner { width: 100%; max-width: 620px; }
 
   .reg-form-eyebrow {
-    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
-    color: #c5a367; font-weight: 700; margin-bottom: 15px;
+    font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: #c5a367; font-weight: 700; margin-bottom: 18px;
   }
   
   .reg-form-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 48px; font-weight: 500; color: #0a1628;
-    line-height: 1; margin-bottom: 15px;
+    font-size: 54px; font-weight: 500; color: #0a1628;
+    line-height: 1; margin-bottom: 18px;
   }
   
-  .reg-form-sub { font-size: 15px; color: #777; margin-bottom: 45px; font-weight: 300; }
+  .reg-form-sub { font-size: 17px; color: #666; margin-bottom: 50px; font-weight: 300; line-height: 1.6; }
 
   .reg-err {
-    background: #fff5f5; border-radius: 4px; padding: 16px;
-    color: #c53030; font-size: 13px; margin-bottom: 30px;
+    background: #fff5f5; border-radius: 4px; padding: 18px;
+    color: #c53030; font-size: 14px; margin-bottom: 35px;
     border-left: 4px solid #c53030; display: flex; align-items: center; gap: 12px;
   }
 
   .reg-section {
-    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
-    color: #0a1628; font-weight: 700; margin: 40px 0 20px;
+    font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: #0a1628; font-weight: 700; margin: 48px 0 24px;
     display: flex; align-items: center; gap: 15px;
   }
   
-  .reg-section::after { content: ''; flex: 1; height: 1px; background: #eee; }
+  .reg-section::after { content: ''; flex: 1; height: 1px; background: #f0f0f0; }
 
-  .reg-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .reg-field { margin-bottom: 24px; }
+  .reg-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .reg-field { margin-bottom: 28px; }
   
   .reg-label {
-    display: block; font-size: 11px; font-weight: 600;
-    color: #444; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;
+    display: block; font-size: 12px; font-weight: 600;
+    color: #333; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;
   }
   
   .reg-input {
-    width: 100%; padding: 14px 16px 14px 42px;
-    border: 1px solid #e2e8f0; border-radius: 4px;
-    font-size: 14px; color: #1a1a1a; transition: all 0.3s;
+    width: 100%; padding: 16px 16px 16px 46px;
+    border: 1px solid #e2e8f0; border-radius: 5px;
+    font-size: 15px; color: #1a1a1a; transition: all 0.3s;
     background: #fbfbfb;
   }
   
   .reg-input:focus {
     border-color: #0a1628; background: #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05); outline: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06); outline: none;
   }
   
   .reg-input-icon {
-    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
-    color: #cbd5e0; font-size: 14px;
+    position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+    color: #cbd5e0; font-size: 16px;
   }
 
   .reg-submit {
-    width: 100%; padding: 18px;
+    width: 100%; padding: 20px;
     background: #0a1628; color: #f0d48a;
-    border: none; border-radius: 4px;
-    font-size: 12px; font-weight: 600;
+    border: none; border-radius: 5px;
+    font-size: 13px; font-weight: 600;
     letter-spacing: 0.2em; text-transform: uppercase;
     cursor: pointer; transition: all 0.3s;
-    margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 12px;
+    margin-top: 25px; display: flex; align-items: center; justify-content: center; gap: 12px;
   }
   
-  .reg-submit:hover:not(:disabled) { background: #1a2a3a; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(10,22,40,0.1); }
+  .reg-submit:hover:not(:disabled) { background: #1a2a3a; transform: translateY(-2px); box-shadow: 0 12px 24px rgba(10,22,40,0.12); }
   .reg-submit:disabled { opacity: 0.6; }
 
-  .reg-login-link { text-align: center; font-size: 14px; color: #718096; margin-top: 30px; }
-  .reg-login-link a { color: #0a1628; font-weight: 600; text-decoration: none; border-bottom: 1px solid #f0d48a; }
+  .reg-login-link { text-align: center; font-size: 15px; color: #718096; margin-top: 35px; }
+  .reg-login-link a { color: #0a1628; font-weight: 600; text-decoration: none; border-bottom: 1.5px solid #f0d48a; }
 
-  .reg-terms { font-size: 11px; color: #a0aec0; text-align: center; margin-top: 25px; line-height: 1.6; }
+  .reg-terms { font-size: 12px; color: #a0aec0; text-align: center; margin-top: 30px; line-height: 1.6; }
 
   @media (max-width: 1100px) {
     .reg-left { display: none; }
@@ -223,7 +223,7 @@ export default function Register() {
           placeholder={placeholder} className="reg-input"
         />
       </div>
-      {hint && <div style={{fontSize: '10px', color: '#a0aec0', marginTop: '6px', letterSpacing: '0.02em'}}>{hint}</div>}
+      {hint && <div style={{fontSize: '11px', color: '#b0bccd', marginTop: '8px', letterSpacing: '0.02em'}}>{hint}</div>}
     </div>
   )
 
