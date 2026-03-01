@@ -52,7 +52,7 @@ const css = `
   }
   .hero-bg {
     position: absolute; inset: 0;
-    background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1800&q=85') center / cover no-repeat;
+    background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2000&auto=format&fit=crop') center / cover no-repeat;
     transform: scale(1.04);
     animation: slow-zoom 18s ease-in-out infinite alternate;
   }
