@@ -227,7 +227,7 @@ export default function AdminDashboard() {
       <div className="admin-page-header">
         <div>
           <h1 className="admin-page-title">
-            {isReceptionist ? 'Concierge Dashboard' : 'Executive Overview'}
+            {isReceptionist ? 'Admin Dashboard' : 'Executive Overview'}
           </h1>
           <div className="admin-page-subtitle">{subtitle}</div>
         </div>
