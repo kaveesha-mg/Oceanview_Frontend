@@ -110,16 +110,6 @@ const css = `
   }
   .btn-outline:hover { border-color: rgba(255,255,255,0.7); color: white; background: rgba(255,255,255,0.07); }
 
-  /* Scroll indicator */
-  .hero-scroll {
-    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
-    z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
-    color: rgba(255,255,255,0.38); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-    animation: bounce 2.4s ease-in-out infinite;
-  }
-  @keyframes bounce { 0%,100%{ transform: translateX(-50%) translateY(0); } 50%{ transform: translateX(-50%) translateY(8px); } }
-  .hero-scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.38), transparent); }
-
   /* ── STATS BAND ── */
   .stats-band { background: #0a1628; }
   .stats-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
@@ -138,42 +128,52 @@ const css = `
   .sec-title em { font-style: italic; font-weight: 400; color: #b8960c; }
   .sec-line { width: 48px; height: 2px; background: linear-gradient(to right, #f0d48a, #b8960c); margin: 18px auto 0; border-radius: 2px; }
 
-  /* ── ROOMS ── */
+  /* ── REDESIGNED ROOMS ── */
   .rooms-section { padding: 92px 24px; max-width: 1200px; margin: 0 auto; }
-  .rooms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px; }
-  .room-card {
-    background: white; border-radius: 16px; overflow: hidden;
-    border: 1px solid #ece7df; transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
-    cursor: pointer;
+  .rooms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 48px; }
+  
+  .room-card { position: relative; transition: all 0.4s ease; }
+  
+  .room-img-wrap { 
+    position: relative; height: 400px; overflow: hidden; border-radius: 4px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
   }
-  .room-card:hover { transform: translateY(-10px); box-shadow: 0 32px 72px rgba(0,0,0,0.13); }
-  .room-img-wrap { position: relative; height: 320px; overflow: hidden; }
-  .room-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-  .room-card:hover .room-img { transform: scale(1.06); }
-  .room-img-ph { width: 100%; height: 100%; background: linear-gradient(135deg, #ece7df, #d8cfc2); display: flex; align-items: center; justify-content: center; color: #b0a89a; font-size: 14px; }
+  .room-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+  .room-card:hover .room-img { transform: scale(1.08); }
+
   .room-type-badge {
-    position: absolute; top: 16px; left: 16px;
-    background: rgba(10,22,40,0.78); color: #f0d48a;
-    padding: 5px 14px; border-radius: 100px; font-size: 11px;
-    font-weight: 500; letter-spacing: 0.08em; backdrop-filter: blur(8px);
-    border: 1px solid rgba(240,212,138,0.25);
+    position: absolute; top: 20px; right: 20px;
+    background: #f0d48a; color: #0a1628;
+    padding: 6px 14px; border-radius: 2px; font-size: 10px;
+    font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    z-index: 5; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   }
-  .room-body { padding: 26px 28px 28px; }
-  .room-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; color: #0a1628; margin-bottom: 6px; letter-spacing: -0.01em; }
-  .room-desc { font-size: 13.5px; color: #8a8078; line-height: 1.6; margin-bottom: 22px; }
-  .room-footer { display: flex; align-items: flex-end; justify-content: space-between; }
-  .room-rate-lbl { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.12em; color: #b0a89a; margin-bottom: 4px; }
-  .room-rate-val { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #0a1628; }
-  .room-rate-nit { font-size: 13px; font-family: 'Jost'; color: #b0a89a; font-weight: 300; }
+
+  .room-body { 
+    position: relative; margin-top: -80px; margin-left: 20px; margin-right: 20px;
+    background: white; padding: 32px; border-radius: 2px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.1); z-index: 10;
+    transition: transform 0.3s ease;
+  }
+  .room-card:hover .room-body { transform: translateY(-5px); }
+
+  .room-name { font-family: 'Playfair Display', serif; font-size: 24px; color: #0a1628; margin-bottom: 8px; }
+  .room-desc { font-size: 14px; color: #7a736d; line-height: 1.6; margin-bottom: 24px; min-height: 45px; }
+
+  .room-footer { 
+    display: flex; align-items: center; justify-content: space-between; 
+    border-top: 1px solid #f0eee9; padding-top: 20px;
+  }
+  .room-rate-val { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #0a1628; }
+  .room-rate-val span { color: #b8960c; font-size: 14px; margin-right: 4px; font-family: 'Jost'; }
+  .room-rate-nit { font-size: 12px; color: #b0a89a; text-transform: uppercase; letter-spacing: 1px; }
+
   .room-book-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 11px 22px; background: #0a1628; color: #f0d48a;
-    border: 1px solid rgba(240,212,138,0.25); border-radius: 8px;
-    font-size: 12px; font-weight: 500; letter-spacing: 0.06em;
-    cursor: pointer; transition: all 0.2s; font-family: 'Jost', sans-serif;
-    text-decoration: none;
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+    color: #0a1628; text-decoration: none; display: flex; align-items: center; gap: 8px;
+    transition: 0.3s;
   }
-  .room-book-btn:hover { background: #162d47; border-color: rgba(240,212,138,0.5); transform: translateX(3px); }
+  .room-book-btn:hover { color: #b8960c; transform: translateX(5px); }
 
   /* ── FEATURES ── */
   .features-section { background: #0a1628; padding: 88px 24px; }
@@ -196,15 +196,32 @@ const css = `
 
   /* ── TESTIMONIAL ── */
   .quote-section {
-    padding: 88px 24px;
+    padding: 100px 24px;
     background: linear-gradient(135deg, #f7f4ef 0%, #ece7df 100%);
     text-align: center;
+    position: relative;
+    overflow: hidden;
   }
-  .quote-inner { max-width: 680px; margin: 0 auto; }
+  .quote-inner { max-width: 720px; margin: 0 auto; min-height: 320px; display: flex; flex-direction: column; justify-content: center; }
   .quote-marks { font-family: 'Playfair Display', serif; font-size: 80px; color: #f0d48a; line-height: 0.5; margin-bottom: 24px; display: block; }
-  .quote-text { font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic; font-weight: 400; color: #0a1628; line-height: 1.65; margin-bottom: 28px; }
+  .quote-text { 
+    font-family: 'Playfair Display', serif; 
+    font-size: clamp(20px, 3vw, 26px); 
+    font-style: italic; font-weight: 400; 
+    color: #0a1628; line-height: 1.6; margin-bottom: 28px;
+    animation: fadeIn 0.8s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .quote-author { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #b0a89a; }
   .quote-stars { color: #f0d48a; font-size: 14px; margin-bottom: 18px; letter-spacing: 4px; }
+  
+  .quote-nav {
+    display: flex; justify-content: center; gap: 40px; margin-top: 40px;
+  }
+  .quote-nav-btn {
+    background: none; border: none; font-size: 24px; color: #b0a89a; cursor: pointer; transition: color 0.2s;
+  }
+  .quote-nav-btn:hover { color: #0a1628; }
 
   /* ── FOOTER ── */
   .footer { background: #06101e; padding: 36px 56px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.06); }
@@ -220,16 +237,20 @@ const css = `
   .dot:nth-child(2) { animation-delay: 0.2s; }
   .dot:nth-child(3) { animation-delay: 0.4s; }
   @keyframes pulse { 0%,80%,100%{ opacity: 0.2; transform: scale(0.8); } 40%{ opacity: 1; transform: scale(1); } }
-
-  /* No rooms */
-  .no-rooms { text-align: center; padding: 72px 24px; color: #b0a89a; }
-  .no-rooms-title { font-family: 'Playfair Display', serif; font-size: 24px; color: #8a8078; margin-top: 12px; }
 `;
+
+const QUOTES = [
+  { text: "The most breathtaking sunrise I have ever witnessed — from the comfort of my own suite, coffee in hand, with the whole Indian Ocean laid out before me.", author: "Amelia R. · Suite Guest · March 2025" },
+  { text: "An absolute sanctuary. The staff treats you like royalty, and the attention to detail in the room design is unmatched in Colombo. We will definitely be back.", author: "James Harrington · Executive Stay · Jan 2026" },
+  { text: "Five stars isn't enough. From the Ayurvedic spa treatments to the signature seafood dinner, every moment was pure bliss. A true tropical luxury experience.", author: "Elena Petrova · World Traveler · Oct 2025" },
+  { text: "The perfect blend of modern luxury and traditional Sri Lankan hospitality. The ocean views are genuinely therapeutic. Highly recommend the Ocean View Suite.", author: "Rajiv Perera · Anniversary Trip · Feb 2026" }
+];
 
 export default function Home() {
   const { user } = useAuth();
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [quoteIdx, setQuoteIdx] = useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -242,6 +263,16 @@ export default function Home() {
       .catch(() => setRooms([]))
       .finally(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setQuoteIdx(prev => (prev + 1) % QUOTES.length);
+    }, 8000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextQuote = () => setQuoteIdx(prev => (prev + 1) % QUOTES.length);
+  const prevQuote = () => setQuoteIdx(prev => (prev - 1 + QUOTES.length) % QUOTES.length);
 
   const FEATURES = [
     { icon: "🌊", title: "Ocean Panoramas", desc: "Floor-to-ceiling windows and private balconies with unobstructed sea views in every room." },
@@ -263,9 +294,7 @@ export default function Home() {
               <div className="hero-badge-dot" />
               Colombo, Sri Lanka · Since 2015
             </div>
-            <h1 className="hero-title">
-              Where the <em>Ocean</em><br />Greets You Each Day
-            </h1>
+            <h1 className="hero-title">Where the <em>Ocean</em><br />Greets You Each Day</h1>
             <p className="hero-sub">Luxury · Serenity · Timeless Elegance</p>
             <div className="hero-actions">
               {user ? (
@@ -277,10 +306,6 @@ export default function Home() {
                 </>
               )}
             </div>
-          </div>
-          <div className="hero-scroll">
-            <div className="hero-scroll-line" />
-            Scroll
           </div>
         </section>
 
@@ -296,48 +321,36 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ROOMS */}
+        {/* ROOMS REDESIGN */}
         <section className="rooms-section" id="rooms">
           <div className="sec-intro">
             <span className="sec-eyebrow">Our Accommodations</span>
             <h2 className="sec-title">Rooms Crafted for<br /><em>Quiet Luxury</em></h2>
             <div className="sec-line" />
-            <p className="sec-sub" style={{ marginTop: 14, fontSize: 15, color: '#8a8078', maxWidth: 520, margin: '14px auto 0' }}>Detailed photos and details of every room added by our team. Click Book Now to reserve.</p>
           </div>
           {loading ? (
             <div className="loading-dots"><div className="dot" /><div className="dot" /><div className="dot" /></div>
-          ) : rooms.length === 0 ? (
-            <div className="no-rooms"><div style={{ fontSize: 48, opacity: 0.2 }}>◈</div><div className="no-rooms-title">No rooms available right now.</div></div>
           ) : (
             <div className="rooms-grid">
-              {rooms.map((room, i) => (
-                <div key={room.id} className="room-card" style={{ animationDelay: `${i * 0.1}s` }}>
+              {rooms.map((room) => (
+                <div key={room.id} className="room-card">
                   <div className="room-img-wrap">
-                    {room.imageUrl ? (
-                      <img
-                        src={room.imageUrl.startsWith("http") || room.imageUrl.startsWith("/") ? room.imageUrl : `/${room.imageUrl.replace(/^\//, "")}`}
-                        alt={`${room.roomType} Room ${room.roomNumber} – ${room.description || ""}`}
-                        className="room-img"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    ) : (
-                      <div className="room-img-ph">Photo coming soon</div>
-                    )}
                     <div className="room-type-badge">{room.roomType}</div>
+                    {room.imageUrl ? (
+                      <img src={room.imageUrl} alt={room.roomType} className="room-img" loading="lazy" />
+                    ) : (
+                      <div style={{height: '100%', background: '#eee'}} />
+                    )}
                   </div>
                   <div className="room-body">
                     <div className="room-name">{room.roomType} Room {room.roomNumber}</div>
-                    <div className="room-desc">{room.description || `${room.roomType} room`}</div>
+                    <div className="room-desc">{room.description || `Experience pure elegance in our ${room.roomType} sanctuary.`}</div>
                     <div className="room-footer">
                       <div>
-                        <div className="room-rate-lbl">From</div>
-                        <div className="room-rate-val">LKR {room.ratePerNight?.toLocaleString()} <span className="room-rate-nit">/ night</span></div>
+                        <div className="room-rate-val"><span>LKR</span>{room.ratePerNight?.toLocaleString()}</div>
+                        <div className="room-rate-nit">per night</div>
                       </div>
-                      {user
-                        ? <a href="/reservations/new" className="room-book-btn">Book Now →</a>
-                        : <a href="/register" className="room-book-btn">Book Now →</a>
-                      }
+                      <a href={user ? "/reservations/new" : "/register"} className="room-book-btn">Book Now →</a>
                     </div>
                   </div>
                 </div>
@@ -346,13 +359,17 @@ export default function Home() {
           )}
         </section>
 
-        {/* QUOTE */}
+        {/* TESTIMONIALS */}
         <section className="quote-section">
           <div className="quote-inner">
             <div className="quote-stars">★★★★★</div>
             <span className="quote-marks">"</span>
-            <p className="quote-text">The most breathtaking sunrise I have ever witnessed — from the comfort of my own suite, coffee in hand, with the whole Indian Ocean laid out before me.</p>
-            <div className="quote-author">Amelia R. · Suite Guest · March 2025</div>
+            <p className="quote-text" key={quoteIdx}>{QUOTES[quoteIdx].text}</p>
+            <div className="quote-author">{QUOTES[quoteIdx].author}</div>
+            <div className="quote-nav">
+               <button className="quote-nav-btn" onClick={prevQuote}>←</button>
+               <button className="quote-nav-btn" onClick={nextQuote}>→</button>
+            </div>
           </div>
         </section>
 
@@ -382,12 +399,10 @@ export default function Home() {
           <div className="footer-text">© 2026 Ocean View Resort · All rights reserved</div>
           <div className="footer-links">
             <a href="#" className="footer-link">Privacy</a>
-            <a href="#" className="footer-link">Terms</a>
             <a href="/help" className="footer-link">Help</a>
             <a href="/about" className="footer-link">About</a>
           </div>
         </footer>
-
       </div>
     </>
   );
