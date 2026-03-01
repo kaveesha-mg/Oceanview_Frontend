@@ -4,196 +4,193 @@ import { useAuth } from '../context/AuthContext'
 import { Alert } from '../components/Alert'
 
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   .login-root {
-    font-family: 'Jost', sans-serif;
+    font-family: 'Inter', sans-serif;
     display: flex; min-height: 100vh;
-    background: #f7f4ef;
+    background: #fdfaf5;
   }
 
   /* ── LEFT PANEL ── */
   .login-left {
-    flex: 1; position: relative; overflow: hidden;
+    flex: 1.2; position: relative; overflow: hidden;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    padding: 56px 48px; min-height: 100vh;
+    padding: 60px; min-height: 100vh;
   }
+  
   .login-left-bg {
     position: absolute; inset: 0;
     background: url('https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1200&q=85') center / cover no-repeat;
+    transform: scale(1.05);
   }
+  
   .login-left-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(160deg, rgba(6,16,30,0.88) 0%, rgba(6,16,30,0.72) 60%, rgba(6,16,30,0.92) 100%);
+    background: linear-gradient(165deg, rgba(10,22,40,0.95) 0%, rgba(10,22,40,0.7) 50%, rgba(10,22,40,0.95) 100%);
   }
+
   .login-left-content {
     position: relative; z-index: 2;
     display: flex; flex-direction: column;
     align-items: center; text-align: center; color: white;
-    max-width: 380px;
+    max-width: 420px;
   }
-  .login-back {
-    position: absolute; top: 36px; left: 48px; z-index: 3;
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 12px; color: rgba(255,255,255,0.42); text-decoration: none;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .login-back:hover { color: rgba(255,255,255,0.75); }
-  .login-back-arrow { font-size: 14px; }
 
-  .login-logo-wrap { margin-bottom: 10px; }
+  .login-back {
+    position: absolute; top: 40px; left: 40px; z-index: 3;
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; color: rgba(255,255,255,0.5); text-decoration: none;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+  .login-back:hover { color: #f0d48a; transform: translateX(-5px); }
+
   .login-logo-icon {
-    width: 56px; height: 56px; border-radius: 50%;
-    background: rgba(240,212,138,0.12);
-    border: 1px solid rgba(240,212,138,0.35);
+    width: 64px; height: 64px; border-radius: 50%;
+    background: rgba(240,212,138,0.1);
+    border: 1px solid rgba(240,212,138,0.3);
     display: flex; align-items: center; justify-content: center;
-    font-size: 22px; margin: 0 auto 18px;
+    font-size: 24px; margin: 0 auto 24px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.3);
   }
+
   .login-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px; font-weight: 500; color: #f0d48a;
-    letter-spacing: 0.02em; line-height: 1.2;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px; font-weight: 400; color: #f0d48a;
+    letter-spacing: 0.05em;
   }
-  .login-logo em { font-style: italic; font-weight: 400; }
+  .login-logo em { font-style: italic; color: #fff; }
+  
   .login-tagline {
-    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
-    color: rgba(255,255,255,0.32); margin-top: 4px;
+    font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); margin-top: 8px;
   }
 
   .login-divider {
-    width: 40px; height: 1px;
-    background: linear-gradient(to right, transparent, rgba(240,212,138,0.5), transparent);
-    margin: 32px auto;
+    width: 50px; height: 1px;
+    background: #f0d48a;
+    margin: 40px auto;
+    opacity: 0.5;
   }
 
   .login-quote {
-    font-family: 'Playfair Display', serif;
-    font-size: 19px; font-style: italic; font-weight: 400;
-    color: rgba(255,255,255,0.72); line-height: 1.62;
-    margin-bottom: 16px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-style: italic; color: rgba(255,255,255,0.85);
+    line-height: 1.5; margin-bottom: 12px;
   }
   .login-quote-attr {
-    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
     color: rgba(255,255,255,0.3);
   }
 
   .login-features {
-    display: flex; flex-direction: column; gap: 14px;
-    margin-top: 40px; width: 100%; text-align: left;
+    display: flex; flex-direction: column; gap: 12px;
+    margin-top: 50px; width: 100%;
   }
+
   .login-feat {
-    display: flex; align-items: center; gap: 14px;
-    padding: 12px 16px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 8px;
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    transition: background 0.3s;
   }
-  .login-feat-icon { font-size: 16px; opacity: 0.75; width: 20px; text-align: center; }
-  .login-feat-text { font-size: 12.5px; color: rgba(255,255,255,0.55); letter-spacing: 0.02em; }
+  .login-feat:hover { background: rgba(255,255,255,0.06); }
+  .login-feat-icon { color: #f0d48a; font-size: 16px; }
+  .login-feat-text { font-size: 13px; color: rgba(255,255,255,0.6); letter-spacing: 0.03em; }
 
   /* ── RIGHT PANEL ── */
   .login-right {
-    width: 480px; flex-shrink: 0;
-    background: #f7f4ef;
+    width: 520px; flex-shrink: 0;
+    background: #fff;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    padding: 72px 56px;
-    position: relative;
+    padding: 80px; position: relative;
+    box-shadow: -10px 0 50px rgba(0,0,0,0.03);
   }
-  .login-right-inner { width: 100%; max-width: 340px; }
 
   .login-form-eyebrow {
-    font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase;
-    color: #b8960c; font-weight: 500; margin-bottom: 10px;
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: #c5a367; font-weight: 600; margin-bottom: 12px;
   }
+
   .login-form-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 34px; font-weight: 500; color: #0a1628;
-    line-height: 1.15; letter-spacing: -0.01em;
-    margin-bottom: 6px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; font-weight: 500; color: #0a1628;
+    line-height: 1; margin-bottom: 12px;
   }
-  .login-form-title em { font-style: italic; font-weight: 400; }
-  .login-form-sub { font-size: 13.5px; color: #8a8078; margin-bottom: 36px; line-height: 1.5; }
+  .login-form-title em { font-style: italic; color: #c5a367; }
 
-  /* Error */
+  .login-form-sub { font-size: 14px; color: #777; margin-bottom: 40px; line-height: 1.6; }
+
   .login-err {
-    background: #fff8f8; border: 1px solid #fcd0cc;
-    border-left: 3px solid #e05252;
-    border-radius: 6px; padding: 12px 14px;
-    color: #b83232; font-size: 13px; margin-bottom: 24px;
-    display: flex; align-items: center; gap: 10px;
+    background: #fff5f5; border-radius: 4px; padding: 14px;
+    color: #c53030; font-size: 13px; margin-bottom: 24px;
+    border-left: 4px solid #c53030; display: flex; align-items: center; gap: 10px;
   }
-  .login-err-icon { font-size: 14px; flex-shrink: 0; }
 
-  /* Fields */
-  .login-field { margin-bottom: 20px; }
+  .login-field { margin-bottom: 24px; width: 100%; }
   .login-label {
-    display: block; font-size: 11px; font-weight: 500;
-    color: #6b6560; text-transform: uppercase; letter-spacing: 0.1em;
-    margin-bottom: 7px;
+    display: block; font-size: 11px; font-weight: 600;
+    color: #0a1628; text-transform: uppercase; letter-spacing: 0.15em;
+    margin-bottom: 8px;
   }
-  .login-input-wrap { position: relative; }
-  .login-input-icon {
-    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-    color: #c0b8b0; font-size: 15px; pointer-events: none;
-  }
+
   .login-input {
-    width: 100%; padding: 12px 14px 12px 40px;
-    border: 1px solid #e0dbd4; border-radius: 8px;
-    font-size: 14px; font-family: 'Jost', sans-serif;
-    color: #1a1a1a; background: white; outline: none;
-    transition: all 0.18s;
+    width: 100%; padding: 14px 16px 14px 44px;
+    border: 1px solid #e2e8f0; border-radius: 4px;
+    font-size: 14px; color: #1a1a1a; transition: all 0.3s;
+    background: #fafafa;
   }
   .login-input:focus {
-    border-color: #d4af50; background: white;
-    box-shadow: 0 0 0 3px rgba(212,175,80,0.12);
+    border-color: #0a1628; background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    outline: none;
   }
-  .login-input::placeholder { color: #c8c0b8; }
 
-  /* Submit */
+  .login-input-icon {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    color: #cbd5e0; font-size: 14px;
+  }
+
   .login-submit {
-    width: 100%; padding: 14px;
+    width: 100%; padding: 16px;
     background: #0a1628; color: #f0d48a;
-    border: 1px solid rgba(240,212,138,0.25);
-    border-radius: 8px; font-size: 13px; font-weight: 500;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    cursor: pointer; transition: all 0.22s;
-    font-family: 'Jost', sans-serif; margin-top: 8px;
-    display: flex; align-items: center; justify-content: center; gap: 10px;
+    border: none; border-radius: 4px;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.3s;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
   }
-  .login-submit:hover { background: #162d47; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(10,22,40,0.2); }
-  .login-submit:active { transform: translateY(0); }
-  .login-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+  .login-submit:hover:not(:disabled) { background: #1a2a3a; letter-spacing: 0.25em; }
+  .login-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
-  .login-submit-arrow { transition: transform 0.2s; }
-  .login-submit:hover .login-submit-arrow { transform: translateX(4px); }
-
-  /* Divider */
   .login-or {
-    display: flex; align-items: center; gap: 14px;
-    margin: 24px 0; color: #c0b8b0; font-size: 12px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 20px;
+    margin: 30px 0; color: #cbd5e0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em;
   }
-  .login-or::before, .login-or::after { content: ''; flex: 1; height: 1px; background: #e8e3dc; }
+  .login-or::before, .login-or::after { content: ''; flex: 1; height: 1px; background: #edf2f7; }
 
-  /* Register link */
-  .login-register-link {
-    text-align: center; font-size: 13.5px; color: #8a8078;
-  }
+  .login-register-link { font-size: 14px; color: #718096; }
   .login-register-link a {
-    color: #0a1628; font-weight: 500; text-decoration: none;
-    border-bottom: 1px solid rgba(10,22,40,0.2); padding-bottom: 1px;
-    transition: all 0.15s;
+    color: #0a1628; font-weight: 600; text-decoration: none;
+    border-bottom: 1px solid #f0d48a; transition: all 0.2s;
   }
-  .login-register-link a:hover { color: #b8960c; border-color: #b8960c; }
+  .login-register-link a:hover { color: #c5a367; border-color: #0a1628; }
 
-  /* Bottom brand */
   .login-right-brand {
-    position: absolute; bottom: 28px; left: 0; right: 0;
-    text-align: center; font-size: 11px; color: #c0b8b0;
-    letter-spacing: 0.12em;
+    position: absolute; bottom: 30px; font-size: 10px; 
+    color: #cbd5e0; letter-spacing: 0.3em;
+  }
+
+  @media (max-width: 1000px) {
+    .login-left { display: none; }
+    .login-right { width: 100%; }
   }
 `
 
@@ -245,28 +242,28 @@ export default function Login() {
           <div className="login-left-overlay" />
 
           <Link to="/" className="login-back">
-            <span className="login-back-arrow">←</span> Back to home
+            <span>←</span> Return to Sanctuary
           </Link>
 
           <div className="login-left-content">
             <div className="login-logo-wrap">
               <div className="login-logo-icon">🌊</div>
               <div className="login-logo">Ocean<em>View</em></div>
-              <div className="login-tagline">Hotel · Colombo, Sri Lanka</div>
+              <div className="login-tagline">Resort & Spa · Colombo</div>
             </div>
 
             <div className="login-divider" />
 
             <p className="login-quote">
-              "Every morning here, the ocean reminds you that some things are more vast than any worry."
+              "The soul is healed by being with the water."
             </p>
-            <div className="login-quote-attr">— A returning guest</div>
+            <div className="login-quote-attr">— Guest Journal, 2024</div>
 
             <div className="login-features">
               {[
-                { icon: '🔒', text: 'Secure, encrypted login' },
-                { icon: '📋', text: 'Manage all your reservations' },
-                { icon: '⚡', text: 'Instant booking confirmation' },
+                { icon: '✦', text: 'Encrypted Guest Access' },
+                { icon: '✦', text: 'Manage Private Reservations' },
+                { icon: '✦', text: 'Exclusive Member Rates' },
               ].map(f => (
                 <div key={f.text} className="login-feat">
                   <span className="login-feat-icon">{f.icon}</span>
@@ -279,28 +276,30 @@ export default function Login() {
 
         {/* ── RIGHT ── */}
         <div className="login-right">
-          <div className="login-right-inner">
-            <div className="login-form-eyebrow">{fromRegistration ? 'Account created' : 'Welcome back'}</div>
-            <h1 className="login-form-title">Sign in to<br /><em>your account</em></h1>
+          <div style={{ width: '100%', maxWidth: '360px' }}>
+            <div className="login-form-eyebrow">{fromRegistration ? 'Account Verified' : 'Guest Portal'}</div>
+            <h1 className="login-form-title">Sign in to<br /><em>your stay</em></h1>
             <p className="login-form-sub">
-              {fromRegistration ? 'Registration successful. Sign in with your new account, then go to the customer dashboard to book.' : 'Enter your credentials to manage your reservations.'}
+              {fromRegistration ? 'Registration successful. Please sign in to access your dashboard.' : 'Enter your credentials to manage your coastal experience.'}
             </p>
 
             {fromLogout && (
-              <Alert type="success" message="You have been logged out successfully." onDismiss={() => navigate('/login', { replace: true })} />
+              <Alert type="success" message="You have been safely logged out." onDismiss={() => navigate('/login', { replace: true })} />
             )}
+            
             {fromRegistration && (
-              <div className="login-success" style={{ marginBottom: 20, padding: '12px 16px', background: '#f0faf4', border: '1px solid #86efac', borderRadius: 8, color: '#166534', fontSize: 13 }}>
-                ✓ Account created. Please sign in below.
+              <div className="login-success" style={{ marginBottom: 20, padding: '14px', background: '#f0faf4', border: '1px solid #86efac', borderRadius: 4, color: '#166534', fontSize: 13 }}>
+                ✓ Account created. Welcome to Ocean View.
               </div>
             )}
+
             {successMessage && (
               <Alert type="success" message={successMessage} />
             )}
 
             {error && (
               <div className="login-err">
-                <span className="login-err-icon">⚠</span>
+                <span>⚠</span>
                 {error}
               </div>
             )}
@@ -308,12 +307,12 @@ export default function Login() {
             <form onSubmit={handleSubmit}>
               <div className="login-field">
                 <label className="login-label">Username</label>
-                <div className="login-input-wrap">
-                  <span className="login-input-icon">◈</span>
+                <div style={{ position: 'relative' }}>
+                  <span className="login-input-icon">👤</span>
                   <input
                     className="login-input"
                     type="text"
-                    placeholder="Your username"
+                    placeholder="Enter username"
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                     required
@@ -324,12 +323,12 @@ export default function Login() {
 
               <div className="login-field">
                 <label className="login-label">Password</label>
-                <div className="login-input-wrap">
-                  <span className="login-input-icon">⊛</span>
+                <div style={{ position: 'relative' }}>
+                  <span className="login-input-icon">🔑</span>
                   <input
                     className="login-input"
                     type="password"
-                    placeholder="Your password"
+                    placeholder="Enter password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     required
@@ -338,19 +337,19 @@ export default function Login() {
               </div>
 
               <button type="submit" className="login-submit" disabled={loading}>
-                {loading ? 'Signing in…' : <>Sign In <span className="login-submit-arrow">→</span></>}
+                {loading ? 'Authenticating…' : <>Begin Session <span>→</span></>}
               </button>
             </form>
 
             <div className="login-or">or</div>
 
-            <div className="login-register-link">
-              New to Ocean View Hotel?{' '}
+            <div className="login-register-link" style={{textAlign: 'center'}}>
+              New to the Resort?{' '}
               <Link to="/register">Create an account</Link>
             </div>
           </div>
 
-          <div className="login-right-brand">OCEAN VIEW HOTEL · EST. 2015</div>
+          <div className="login-right-brand">OCEAN VIEW · AUTHENTIC LUXURY</div>
         </div>
 
       </div>
