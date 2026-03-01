@@ -1,47 +1,192 @@
 import { Link } from 'react-router-dom'
 
 const pageStyles = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700&family=Jost:wght@300;400;500&display=swap');
-  .help-page { font-family: 'Jost', sans-serif; min-height: 100vh; display: flex; flex-direction: column; background: #f7f4ef; }
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700&family=Inter:wght@300;400;500;600&display=swap');
+
+  .help-page { 
+    font-family: 'Inter', sans-serif; 
+    min-height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+    background-color: #fdfcfb; 
+    color: #333;
+  }
+
+  /* ── HEADER ── */
   .help-header {
-    background: linear-gradient(135deg, #0a1628 0%, #162d47 100%);
-    padding: 64px 24px 56px;
+    background: #0a1628;
+    background-image: radial-gradient(circle at 20% 150%, rgba(240, 212, 138, 0.15) 0%, transparent 50%),
+                      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f0d48a' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    padding: 100px 24px 80px;
     text-align: center;
-    border-bottom: 1px solid rgba(240,212,138,0.12);
+    border-bottom: 4px solid #f0d48a;
   }
+
   .help-header-eyebrow {
-    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #f0d48a;
-    margin-bottom: 12px; font-weight: 500;
+    font-size: 12px; 
+    letter-spacing: 0.4em; 
+    text-transform: uppercase; 
+    color: #f0d48a;
+    margin-bottom: 16px; 
+    font-weight: 600;
   }
+
   .help-header-title {
-    font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 48px); font-weight: 500;
-    color: #fff; line-height: 1.2; letter-spacing: -0.02em;
+    font-family: 'Playfair Display', serif; 
+    font-size: clamp(38px, 7vw, 56px); 
+    font-weight: 400;
+    color: #fff; 
+    line-height: 1.1;
+    margin-bottom: 24px;
   }
-  .help-header-title em { font-style: italic; color: #f0d48a; font-weight: 400; }
-  .help-header-line { width: 48px; height: 2px; background: linear-gradient(to right, #f0d48a, #b8960c); margin: 20px auto 0; border-radius: 2px; }
-  .help-header-sub { font-size: 15px; color: rgba(255,255,255,0.6); margin-top: 16px; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.5; }
-  .help-body { flex: 1; max-width: 680px; margin: 0 auto; padding: 56px 24px 80px; }
+
+  .help-header-title em { font-style: italic; color: #f0d48a; }
+
+  .help-header-sub { 
+    font-size: 16px; 
+    color: rgba(255,255,255,0.7); 
+    max-width: 550px; 
+    margin: 0 auto; 
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .help-body { 
+    flex: 1; 
+    max-width: 850px; 
+    margin: -40px auto 0; 
+    padding: 0 24px 100px; 
+    z-index: 2;
+  }
+
   .help-card {
-    background: #fff; border-radius: 16px; padding: 40px 44px;
-    box-shadow: 0 8px 32px rgba(10,22,40,0.06); border: 1px solid #e8e4df;
+    background: #fff; 
+    border-radius: 4px; 
+    padding: 60px 8%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    border: 1px solid #eee;
   }
-  .help-section { margin-bottom: 32px; }
+
+  .help-section { 
+    margin-bottom: 48px; 
+    position: relative; 
+    padding-left: 50px;
+  }
+
   .help-section:last-child { margin-bottom: 0; }
-  .help-section h2 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 500; color: #0a1628; margin-bottom: 10px; }
-  .help-section p { font-size: 15px; color: #4b5563; line-height: 1.7; margin-bottom: 8px; }
-  .help-section p:last-child { margin-bottom: 0; }
-  .help-section ul { margin: 12px 0 0 20px; padding: 0; }
-  .help-section li { font-size: 15px; color: #4b5563; line-height: 1.65; margin-bottom: 6px; }
-  .help-footer {
-    background: #06101e; padding: 28px 24px;
-    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px;
-    border-top: 1px solid rgba(255,255,255,0.06);
+
+  /* Vertical Timeline Line */
+  .help-section::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 30px;
+    bottom: -50px;
+    width: 1px;
+    background: #eee;
   }
-  .help-footer-logo { font-family: 'Playfair Display', serif; font-size: 17px; color: #f0d48a; letter-spacing: 0.04em; }
-  .help-footer-text { font-size: 12px; color: rgba(255,255,255,0.32); letter-spacing: 0.05em; }
-  .help-footer-links { display: flex; gap: 20px; }
-  .help-footer-links a { font-size: 12px; color: rgba(255,255,255,0.5); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  .help-section:last-child::before { display: none; }
+
+  /* Number Indicators */
+  .help-section h2 { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 24px; 
+    font-weight: 700; 
+    color: #0a1628; 
+    margin-bottom: 15px; 
+    position: relative;
+  }
+
+  .help-section h2::after {
+    content: '';
+    position: absolute;
+    left: -42px;
+    top: 8px;
+    width: 15px;
+    height: 15px;
+    background: #f0d48a;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px #f0d48a;
+    z-index: 2;
+  }
+
+  .help-section p { 
+    font-size: 15px; 
+    color: #555; 
+    line-height: 1.8; 
+    margin-bottom: 12px; 
+  }
+
+  .help-section strong { color: #0a1628; font-weight: 600; }
+
+  .help-section ul { 
+    margin: 20px 0; 
+    padding: 0; 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    list-style: none;
+  }
+
+  .help-section li { 
+    font-size: 14px; 
+    color: #666; 
+    padding: 12px 16px;
+    background: #f9f9f9;
+    border-left: 3px solid #f0d48a;
+    transition: transform 0.2s ease;
+  }
+  
+  .help-section li:hover { transform: translateX(5px); }
+
+  /* ── FOOTER ── */
+  .help-footer {
+    background: #0a1628; 
+    padding: 60px 24px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .help-footer-logo { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 22px; 
+    color: #f0d48a; 
+    letter-spacing: 0.1em;
+    margin-bottom: 15px;
+  }
+
+  .help-footer-text { 
+    font-size: 13px; 
+    color: rgba(255,255,255,0.4); 
+    margin-bottom: 30px;
+  }
+
+  .help-footer-links { 
+    display: flex; 
+    justify-content: center; 
+    gap: 30px; 
+    flex-wrap: wrap;
+  }
+
+  .help-footer-links a { 
+    font-size: 12px; 
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.6); 
+    text-decoration: none; 
+    transition: color 0.3s; 
+  }
+
   .help-footer-links a:hover { color: #f0d48a; }
+
+  @media (max-width: 600px) {
+    .help-card { padding: 40px 24px; }
+    .help-section { padding-left: 30px; }
+    .help-section h2::after { left: -22px; }
+    .help-section::before { left: 15px; }
+  }
 `
 
 export default function Help() {
@@ -50,10 +195,9 @@ export default function Help() {
       <style>{pageStyles}</style>
       <div className="help-page">
         <header className="help-header">
-          <div className="help-header-eyebrow">Support</div>
+          <div className="help-header-eyebrow">Assistance & Concierge</div>
           <h1 className="help-header-title">How to <em>Book</em> Your Stay</h1>
-          <div className="help-header-line" />
-          <p className="help-header-sub">Step-by-step guide to using the Ocean View reservation system.</p>
+          <p className="help-header-sub">Experience the ease of securing your sanctuary at Ocean View with our guided reservation process.</p>
         </header>
 
         <main className="help-body">
@@ -79,8 +223,8 @@ export default function Help() {
                 <li>NIC Number</li>
                 <li>Contact Number</li>
                 <li>Room Type</li>
-                <li>Check-in date and time (AM/PM)</li>
-                <li>Check-out date and time (AM/PM)</li>
+                <li>Check-in (AM/PM)</li>
+                <li>Check-out (AM/PM)</li>
               </ul>
               <p style={{ marginTop: 12 }}>The system will not allow a check-out date before the check-in date.</p>
             </section>
