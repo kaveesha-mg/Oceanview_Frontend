@@ -5,6 +5,93 @@ import { format } from 'date-fns'
 import { Alert, showValidationAlert } from '../components/Alert'
 import { validations, validateForm } from '../utils/validation'
 
+const css = `
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+  .res-container { font-family: 'Inter', sans-serif; max-width: 1200px; margin: 0 auto; }
+  
+  .customer-page-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding: 40px 0; border-bottom: 1px solid #eee; margin-bottom: 40px;
+  }
+
+  .customer-page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; color: #0a1628; line-height: 1;
+  }
+  
+  .customer-page-subtitle {
+    font-size: 14px; color: #718096; margin-top: 8px; letter-spacing: 0.05em;
+  }
+
+  .customer-gold-btn {
+    background: #0a1628; color: #f0d48a; border: none;
+    padding: 12px 24px; border-radius: 4px; font-size: 12px;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em;
+    cursor: pointer; transition: all 0.3s; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .customer-gold-btn:hover { background: #1a2a3a; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(10,22,40,0.1); }
+
+  .res-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 30px; margin-bottom: 60px;
+  }
+
+  .customer-card {
+    background: #fff; border: 1px solid #f0f0f0; border-radius: 8px;
+    padding: 30px; transition: all 0.3s; position: relative;
+    overflow: hidden;
+  }
+  .customer-card:hover { border-color: #f0d48a; box-shadow: 0 15px 40px rgba(0,0,0,0.04); }
+
+  .customer-card-title {
+    font-size: 11px; font-weight: 700; color: #c5a367;
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 15px;
+    display: flex; justify-content: space-between;
+  }
+
+  .customer-card-meta {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; color: #0a1628; font-weight: 500;
+  }
+
+  .customer-card-rate {
+    margin-top: 20px; padding-top: 20px; border-top: 1px dashed #eee;
+    font-weight: 600; color: #0a1628; font-size: 18px;
+  }
+
+  /* Modal Edit Design */
+  .edit-modal {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    z-index: 100; width: 100%; max-width: 600px;
+    background: #fff; padding: 50px; border-radius: 4px;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.25);
+  }
+
+  .customer-form-label {
+    display: block; font-size: 11px; font-weight: 700; color: #0a1628;
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;
+  }
+
+  .customer-form-input {
+    width: 100%; padding: 12px 16px; background: #f9f9f9;
+    border: 1px solid #e2e8f0; border-radius: 4px; font-size: 14px;
+    transition: all 0.3s;
+  }
+  .customer-form-input:focus { outline: none; border-color: #f0d48a; background: #fff; }
+
+  .bill-preview {
+    background: #0a1628; color: #f0d48a; padding: 20px;
+    border-radius: 4px; margin: 25px 0;
+  }
+
+  .overlay {
+    position: fixed; inset: 0; background: rgba(10,22,40,0.8);
+    backdrop-filter: blur(4px); z-index: 90;
+  }
+`
+
 function parseTime(str) {
   if (!str) return null
   const m = str.match(/(\d+):(\d+)\s*(AM|PM)/i)
@@ -28,15 +115,9 @@ function timeToAmPm(str) {
 }
 
 const emptyEditForm = {
-  guestName: '',
-  address: '',
-  nicNumber: '',
-  contactNumber: '',
-  roomType: '',
-  checkInDate: '',
-  checkInTime: '02:00 PM',
-  checkOutDate: '',
-  checkOutTime: '11:00 AM'
+  guestName: '', address: '', nicNumber: '', contactNumber: '',
+  roomType: '', checkInDate: '', checkInTime: '02:00 PM',
+  checkOutDate: '', checkOutTime: '11:00 AM'
 }
 
 function getReservationId(r) {
@@ -187,15 +268,7 @@ export default function Reservations() {
         if (!res.ok && raw) data = { error: raw }
       }
       if (!res.ok) {
-        const msg =
-          data?.error ||
-          data?.message ||
-          (typeof data === 'object' && Object.keys(data).length > 0 && Object.values(data).join('. ')) ||
-          (res.status === 401 ? 'Please log in again.' : null) ||
-          (res.status === 403 ? 'Access denied. Please log out and log in again, then try again.' : null) ||
-          (res.status === 404 ? 'Reservation not found.' : null) ||
-          (res.status >= 500 ? `Server error (${res.status})` : null) ||
-          `Failed to update reservation (${res.status})`
+        const msg = data?.error || data?.message || `Failed to update (${res.status})`
         throw new Error(msg)
       }
       setEditingReservation(null)
@@ -204,40 +277,23 @@ export default function Reservations() {
       setList(prev => prev.map(item => (item.id ?? item._id) === updatedId ? { ...data, id: updatedId } : item))
       setEditSuccess(`Reservation updated. Bill recalculated: LKR ${(data.totalBill ?? 0).toLocaleString()}.`)
     } catch (err) {
-      const msg = err.message || 'Failed to update reservation'
-      setEditError(msg)
-      showValidationAlert(msg)
+      setEditError(err.message)
+      showValidationAlert(err.message)
     } finally {
       setEditLoading(false)
     }
   }
 
   const handleDelete = async (r) => {
-    if (!window.confirm(`Cancel reservation ${r.reservationNumber}? This cannot be undone.`)) return
+    if (!window.confirm(`Cancel reservation ${r.reservationNumber}?`)) return
     const id = getReservationId(r)
-    if (!id) {
-      setError('Invalid reservation')
-      return
-    }
     setDeleteLoadingId(id)
     try {
       const res = await api(`/api/reservations/${id}`, { method: 'DELETE' })
-      if (!res.ok) {
-        const raw = await res.text()
-        let data = {}
-        try {
-          if (raw) data = JSON.parse(raw) || {}
-        } catch (_) {
-          if (raw) data = { error: raw }
-        }
-        const msg = data?.error || data?.message || (res.status === 401 ? 'Please log in again.' : null) || (res.status === 403 ? 'Access denied. Please log out and log in again, then try again.' : null) || (res.status === 404 ? 'Reservation not found.' : null) || `Failed to delete reservation (${res.status})`
-        throw new Error(msg)
-      }
-      const deletedId = getReservationId(r)
-      setList(prev => prev.filter(x => (x.id ?? x._id) !== deletedId))
+      if (!res.ok) throw new Error('Delete failed')
+      setList(prev => prev.filter(x => (x.id ?? x._id) !== id))
     } catch (err) {
-      setError(err.message || 'Failed to delete reservation')
-      showValidationAlert(err.message || 'Failed to delete reservation')
+      setError(err.message)
     } finally {
       setDeleteLoadingId(null)
     }
@@ -245,93 +301,121 @@ export default function Reservations() {
 
   return (
     <>
-      <div className="customer-page-header">
-        <div>
-          <div className="customer-page-title">My Reservations</div>
-          <div className="customer-page-subtitle">View and manage your bookings</div>
+      <style>{css}</style>
+      <div className="res-container">
+        <div className="customer-page-header">
+          <div>
+            <h1 className="customer-page-title">My Itinerary</h1>
+            <div className="customer-page-subtitle">Personalized reservations at Ocean View</div>
+          </div>
+          <Link to="/reservations/new" className="customer-gold-btn">
+            <span>+</span> New Reservation
+          </Link>
         </div>
-        <Link to="/reservations/new" className="customer-gold-btn">
-          <span style={{ fontSize: 18, lineHeight: 1 }}>+</span> Book Now
-        </Link>
+
+        <div className="customer-page-body">
+          {error && <Alert message={error} onDismiss={() => setError('')} />}
+          {editSuccess && <Alert type="success" message={editSuccess} onDismiss={() => setEditSuccess('')} />}
+          
+          {loading ? (
+            <p style={{ textAlign: 'center', padding: '100px', color: '#a0aec0' }}>Refining your itinerary...</p>
+          ) : list.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '100px', background: '#fcfaf7', borderRadius: '8px' }}>
+              <p style={{ color: '#718096', marginBottom: '20px' }}>Your travel journal is currently empty.</p>
+              <Link to="/reservations/new" className="customer-gold-btn">Begin Your Journey</Link>
+            </div>
+          ) : (
+            <div className="res-grid">
+              {list.map((r) => (
+                <div key={getReservationId(r)} className="customer-card">
+                  <div className="customer-card-title">
+                    <span>{r.reservationNumber}</span>
+                    <span style={{color: '#48bb78'}}>Confirmed</span>
+                  </div>
+                  <div className="customer-card-meta">{r.roomType} Suite</div>
+                  <div style={{ fontSize: '13px', color: '#718096', marginTop: '10px' }}>
+                    {format(new Date(r.checkInDate), 'MMMM do')} — {format(new Date(r.checkOutDate), 'MMMM do, yyyy')}
+                    <br /> {r.nights} Nights · {r.guestName}
+                  </div>
+                  <div className="customer-card-rate">LKR {r.totalBill?.toLocaleString()}</div>
+                  
+                  <div style={{ marginTop: '25px', display: 'flex', gap: '12px' }}>
+                    <button onClick={() => setEditingReservation(r)} className="customer-gold-btn" style={{flex: 1, justifyContent: 'center'}}>Edit</button>
+                    <button 
+                      onClick={() => handleDelete(r)} 
+                      disabled={deleteLoadingId === getReservationId(r)}
+                      style={{ padding: '12px', background: 'transparent', border: '1px solid #e2e8f0', color: '#e53e3e', borderRadius: '4px', cursor: 'pointer', fontSize: '12px', fontWeight: '600' }}
+                    >
+                      {deleteLoadingId === getReservationId(r) ? '...' : 'Cancel'}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-      <div className="customer-page-body">
-        {error && <Alert message={error} onDismiss={() => setError('')} />}
-        {editSuccess && <Alert type="success" message={editSuccess} onDismiss={() => setEditSuccess('')} />}
-        {loading ? (
-          <p style={{ color: '#9a8f83' }}>Loading...</p>
-        ) : list.length === 0 ? (
-          <p style={{ color: '#9a8f83' }}>
-            You have no reservations yet.{' '}
-            <Link to="/reservations/new" className="customer-gold-btn" style={{ marginLeft: 8, display: 'inline-flex' }}>Book now</Link>
-          </p>
-        ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 20 }}>
-            {list.map((r) => (
-              <div key={getReservationId(r) || r.reservationNumber} className="customer-card">
-                <div className="customer-card-title">{r.reservationNumber}</div>
-                <div className="customer-card-meta">{r.guestName} · {r.roomType}</div>
-                <p style={{ fontSize: 12.5, color: '#9a8f83', marginTop: 8 }}>
-                  {format(new Date(r.checkInDate), 'MMM d, yyyy')} – {format(new Date(r.checkOutDate), 'MMM d, yyyy')} · {r.nights} night(s)
-                </p>
-                <div className="customer-card-rate">LKR {r.totalBill?.toLocaleString()}</div>
-                <div style={{ marginTop: 16, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                  <button type="button" onClick={() => setEditingReservation(r)} className="customer-gold-btn" style={{ padding: '8px 14px', fontSize: 13 }}>
-                    Edit
-                  </button>
-                  <button type="button" onClick={() => handleDelete(r)} disabled={deleteLoadingId === getReservationId(r)} style={{ padding: '8px 14px', fontSize: 13, border: '1px solid #c53030', borderRadius: 6, background: 'white', color: '#c53030', cursor: deleteLoadingId === getReservationId(r) ? 'not-allowed' : 'pointer', fontFamily: 'DM Sans, sans-serif' }}>
-                    {deleteLoadingId === getReservationId(r) ? 'Deleting...' : 'Delete'}
-                  </button>
+
+      {editingReservation && (
+        <>
+          <div className="overlay" onClick={() => setEditingReservation(null)} />
+          <div className="edit-modal">
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px' }}>
+              <h3 style={{ fontFamily: 'Cormorant Garamond', fontSize: '28px', margin: 0 }}>Modify Reservation</h3>
+              <button onClick={() => setEditingReservation(null)} style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer' }}>×</button>
+            </div>
+            
+            <form onSubmit={handleEditSubmit}>
+              {editError && <Alert message={editError} onDismiss={() => setEditError('')} />}
+              
+              <div style={{ marginBottom: '20px' }}>
+                <label className="customer-form-label">Primary Guest</label>
+                <input name="guestName" value={editForm.guestName} onChange={handleEditChange} className="customer-form-input" />
+              </div>
+
+              <div className="res-grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '0' }}>
+                <div style={{ marginBottom: '20px' }}>
+                  <label className="customer-form-label">NIC / Passport</label>
+                  <input name="nicNumber" value={editForm.nicNumber} onChange={handleEditChange} className="customer-form-input" />
+                </div>
+                <div style={{ marginBottom: '20px' }}>
+                  <label className="customer-form-label">Contact</label>
+                  <input name="contactNumber" value={editForm.contactNumber} onChange={handleEditChange} className="customer-form-input" />
                 </div>
               </div>
-            ))}
-          </div>
-        )}
-      </div>
 
-      {editingReservation && (
-        <div className="customer-card" style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 50, maxWidth: 560, width: '90vw', maxHeight: '90vh', overflow: 'auto', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-            <h3 className="customer-page-title" style={{ margin: 0, fontSize: 20 }}>Edit reservation</h3>
-            <button type="button" onClick={() => { setEditingReservation(null); setEditForm(emptyEditForm); setEditError(''); }} aria-label="Close" style={{ padding: 6, border: 'none', background: 'transparent', cursor: 'pointer', fontSize: 20, color: '#9a8f83', lineHeight: 1 }}>×</button>
-          </div>
-          <form onSubmit={handleEditSubmit}>
-            {editError && <Alert message={editError} onDismiss={() => setEditError('')} />}
-            <div style={{ marginBottom: 16 }}><label className="customer-form-label">Guest Name *</label><input name="guestName" value={editForm.guestName} onChange={handleEditChange} required className="customer-form-input" /></div>
-            <div style={{ marginBottom: 16 }}><label className="customer-form-label">Address *</label><input name="address" value={editForm.address} onChange={handleEditChange} required className="customer-form-input" /></div>
-            <div style={{ marginBottom: 16 }}><label className="customer-form-label">NIC Number *</label><input name="nicNumber" value={editForm.nicNumber} onChange={handleEditChange} required className="customer-form-input" /></div>
-            <div style={{ marginBottom: 16 }}><label className="customer-form-label">Contact Number *</label><input name="contactNumber" value={editForm.contactNumber} onChange={handleEditChange} required className="customer-form-input" /></div>
-            <div style={{ marginBottom: 16 }}>
-              <label className="customer-form-label">Room Type *</label>
-              <select name="roomType" value={editForm.roomType} onChange={handleEditChange} required className="customer-form-input">
-                <option value="">Select room type</option>
-                {roomTypes.map((t) => (
-                  <option key={t} value={t}>{t} – LKR {rooms.find((r) => r.roomType === t)?.ratePerNight?.toLocaleString()}/night</option>
-                ))}
-              </select>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
-              <div><label className="customer-form-label">Check-in Date *</label><input name="checkInDate" type="date" value={editForm.checkInDate} onChange={handleEditChange} required className="customer-form-input" /></div>
-              <div><label className="customer-form-label">Check-in Time (AM/PM)</label><input name="checkInTime" value={editForm.checkInTime} onChange={handleEditChange} placeholder="02:00 PM" className="customer-form-input" /></div>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
-              <div><label className="customer-form-label">Check-out Date *</label><input name="checkOutDate" type="date" value={editForm.checkOutDate} onChange={handleEditChange} required min={editForm.checkInDate} className="customer-form-input" /></div>
-              <div><label className="customer-form-label">Check-out Time (AM/PM)</label><input name="checkOutTime" value={editForm.checkOutTime} onChange={handleEditChange} placeholder="11:00 AM" className="customer-form-input" /></div>
-            </div>
-            {nights > 0 && selectedRate && (
-              <div style={{ padding: 16, background: '#f0ede8', borderRadius: 8, marginBottom: 16 }}>
-                <p style={{ fontSize: 13.5, color: '#0d2137' }}><strong>{nights}</strong> night(s) × LKR {selectedRate.toLocaleString()} = <strong>LKR {totalBill.toLocaleString()}</strong></p>
+              <div style={{ marginBottom: '20px' }}>
+                <label className="customer-form-label">Suite Preference</label>
+                <select name="roomType" value={editForm.roomType} onChange={handleEditChange} className="customer-form-input">
+                  {roomTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                </select>
               </div>
-            )}
-            <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
-              <button type="button" onClick={() => { setEditingReservation(null); setEditForm(emptyEditForm); setEditError(''); }} style={{ padding: '9px 20px', border: '1px solid #e0dbd4', borderRadius: 6, background: 'white', fontSize: 13, cursor: 'pointer', fontFamily: 'DM Sans, sans-serif', color: '#374151' }}>Cancel</button>
-              <button type="submit" disabled={editLoading} className="customer-gold-btn" style={{ opacity: editLoading ? 0.7 : 1 }}>{editLoading ? 'Saving...' : 'Save changes'}</button>
-            </div>
-          </form>
-        </div>
-      )}
 
-      {editingReservation && (
-        <div role="presentation" style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', zIndex: 40 }} onClick={() => { setEditingReservation(null); setEditForm(emptyEditForm); setEditError(''); }} />
+              <div className="res-grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '0' }}>
+                <div style={{ marginBottom: '20px' }}>
+                  <label className="customer-form-label">Check-in</label>
+                  <input name="checkInDate" type="date" value={editForm.checkInDate} onChange={handleEditChange} className="customer-form-input" />
+                </div>
+                <div style={{ marginBottom: '20px' }}>
+                  <label className="customer-form-label">Check-out</label>
+                  <input name="checkOutDate" type="date" value={editForm.checkOutDate} onChange={handleEditChange} className="customer-form-input" />
+                </div>
+              </div>
+
+              {nights > 0 && (
+                <div className="bill-preview">
+                  <div style={{fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.8, marginBottom: '5px'}}>Estimated Total</div>
+                  <div style={{fontSize: '22px', fontWeight: '600'}}>LKR {totalBill.toLocaleString()}</div>
+                  <div style={{fontSize: '12px', opacity: 0.7, marginTop: '5px'}}>{nights} Nights at LKR {selectedRate?.toLocaleString()}/night</div>
+                </div>
+              )}
+
+              <button type="submit" disabled={editLoading} className="customer-gold-btn" style={{ width: '100%', justifyContent: 'center', padding: '16px' }}>
+                {editLoading ? 'Updating Itinerary...' : 'Confirm Changes'}
+              </button>
+            </form>
+          </div>
+        </>
       )}
     </>
   )
