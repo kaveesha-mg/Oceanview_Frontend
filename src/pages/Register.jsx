@@ -4,171 +4,167 @@ import { Alert, showValidationAlert } from '../components/Alert'
 import { validations, validateForm } from '../utils/validation'
 
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+  
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   .reg-root {
-    font-family: 'Jost', sans-serif;
+    font-family: 'Inter', sans-serif;
     display: flex; min-height: 100vh;
+    background: #fff;
   }
 
   /* ── LEFT PANEL ── */
   .reg-left {
-    width: 340px; flex-shrink: 0; position: relative; overflow: hidden;
+    width: 420px; flex-shrink: 0; position: relative; overflow: hidden;
     display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 56px 40px;
+    padding: 80px 50px;
   }
+  
   .reg-left-bg {
     position: absolute; inset: 0;
-    background: url('https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&q=85') center / cover no-repeat;
+    background: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=85') center / cover no-repeat;
+    transform: scale(1.1);
   }
+  
   .reg-left-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(160deg, rgba(6,16,30,0.93) 0%, rgba(6,16,30,0.78) 100%);
+    background: linear-gradient(to bottom, rgba(10,22,40,0.92), rgba(10,22,40,0.85));
   }
+  
   .reg-back {
-    position: absolute; top: 32px; left: 32px; z-index: 3;
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 11.5px; color: rgba(255,255,255,0.38); text-decoration: none;
-    letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s;
+    position: absolute; top: 40px; left: 50px; z-index: 3;
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; color: rgba(255,255,255,0.5); text-decoration: none;
+    letter-spacing: 0.25em; text-transform: uppercase; transition: 0.3s;
   }
-  .reg-back:hover { color: rgba(255,255,255,0.7); }
+  .reg-back:hover { color: #f0d48a; transform: translateX(-5px); }
 
   .reg-left-content {
     position: relative; z-index: 2;
     display: flex; flex-direction: column;
-    align-items: flex-start; color: white;
-    width: 100%;
+    height: 100%;
   }
-  .reg-left-logo-icon {
-    width: 48px; height: 48px; border-radius: 50%;
-    background: rgba(240,212,138,0.12); border: 1px solid rgba(240,212,138,0.3);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px; margin-bottom: 18px;
-  }
+  
   .reg-left-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px; font-weight: 500; color: #f0d48a; margin-bottom: 4px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; color: #f0d48a; margin-bottom: 8px;
+    letter-spacing: 0.05em;
   }
-  .reg-left-logo em { font-style: italic; font-weight: 400; }
-  .reg-left-sub { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 40px; }
+  .reg-left-logo em { font-style: italic; color: #fff; }
+  
+  .reg-left-sub { 
+    font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; 
+    color: rgba(255,255,255,0.4); margin-bottom: 60px; 
+  }
 
-  .reg-steps { display: flex; flex-direction: column; gap: 0; width: 100%; }
+  .reg-steps { display: flex; flex-direction: column; gap: 30px; }
+  
   .reg-step {
-    display: flex; align-items: flex-start; gap: 16px;
-    padding: 18px 0; position: relative;
+    display: flex; align-items: flex-start; gap: 20px;
+    padding: 20px; background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
   }
-  .reg-step:not(:last-child)::after {
-    content: ''; position: absolute; left: 15px; top: 46px;
-    width: 1px; height: calc(100% - 28px);
-    background: rgba(240,212,138,0.18);
-  }
+  
   .reg-step-circle {
-    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
-    background: rgba(240,212,138,0.12); border: 1px solid rgba(240,212,138,0.35);
-    color: #f0d48a; font-size: 13px; font-weight: 500;
+    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    background: #f0d48a; color: #0a1628;
+    font-size: 12px; font-weight: 700;
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Playfair Display', serif;
   }
-  .reg-step-title { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85); margin-bottom: 3px; }
-  .reg-step-desc { font-size: 12px; color: rgba(255,255,255,0.42); line-height: 1.55; }
+  
+  .reg-step-title { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .reg-step-desc { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.6; }
 
   .reg-left-note {
-    margin-top: 36px; padding: 14px 16px;
-    background: rgba(240,212,138,0.07); border: 1px solid rgba(240,212,138,0.18);
-    border-radius: 8px; font-size: 12px; color: rgba(255,255,255,0.48);
-    line-height: 1.6;
+    margin-top: auto; padding-top: 40px;
+    font-size: 12px; color: rgba(255,255,255,0.4);
+    line-height: 1.8; font-style: italic;
   }
-  .reg-left-note strong { color: rgba(240,212,138,0.75); font-weight: 500; }
 
   /* ── RIGHT PANEL ── */
   .reg-right {
-    flex: 1; background: #f7f4ef;
+    flex: 1; background: #fff;
     display: flex; align-items: center; justify-content: center;
-    padding: 56px 64px; overflow-y: auto;
+    padding: 80px; overflow-y: auto;
   }
-  .reg-right-inner { width: 100%; max-width: 520px; }
+  
+  .reg-right-inner { width: 100%; max-width: 580px; }
 
   .reg-form-eyebrow {
-    font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase;
-    color: #b8960c; font-weight: 500; margin-bottom: 10px;
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: #c5a367; font-weight: 700; margin-bottom: 15px;
   }
+  
   .reg-form-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px; font-weight: 500; color: #0a1628;
-    line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 6px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px; font-weight: 500; color: #0a1628;
+    line-height: 1; margin-bottom: 15px;
   }
-  .reg-form-title em { font-style: italic; font-weight: 400; }
-  .reg-form-sub { font-size: 13.5px; color: #8a8078; margin-bottom: 32px; line-height: 1.5; }
+  
+  .reg-form-sub { font-size: 15px; color: #777; margin-bottom: 45px; font-weight: 300; }
 
-  /* Error */
   .reg-err {
-    background: #fff8f8; border: 1px solid #fcd0cc;
-    border-left: 3px solid #e05252; border-radius: 6px;
-    padding: 12px 14px; color: #b83232; font-size: 13px;
-    margin-bottom: 22px; display: flex; align-items: center; gap: 10px;
+    background: #fff5f5; border-radius: 4px; padding: 16px;
+    color: #c53030; font-size: 13px; margin-bottom: 30px;
+    border-left: 4px solid #c53030; display: flex; align-items: center; gap: 12px;
   }
 
-  /* Section dividers */
   .reg-section {
-    font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: #c0b8b0; font-weight: 500; margin: 28px 0 18px;
-    padding-bottom: 10px; border-bottom: 1px solid #e8e3dc;
-    display: flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: #0a1628; font-weight: 700; margin: 40px 0 20px;
+    display: flex; align-items: center; gap: 15px;
   }
-  .reg-section:first-of-type { margin-top: 0; }
-  .reg-section-dot { width: 4px; height: 4px; border-radius: 50%; background: #f0d48a; }
+  
+  .reg-section::after { content: ''; flex: 1; height: 1px; background: #eee; }
 
-  /* Grid */
-  .reg-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .reg-field { margin-bottom: 18px; }
+  .reg-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .reg-field { margin-bottom: 24px; }
+  
   .reg-label {
-    display: block; font-size: 11px; font-weight: 500;
-    color: #6b6560; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 7px;
+    display: block; font-size: 11px; font-weight: 600;
+    color: #444; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;
   }
-  .reg-input-wrap { position: relative; }
-  .reg-input-icon {
-    position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
-    color: #c0b8b0; font-size: 14px; pointer-events: none;
-  }
+  
   .reg-input {
-    width: 100%; padding: 11px 13px 11px 38px;
-    border: 1px solid #e0dbd4; border-radius: 8px;
-    font-size: 13.5px; font-family: 'Jost', sans-serif;
-    color: #1a1a1a; background: white; outline: none; transition: all 0.18s;
+    width: 100%; padding: 14px 16px 14px 42px;
+    border: 1px solid #e2e8f0; border-radius: 4px;
+    font-size: 14px; color: #1a1a1a; transition: all 0.3s;
+    background: #fbfbfb;
   }
-  .reg-input:focus { border-color: #d4af50; box-shadow: 0 0 0 3px rgba(212,175,80,0.11); }
-  .reg-input::placeholder { color: #c8c0b8; }
-  .reg-input-hint { font-size: 11px; color: #c0b8b0; margin-top: 5px; }
+  
+  .reg-input:focus {
+    border-color: #0a1628; background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); outline: none;
+  }
+  
+  .reg-input-icon {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    color: #cbd5e0; font-size: 14px;
+  }
 
-  /* Submit */
   .reg-submit {
-    width: 100%; padding: 14px;
+    width: 100%; padding: 18px;
     background: #0a1628; color: #f0d48a;
-    border: 1px solid rgba(240,212,138,0.25);
-    border-radius: 8px; font-size: 13px; font-weight: 500;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    cursor: pointer; transition: all 0.22s;
-    font-family: 'Jost', sans-serif; margin-top: 8px;
-    display: flex; align-items: center; justify-content: center; gap: 10px;
+    border: none; border-radius: 4px;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.3s;
+    margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 12px;
   }
-  .reg-submit:hover { background: #162d47; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(10,22,40,0.2); }
-  .reg-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
-  .reg-arrow { transition: transform 0.2s; }
-  .reg-submit:hover .reg-arrow { transform: translateX(4px); }
+  
+  .reg-submit:hover:not(:disabled) { background: #1a2a3a; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(10,22,40,0.1); }
+  .reg-submit:disabled { opacity: 0.6; }
 
-  .reg-login-link {
-    text-align: center; font-size: 13.5px; color: #8a8078; margin-top: 22px;
-  }
-  .reg-login-link a {
-    color: #0a1628; font-weight: 500; text-decoration: none;
-    border-bottom: 1px solid rgba(10,22,40,0.2); padding-bottom: 1px; transition: all 0.15s;
-  }
-  .reg-login-link a:hover { color: #b8960c; border-color: #b8960c; }
+  .reg-login-link { text-align: center; font-size: 14px; color: #718096; margin-top: 30px; }
+  .reg-login-link a { color: #0a1628; font-weight: 600; text-decoration: none; border-bottom: 1px solid #f0d48a; }
 
-  .reg-terms {
-    font-size: 11.5px; color: #b0a89a; text-align: center; margin-top: 16px; line-height: 1.5;
+  .reg-terms { font-size: 11px; color: #a0aec0; text-align: center; margin-top: 25px; line-height: 1.6; }
+
+  @media (max-width: 1100px) {
+    .reg-left { display: none; }
+    .reg-right { padding: 40px 24px; }
   }
 `
 
@@ -216,10 +212,10 @@ export default function Register() {
     }
   }
 
-  const field = (name, label, type = 'text', placeholder = '', hint = '', icon = '◈') => (
+  const field = (name, label, type = 'text', placeholder = '', hint = '', icon = '✦') => (
     <div className="reg-field">
       <label className="reg-label">{label}</label>
-      <div className="reg-input-wrap">
+      <div style={{ position: 'relative' }}>
         <span className="reg-input-icon">{icon}</span>
         <input
           name={name} type={type}
@@ -227,7 +223,7 @@ export default function Register() {
           placeholder={placeholder} className="reg-input"
         />
       </div>
-      {hint && <div className="reg-input-hint">{hint}</div>}
+      {hint && <div style={{fontSize: '10px', color: '#a0aec0', marginTop: '6px', letterSpacing: '0.02em'}}>{hint}</div>}
     </div>
   )
 
@@ -240,18 +236,17 @@ export default function Register() {
         <div className="reg-left">
           <div className="reg-left-bg" />
           <div className="reg-left-overlay" />
-          <Link to="/" className="reg-back">← Home</Link>
+          <Link to="/" className="reg-back"><span>←</span> Sanctuary Home</Link>
 
           <div className="reg-left-content">
-            <div className="reg-left-logo-icon">🌊</div>
             <div className="reg-left-logo">Ocean<em>View</em></div>
-            <div className="reg-left-sub">Hotel · Colombo, LK</div>
+            <div className="reg-left-sub">Resort & Spa · Colombo</div>
 
             <div className="reg-steps">
               {[
-                { n: '1', title: 'Create your account', desc: 'Fill in your details to register in under 2 minutes.' },
-                { n: '2', title: 'Browse our rooms', desc: 'Explore Standard, Deluxe, and Suite categories.' },
-                { n: '3', title: 'Confirm your booking', desc: 'Receive instant confirmation and a downloadable bill.' },
+                { n: '01', title: 'Guest Profile', desc: 'Secure your unique identity within our luxury network.' },
+                { n: '02', title: 'Explore Suites', desc: 'Gain access to our full collection of oceanfront rooms.' },
+                { n: '03', title: 'Seamless Booking', desc: 'Experience the art of effortless vacation planning.' },
               ].map(s => (
                 <div key={s.n} className="reg-step">
                   <div className="reg-step-circle">{s.n}</div>
@@ -264,7 +259,7 @@ export default function Register() {
             </div>
 
             <div className="reg-left-note">
-              <strong>Your data is safe.</strong> We use your NIC and contact details solely for reservation verification — never shared with third parties.
+              "Registration is the first step toward a bespoke coastal experience tailored specifically to your preferences."
             </div>
           </div>
         </div>
@@ -272,9 +267,9 @@ export default function Register() {
         {/* ── RIGHT ── */}
         <div className="reg-right">
           <div className="reg-right-inner">
-            <div className="reg-form-eyebrow">New Guest</div>
-            <h1 className="reg-form-title">Create your<br /><em>account</em></h1>
-            <p className="reg-form-sub">Join Ocean View Hotel and start booking your perfect seaside stay.</p>
+            <div className="reg-form-eyebrow">Membership</div>
+            <h1 className="reg-form-title">Join the <em>Collection</em></h1>
+            <p className="reg-form-sub">Become a member of the Ocean View community for exclusive access to the best rates and personalized service.</p>
 
             {error && (
               <div className="reg-err">
@@ -283,33 +278,33 @@ export default function Register() {
             )}
 
             <form onSubmit={handleSubmit}>
-              <div className="reg-section"><div className="reg-section-dot" />Account Credentials</div>
+              <div className="reg-section">Access Credentials</div>
               <div className="reg-grid-2">
-                {field('username', 'Username *', 'text', 'e.g. john_doe', 'Minimum 3 characters', '◈')}
-                {field('password', 'Password *', 'password', 'Min. 6 characters', 'At least 6 characters', '⊛')}
+                {field('username', 'Username', 'text', 'Preferred name', 'Minimum 3 characters', '👤')}
+                {field('password', 'Password', 'password', '••••••••', 'At least 6 characters', '🔑')}
               </div>
 
-              <div className="reg-section"><div className="reg-section-dot" />Personal Information</div>
-              {field('fullName', 'Full Name *', 'text', 'Your full legal name', '', '⊙')}
-              {field('email', 'Email Address', 'email', 'you@example.com', '', '⊕')}
-              {field('address', 'Home Address', 'text', 'Street, City', '', '◉')}
-
-              <div className="reg-section"><div className="reg-section-dot" />Identity & Contact</div>
+              <div className="reg-section">Guest Details</div>
+              {field('fullName', 'Full Name', 'text', 'As it appears on NIC', '', '✧')}
               <div className="reg-grid-2">
-                {field('nicNumber', 'NIC Number', 'text', '199012345678', '', '⊘')}
-                {field('contactNumber', 'Contact Number', 'text', '0771234567', '', '⊗')}
+                {field('email', 'Email', 'email', 'name@domain.com', '', '✉')}
+                {field('contactNumber', 'Phone', 'text', '077 123 4567', '', '☎')}
               </div>
+              {field('address', 'Home Address', 'text', 'Suite, Street, City', '', '🏠')}
+
+              <div className="reg-section">Verification</div>
+              {field('nicNumber', 'NIC / Passport Number', 'text', 'Verification ID', 'Required for check-in', '🆔')}
 
               <button type="submit" className="reg-submit" disabled={loading}>
-                {loading ? 'Creating account…' : <>Create Account <span className="reg-arrow">→</span></>}
+                {loading ? 'Processing…' : <>Complete Registration <span>→</span></>}
               </button>
             </form>
 
             <div className="reg-login-link">
-              Already have an account? <Link to="/login">Sign in here</Link>
+              Already an esteemed guest? <Link to="/login">Sign in here</Link>
             </div>
             <div className="reg-terms">
-              By registering you agree to our terms of service and privacy policy.
+              By clicking complete, you acknowledge our commitment to your privacy and agree to our luxury service standards.
             </div>
           </div>
         </div>
