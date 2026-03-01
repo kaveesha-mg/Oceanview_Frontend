@@ -18,7 +18,7 @@ const css = `
     flex: 1.2; position: relative; overflow: hidden;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    padding: 60px; min-height: 100vh;
+    padding: 80px; min-height: 100vh;
   }
   
   .login-left-bg {
@@ -36,161 +36,161 @@ const css = `
     position: relative; z-index: 2;
     display: flex; flex-direction: column;
     align-items: center; text-align: center; color: white;
-    max-width: 420px;
+    max-width: 460px;
   }
 
   .login-back {
     position: absolute; top: 40px; left: 40px; z-index: 3;
     display: inline-flex; align-items: center; gap: 10px;
-    font-size: 11px; color: rgba(255,255,255,0.5); text-decoration: none;
+    font-size: 12px; color: rgba(255,255,255,0.6); text-decoration: none;
     letter-spacing: 0.2em; text-transform: uppercase;
     transition: all 0.3s ease;
   }
   .login-back:hover { color: #f0d48a; transform: translateX(-5px); }
 
   .login-logo-icon {
-    width: 64px; height: 64px; border-radius: 50%;
+    width: 72px; height: 72px; border-radius: 50%;
     background: rgba(240,212,138,0.1);
     border: 1px solid rgba(240,212,138,0.3);
     display: flex; align-items: center; justify-content: center;
-    font-size: 24px; margin: 0 auto 24px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.3);
+    font-size: 28px; margin: 0 auto 28px;
+    box-shadow: 0 0 35px rgba(0,0,0,0.3);
   }
 
   .login-logo {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 38px; font-weight: 400; color: #f0d48a;
+    font-size: 42px; font-weight: 400; color: #f0d48a;
     letter-spacing: 0.05em;
   }
   .login-logo em { font-style: italic; color: #fff; }
   
   .login-tagline {
-    font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
-    color: rgba(255,255,255,0.4); margin-top: 8px;
+    font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); margin-top: 10px;
   }
 
   .login-divider {
-    width: 50px; height: 1px;
+    width: 60px; height: 1px;
     background: #f0d48a;
-    margin: 40px auto;
+    margin: 45px auto;
     opacity: 0.5;
   }
 
   .login-quote {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 22px; font-style: italic; color: rgba(255,255,255,0.85);
-    line-height: 1.5; margin-bottom: 12px;
+    font-size: 24px; font-style: italic; color: rgba(255,255,255,0.85);
+    line-height: 1.5; margin-bottom: 15px;
   }
   .login-quote-attr {
-    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
     color: rgba(255,255,255,0.3);
   }
 
   .login-features {
-    display: flex; flex-direction: column; gap: 12px;
-    margin-top: 50px; width: 100%;
+    display: flex; flex-direction: column; gap: 14px;
+    margin-top: 55px; width: 100%;
   }
 
   .login-feat {
-    display: flex; align-items: center; gap: 16px;
-    padding: 14px 20px;
+    display: flex; align-items: center; gap: 18px;
+    padding: 16px 24px;
     background: rgba(255,255,255,0.03);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 4px;
+    border-radius: 5px;
     transition: background 0.3s;
   }
   .login-feat:hover { background: rgba(255,255,255,0.06); }
-  .login-feat-icon { color: #f0d48a; font-size: 16px; }
-  .login-feat-text { font-size: 13px; color: rgba(255,255,255,0.6); letter-spacing: 0.03em; }
+  .login-feat-icon { color: #f0d48a; font-size: 18px; }
+  .login-feat-text { font-size: 14px; color: rgba(255,255,255,0.65); letter-spacing: 0.03em; }
 
   /* ── RIGHT PANEL ── */
   .login-right {
-    width: 520px; flex-shrink: 0;
+    width: 560px; flex-shrink: 0;
     background: #fff;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     padding: 80px; position: relative;
-    box-shadow: -10px 0 50px rgba(0,0,0,0.03);
+    box-shadow: -10px 0 50px rgba(0,0,0,0.04);
   }
 
   .login-form-eyebrow {
-    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
-    color: #c5a367; font-weight: 600; margin-bottom: 12px;
+    font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: #c5a367; font-weight: 600; margin-bottom: 15px;
   }
 
   .login-form-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 42px; font-weight: 500; color: #0a1628;
-    line-height: 1; margin-bottom: 12px;
+    font-size: 48px; font-weight: 500; color: #0a1628;
+    line-height: 1.1; margin-bottom: 15px;
   }
   .login-form-title em { font-style: italic; color: #c5a367; }
 
-  .login-form-sub { font-size: 14px; color: #777; margin-bottom: 40px; line-height: 1.6; }
+  .login-form-sub { font-size: 16px; color: #666; margin-bottom: 45px; line-height: 1.6; font-weight: 300; }
 
   .login-err {
-    background: #fff5f5; border-radius: 4px; padding: 14px;
-    color: #c53030; font-size: 13px; margin-bottom: 24px;
-    border-left: 4px solid #c53030; display: flex; align-items: center; gap: 10px;
+    background: #fff5f5; border-radius: 4px; padding: 16px;
+    color: #c53030; font-size: 14px; margin-bottom: 28px;
+    border-left: 4px solid #c53030; display: flex; align-items: center; gap: 12px;
   }
 
-  .login-field { margin-bottom: 24px; width: 100%; }
+  .login-field { margin-bottom: 28px; width: 100%; }
   .login-label {
-    display: block; font-size: 11px; font-weight: 600;
+    display: block; font-size: 12px; font-weight: 600;
     color: #0a1628; text-transform: uppercase; letter-spacing: 0.15em;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
 
   .login-input {
-    width: 100%; padding: 14px 16px 14px 44px;
-    border: 1px solid #e2e8f0; border-radius: 4px;
-    font-size: 14px; color: #1a1a1a; transition: all 0.3s;
+    width: 100%; padding: 16px 16px 16px 48px;
+    border: 1px solid #e2e8f0; border-radius: 5px;
+    font-size: 15px; color: #1a1a1a; transition: all 0.3s;
     background: #fafafa;
   }
   .login-input:focus {
     border-color: #0a1628; background: #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
     outline: none;
   }
 
   .login-input-icon {
-    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
-    color: #cbd5e0; font-size: 14px;
+    position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+    color: #cbd5e0; font-size: 16px;
   }
 
   .login-submit {
-    width: 100%; padding: 16px;
+    width: 100%; padding: 18px;
     background: #0a1628; color: #f0d48a;
-    border: none; border-radius: 4px;
-    font-size: 12px; font-weight: 600;
+    border: none; border-radius: 5px;
+    font-size: 13px; font-weight: 600;
     letter-spacing: 0.2em; text-transform: uppercase;
     cursor: pointer; transition: all 0.3s;
     display: flex; align-items: center; justify-content: center; gap: 12px;
   }
-  .login-submit:hover:not(:disabled) { background: #1a2a3a; letter-spacing: 0.25em; }
+  .login-submit:hover:not(:disabled) { background: #1a2a3a; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(10,22,40,0.15); }
   .login-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
   .login-or {
     display: flex; align-items: center; gap: 20px;
-    margin: 30px 0; color: #cbd5e0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em;
+    margin: 35px 0; color: #cbd5e0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.2em;
   }
-  .login-or::before, .login-or::after { content: ''; flex: 1; height: 1px; background: #edf2f7; }
+  .login-or::before, .login-or::after { content: ''; flex: 1; height: 1px; background: #f0f0f0; }
 
-  .login-register-link { font-size: 14px; color: #718096; }
+  .login-register-link { font-size: 15px; color: #718096; }
   .login-register-link a {
     color: #0a1628; font-weight: 600; text-decoration: none;
-    border-bottom: 1px solid #f0d48a; transition: all 0.2s;
+    border-bottom: 1.5px solid #f0d48a; transition: all 0.2s;
   }
   .login-register-link a:hover { color: #c5a367; border-color: #0a1628; }
 
   .login-right-brand {
-    position: absolute; bottom: 30px; font-size: 10px; 
+    position: absolute; bottom: 30px; font-size: 11px; 
     color: #cbd5e0; letter-spacing: 0.3em;
   }
 
   @media (max-width: 1000px) {
     .login-left { display: none; }
-    .login-right { width: 100%; }
+    .login-right { width: 100%; padding: 60px 24px; }
   }
 `
 
@@ -276,7 +276,7 @@ export default function Login() {
 
         {/* ── RIGHT ── */}
         <div className="login-right">
-          <div style={{ width: '100%', maxWidth: '360px' }}>
+          <div style={{ width: '100%', maxWidth: '400px' }}>
             <div className="login-form-eyebrow">{fromRegistration ? 'Account Verified' : 'Guest Portal'}</div>
             <h1 className="login-form-title">Sign in to<br /><em>your stay</em></h1>
             <p className="login-form-sub">
@@ -284,17 +284,21 @@ export default function Login() {
             </p>
 
             {fromLogout && (
-              <Alert type="success" message="You have been safely logged out." onDismiss={() => navigate('/login', { replace: true })} />
+              <div style={{marginBottom: 24}}>
+                <Alert type="success" message="You have been safely logged out." onDismiss={() => navigate('/login', { replace: true })} />
+              </div>
             )}
             
             {fromRegistration && (
-              <div className="login-success" style={{ marginBottom: 20, padding: '14px', background: '#f0faf4', border: '1px solid #86efac', borderRadius: 4, color: '#166534', fontSize: 13 }}>
+              <div className="login-success" style={{ marginBottom: 24, padding: '16px', background: '#f0faf4', border: '1px solid #86efac', borderRadius: 5, color: '#166534', fontSize: 14 }}>
                 ✓ Account created. Welcome to Ocean View.
               </div>
             )}
 
             {successMessage && (
-              <Alert type="success" message={successMessage} />
+              <div style={{marginBottom: 24}}>
+                <Alert type="success" message={successMessage} />
+              </div>
             )}
 
             {error && (
