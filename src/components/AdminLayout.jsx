@@ -12,7 +12,7 @@ const ADMIN_STYLES = `
   }
 
   .admin-sidebar {
-    width: 220px;
+    width: 260px; /* INCREASED FROM 220px FOR LARGER TEXT */
     min-height: 100vh;
     background: #0d2137;
     display: flex;
@@ -25,17 +25,18 @@ const ADMIN_STYLES = `
     flex-shrink: 0;
     z-index: 10;
     isolation: isolate;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1);
   }
 
   .admin-sidebar-logo {
-    padding: 28px 24px 20px;
+    padding: 40px 28px 30px; /* INCREASED PADDING */
     border-bottom: 1px solid rgba(255,255,255,0.08);
     flex-shrink: 0;
   }
 
   .admin-sidebar-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
+    font-size: 22px; /* INCREASED FROM 18px */
     font-weight: 600;
     color: #d4af7a;
     letter-spacing: 0.04em;
@@ -43,96 +44,100 @@ const ADMIN_STYLES = `
   }
 
   .admin-sidebar-sub {
-    font-size: 10px;
+    font-size: 11px; /* SLIGHTLY LARGER */
     color: rgba(255,255,255,0.5);
-    letter-spacing: 0.15em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    margin-top: 2px;
+    margin-top: 6px;
   }
 
   .admin-sidebar-user {
-    font-size: 11px;
-    color: rgba(255,255,255,0.5);
-    margin-top: 8px;
-    text-transform: none;
-    letter-spacing: 0;
+    font-size: 13px; /* INCREASED FROM 11px */
+    color: #d4af7a;
+    margin-top: 12px;
+    opacity: 0.8;
+    font-weight: 500;
   }
 
   .admin-sidebar-nav {
     flex: 1;
-    padding: 16px 0;
+    padding: 24px 0; /* MORE VERTICAL BREATHING ROOM */
   }
 
   .admin-nav-link {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 24px;
-    color: rgba(255,255,255,0.45);
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    transition: all 0.2s;
-    border-left: 2px solid transparent;
+    gap: 14px; /* INCREASED GAP */
+    padding: 14px 28px; /* INCREASED PADDING FOR COMFORT */
+    color: rgba(255,255,255,0.55);
+    font-size: 16px; /* INCREASED FROM 13px - MAIN EDIT */
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent; /* THICKER ACTIVE BAR */
     text-decoration: none;
   }
 
   .admin-nav-link:hover {
-    color: rgba(255,255,255,0.8);
-    background: rgba(255,255,255,0.04);
+    color: #ffffff;
+    background: rgba(255,255,255,0.05);
+    padding-left: 32px; /* SUBTLE SLIDE EFFECT */
   }
 
   .admin-nav-link.active {
     color: #d4af7a;
     border-left-color: #d4af7a;
-    background: rgba(212,175,122,0.08);
+    background: rgba(212,175,122,0.12);
+    font-weight: 600;
   }
 
   .admin-nav-icon {
-    font-size: 15px;
-    width: 18px;
+    font-size: 18px; /* INCREASED FROM 15px */
+    width: 22px;
     text-align: center;
-    opacity: 0.7;
+    opacity: 0.8;
   }
 
   .admin-nav-link.active .admin-nav-icon { opacity: 1; }
 
   .admin-sidebar-footer {
-    padding: 16px 24px;
+    padding: 24px 28px;
     border-top: 1px solid rgba(255,255,255,0.08);
   }
 
   .admin-sidebar-back {
     display: block;
     width: 100%;
-    padding: 8px 14px;
+    padding: 12px;
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 6px;
-    font-size: 12px;
+    border-radius: 8px;
+    font-size: 13px;
     cursor: pointer;
     transition: all 0.2s;
     letter-spacing: 0.04em;
     font-family: 'DM Sans', sans-serif;
-    color: rgba(255,255,255,0.7);
+    color: rgba(255,255,255,0.8);
     text-decoration: none;
     text-align: center;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
 
   .admin-sidebar-back:hover {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.12);
     color: white;
+    border-color: rgba(255,255,255,0.3);
   }
 
   .admin-logout-btn {
     width: 100%;
-    padding: 8px 14px;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.1);
-    color: rgba(248,113,113,0.95);
-    border-radius: 6px;
-    font-size: 12px;
+    padding: 12px;
+    background: rgba(248,113,113,0.05);
+    border: 1px solid rgba(248,113,113,0.2);
+    color: #fca5a5;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
     letter-spacing: 0.04em;
@@ -140,243 +145,16 @@ const ADMIN_STYLES = `
   }
 
   .admin-logout-btn:hover {
-    background: rgba(248,113,113,0.15);
-    color: #f87171;
+    background: #f87171;
+    color: white;
+    border-color: #f87171;
   }
 
   .admin-main {
     flex: 1;
-    margin-left: 220px;
+    margin-left: 260px; /* MATCH SIDEBAR WIDTH */
     overflow-y: auto;
     min-height: 100vh;
-  }
-
-  .admin-page-header {
-    background: white;
-    border-bottom: 1px solid #e8e3dc;
-    padding: 24px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .admin-page-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 600;
-    color: #1a1a1a;
-    letter-spacing: -0.01em;
-  }
-
-  .admin-page-subtitle {
-    font-size: 12.5px;
-    color: #9a8f83;
-    margin-top: 2px;
-    letter-spacing: 0.01em;
-  }
-
-  .admin-page-body {
-    padding: 36px 40px;
-  }
-
-  .admin-gold-btn {
-    background: #0d2137;
-    color: #d4af7a;
-    border: 1px solid rgba(212,175,122,0.3);
-    padding: 9px 20px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s;
-    font-family: 'DM Sans', sans-serif;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-  }
-
-  .admin-gold-btn:hover {
-    background: #162d47;
-    border-color: rgba(212,175,122,0.6);
-    color: #d4af7a;
-  }
-
-  .admin-stat-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-
-  .admin-stat-box {
-    background: white;
-    border-radius: 10px;
-    border: 1px solid #e8e3dc;
-    padding: 18px 20px;
-  }
-
-  .admin-stat-value {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 32px;
-    font-weight: 600;
-    color: #0d2137;
-  }
-
-  .admin-stat-label {
-    font-size: 12px;
-    color: #9a8f83;
-    margin-top: 2px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  .admin-dash-card {
-    background: white;
-    border-radius: 12px;
-    padding: 24px;
-    border: 1px solid #e8e3dc;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-
-  .admin-dash-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #d4af7a, #e8c87a);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
-  .admin-dash-card:hover {
-    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-    transform: translateY(-1px);
-  }
-
-  .admin-dash-card:hover::before { opacity: 1; }
-
-  .admin-dash-card-icon {
-    width: 40px;
-    height: 40px;
-    background: #f0ede8;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    margin-bottom: 14px;
-    color: #0d2137;
-  }
-
-  .admin-dash-card-title {
-    font-size: 15px;
-    font-weight: 500;
-    color: #1a1a1a;
-  }
-
-  .admin-dash-card-desc {
-    font-size: 12.5px;
-    color: #9a8f83;
-    margin-top: 4px;
-    line-height: 1.5;
-  }
-
-  .admin-help-section {
-    margin-bottom: 28px;
-  }
-
-  .admin-help-section h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
-    font-weight: 600;
-    color: #0d2137;
-    margin-bottom: 8px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #e8e3dc;
-  }
-
-  .admin-help-section p {
-    font-size: 13.5px;
-    color: #4b5563;
-    line-height: 1.7;
-  }
-
-  .admin-room-card {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid #e8e3dc;
-  }
-
-  .admin-avail-card {
-    background: white;
-    border-radius: 12px;
-    padding: 24px;
-    border: 1px solid #e8e3dc;
-  }
-
-  .admin-avail-type {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: #1a1a1a;
-  }
-
-  .admin-avail-rate {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 30px;
-    font-weight: 300;
-    color: #0d2137;
-    margin-top: 8px;
-  }
-
-  .admin-avail-pill {
-    display: inline-block;
-    background: #f0faf4;
-    color: #2e7d52;
-    border: 1px solid #c6e6d4;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 500;
-    margin-top: 10px;
-  }
-
-  .admin-form-label {
-    display: block;
-    font-size: 12px;
-    font-weight: 500;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 6px;
-  }
-
-  .admin-form-input {
-    width: 100%;
-    padding: 9px 14px;
-    border: 1px solid #e0dbd4;
-    border-radius: 7px;
-    font-size: 13.5px;
-    font-family: 'DM Sans', sans-serif;
-    color: #1a1a1a;
-    background: #faf9f7;
-    transition: border 0.15s;
-    box-sizing: border-box;
-  }
-
-  .admin-form-input:focus {
-    outline: none;
-    border-color: #d4af7a;
-    background: white;
   }
 `
 
@@ -404,14 +182,14 @@ export default function AdminLayout() {
     { to: '/admin/walk-in', label: 'Walk-in', id: 'walk-in' },
     { to: '/admin/room-availability', label: 'Availability', id: 'room-availability' },
     { to: '/admin/reservations', label: 'Reservations', id: 'reservations' },
-    { to: '/admin/help', label: 'Help', id: 'help' },
+    { to: '/admin/help', label: 'Help Guide', id: 'help' },
     ...(isSuperAdmin ? [
-      { to: '/admin/add-receptionist', label: 'Add Receptionist', id: 'add-receptionist' },
-      { to: '/admin/users', label: 'Manage Customers', id: 'users' }
+      { to: '/admin/add-receptionist', label: 'Add Staff', id: 'add-receptionist' },
+      { to: '/admin/users', label: 'User Registry', id: 'users' }
     ] : [])
   ]
 
-  const sidebarLabel = isReceptionist ? 'Front Desk' : (isSuperAdmin ? 'Admin Portal' : 'Admin Portal')
+  const sidebarLabel = isReceptionist ? 'Front Desk' : (isSuperAdmin ? 'Admin Portal' : 'Staff Portal')
 
   return (
     <>
@@ -422,7 +200,7 @@ export default function AdminLayout() {
             <div className="admin-sidebar-title">Ocean View Hotel</div>
             <div className="admin-sidebar-sub">{sidebarLabel}</div>
             {user?.username && (
-              <div className="admin-sidebar-user">{user.username}</div>
+              <div className="admin-sidebar-user">Logged in as: {user.username}</div>
             )}
           </div>
           <nav className="admin-sidebar-nav">
@@ -444,7 +222,7 @@ export default function AdminLayout() {
           <div className="admin-sidebar-footer">
             <Link to="/" className="admin-sidebar-back">← Back to Site</Link>
             <button type="button" className="admin-logout-btn" onClick={() => { logout(); navigate('/', { state: { logoutSuccess: true } }) }}>
-              Logout
+              Logout Session
             </button>
           </div>
         </aside>
