@@ -12,7 +12,7 @@ const CUSTOMER_STYLES = `
   }
 
   .customer-sidebar {
-    width: 220px;
+    width: 260px; /* INCREASED FROM 220px */
     min-height: 100vh;
     background: #0d2137;
     display: flex;
@@ -28,14 +28,14 @@ const CUSTOMER_STYLES = `
   }
 
   .customer-sidebar-logo {
-    padding: 28px 24px 20px;
+    padding: 32px 24px; /* INCREASED */
     border-bottom: 1px solid rgba(255,255,255,0.08);
     flex-shrink: 0;
   }
 
   .customer-sidebar-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
+    font-size: 22px; /* INCREASED FROM 18px */
     font-weight: 600;
     color: #d4af7a;
     letter-spacing: 0.04em;
@@ -43,42 +43,42 @@ const CUSTOMER_STYLES = `
   }
 
   .customer-sidebar-sub {
-    font-size: 10px;
+    font-size: 11px; /* INCREASED FROM 10px */
     color: rgba(255,255,255,0.5);
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    margin-top: 2px;
+    margin-top: 4px;
   }
 
   .customer-sidebar-user {
-    font-size: 11px;
+    font-size: 13px; /* INCREASED FROM 11px */
     color: rgba(255,255,255,0.5);
-    margin-top: 8px;
+    margin-top: 10px;
     text-transform: none;
     letter-spacing: 0;
   }
 
   .customer-sidebar-nav {
     flex: 1;
-    padding: 16px 0;
+    padding: 24px 0;
   }
 
   .customer-nav-link {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 24px;
-    color: rgba(255,255,255,0.45);
-    font-size: 13px;
+    gap: 12px;
+    padding: 14px 24px; /* INCREASED PADDING */
+    color: rgba(255,255,255,0.5);
+    font-size: 15px; /* INCREASED FROM 13px */
     font-weight: 400;
     letter-spacing: 0.02em;
     transition: all 0.2s;
-    border-left: 2px solid transparent;
+    border-left: 3px solid transparent;
     text-decoration: none;
   }
 
   .customer-nav-link:hover {
-    color: rgba(255,255,255,0.8);
+    color: rgba(255,255,255,0.9);
     background: rgba(255,255,255,0.04);
   }
 
@@ -86,57 +86,50 @@ const CUSTOMER_STYLES = `
     color: #d4af7a;
     border-left-color: #d4af7a;
     background: rgba(212,175,122,0.08);
+    font-weight: 500;
   }
 
   .customer-nav-icon {
-    font-size: 15px;
-    width: 18px;
+    font-size: 18px; /* INCREASED FROM 15px */
+    width: 20px;
     text-align: center;
     opacity: 0.7;
   }
 
-  .customer-nav-link.active .customer-nav-icon { opacity: 1; }
-
   .customer-sidebar-footer {
-    padding: 16px 24px;
+    padding: 24px;
     border-top: 1px solid rgba(255,255,255,0.08);
   }
 
   .customer-sidebar-back {
     display: block;
     width: 100%;
-    padding: 8px 14px;
+    padding: 10px;
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 6px;
-    font-size: 12px;
+    border-radius: 8px;
+    font-size: 13px; /* INCREASED */
     cursor: pointer;
     transition: all 0.2s;
-    letter-spacing: 0.04em;
     font-family: 'DM Sans', sans-serif;
     color: rgba(255,255,255,0.7);
     text-decoration: none;
     text-align: center;
-    margin-bottom: 8px;
-  }
-
-  .customer-sidebar-back:hover {
-    background: rgba(255,255,255,0.1);
-    color: white;
+    margin-bottom: 10px;
   }
 
   .customer-logout-btn {
     width: 100%;
-    padding: 8px 14px;
+    padding: 10px;
     background: transparent;
     border: 1px solid rgba(255,255,255,0.1);
     color: rgba(248,113,113,0.95);
-    border-radius: 6px;
-    font-size: 12px;
+    border-radius: 8px;
+    font-size: 13px; /* INCREASED */
     cursor: pointer;
     transition: all 0.2s;
-    letter-spacing: 0.04em;
     font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
   }
 
   .customer-logout-btn:hover {
@@ -146,7 +139,7 @@ const CUSTOMER_STYLES = `
 
   .customer-main {
     flex: 1;
-    margin-left: 220px;
+    margin-left: 260px; /* MATCH SIDEBAR WIDTH */
     overflow-y: auto;
     min-height: 100vh;
   }
@@ -154,7 +147,7 @@ const CUSTOMER_STYLES = `
   .customer-page-header {
     background: white;
     border-bottom: 1px solid #e8e3dc;
-    padding: 24px 40px;
+    padding: 32px 48px; /* INCREASED FROM 24px */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -162,154 +155,110 @@ const CUSTOMER_STYLES = `
 
   .customer-page-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
+    font-size: 38px; /* INCREASED FROM 28px (Matches Admin) */
     font-weight: 600;
     color: #1a1a1a;
     letter-spacing: -0.01em;
   }
 
   .customer-page-subtitle {
-    font-size: 12.5px;
+    font-size: 15px; /* INCREASED FROM 12.5px */
     color: #9a8f83;
-    margin-top: 2px;
+    margin-top: 6px;
     letter-spacing: 0.01em;
   }
 
   .customer-page-body {
-    padding: 36px 40px;
+    padding: 48px; /* INCREASED */
   }
 
   .customer-gold-btn {
     background: #0d2137;
     color: #d4af7a;
     border: 1px solid rgba(212,175,122,0.3);
-    padding: 9px 20px;
-    border-radius: 6px;
-    font-size: 13px;
+    padding: 12px 24px; /* INCREASED */
+    border-radius: 8px;
+    font-size: 15px; /* INCREASED FROM 13px */
     font-weight: 500;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     transition: all 0.2s;
     font-family: 'DM Sans', sans-serif;
-    letter-spacing: 0.02em;
     text-decoration: none;
-  }
-
-  .customer-gold-btn:hover {
-    background: #162d47;
-    border-color: rgba(212,175,122,0.6);
-    color: #d4af7a;
   }
 
   .customer-form-label {
     display: block;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 13px; /* INCREASED */
+    font-weight: 600;
     color: #6b7280;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 6px;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
   }
 
   .customer-form-input {
     width: 100%;
-    padding: 9px 14px;
+    padding: 12px 16px; /* INCREASED */
     border: 1px solid #e0dbd4;
-    border-radius: 7px;
-    font-size: 13.5px;
+    border-radius: 8px;
+    font-size: 15px; /* INCREASED FROM 13.5px */
     font-family: 'DM Sans', sans-serif;
     color: #1a1a1a;
     background: #faf9f7;
-    transition: border 0.15s;
+    transition: all 0.2s;
     box-sizing: border-box;
-  }
-
-  .customer-form-input:focus {
-    outline: none;
-    border-color: #d4af7a;
-    background: white;
   }
 
   .customer-card {
     background: white;
-    border-radius: 12px;
-    padding: 24px;
+    border-radius: 16px; /* ROUNDER */
+    padding: 32px; /* INCREASED */
     border: 1px solid #e8e3dc;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
+    transition: all 0.3s ease;
   }
-
-  .customer-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #d4af7a, #e8c87a);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
-  .customer-card:hover {
-    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-  }
-
-  .customer-card:hover::before { opacity: 1; }
 
   .customer-card-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
+    font-size: 24px; /* INCREASED FROM 20px */
     font-weight: 600;
     color: #0d2137;
   }
 
   .customer-card-meta {
-    font-size: 12.5px;
+    font-size: 14px; /* INCREASED */
     color: #9a8f83;
-    margin-top: 4px;
+    margin-top: 6px;
   }
 
   .customer-card-rate {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 26px;
+    font-size: 32px; /* INCREASED FROM 26px */
     font-weight: 600;
     color: #0d2137;
-    margin-top: 12px;
-  }
-
-  .customer-help-section {
-    margin-bottom: 28px;
+    margin-top: 16px;
   }
 
   .customer-help-section h2 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
+    font-size: 24px; /* INCREASED FROM 20px */
     font-weight: 600;
-    color: #0d2137;
-    margin-bottom: 8px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #e8e3dc;
+    margin-bottom: 12px;
   }
 
   .customer-help-section p,
   .customer-help-section ul {
-    font-size: 13.5px;
-    color: #4b5563;
-    line-height: 1.7;
-  }
-
-  .customer-help-section ul {
-    margin: 8px 0 0 1.5rem;
-    padding-left: 0;
+    font-size: 16px; /* INCREASED FROM 13.5px */
+    line-height: 1.8;
   }
 `
 
 const NAV_ITEMS = [
   { to: '/reservations', label: 'My Reservations', icon: '⊞' },
   { to: '/reservations/new', label: 'Book Now', icon: '⊕' },
-  { to: '/reservations/help', label: 'Help', icon: '⊘' }
+  { to: '/reservations/help', label: 'Help Center', icon: '⊘' }
 ]
 
 export default function CustomerLayout() {
@@ -326,15 +275,13 @@ export default function CustomerLayout() {
             <div className="customer-sidebar-title">Ocean View Hotel</div>
             <div className="customer-sidebar-sub">Guest Portal</div>
             {user?.username && (
-              <div className="customer-sidebar-user">{user.username}</div>
+              <div className="customer-sidebar-user">Signed in as: {user.username}</div>
             )}
           </div>
           <nav className="customer-sidebar-nav">
             {NAV_ITEMS.map((item) => {
-              const isActive = location.pathname === item.to ||
-                (item.to === '/reservations' && location.pathname === '/reservations') ||
-                (item.to === '/reservations/new' && location.pathname === '/reservations/new') ||
-                (item.to === '/reservations/help' && location.pathname === '/reservations/help')
+              const isActive = location.pathname === item.to || 
+                               (item.to === '/reservations' && location.pathname.startsWith('/reservations/view'))
               return (
                 <Link
                   key={item.to}
@@ -348,13 +295,13 @@ export default function CustomerLayout() {
             })}
           </nav>
           <div className="customer-sidebar-footer">
-            <Link to="/" className="customer-sidebar-back">← Back to Site</Link>
+            <Link to="/" className="customer-sidebar-back">← Back to Main Site</Link>
             <button
               type="button"
               className="customer-logout-btn"
               onClick={() => { logout(); navigate('/', { state: { logoutSuccess: true } }) }}
             >
-              Logout
+              Sign Out
             </button>
           </div>
         </aside>
