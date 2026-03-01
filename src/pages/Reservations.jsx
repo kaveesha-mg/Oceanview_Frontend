@@ -8,87 +8,138 @@ import { validations, validateForm } from '../utils/validation'
 const css = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
 
-  .res-container { font-family: 'Inter', sans-serif; max-width: 1200px; margin: 0 auto; }
+  .res-container { font-family: 'Inter', sans-serif; background: #fcfcfd; min-height: 100vh; }
   
+  /* ADMIN-STYLE HEADER BAR */
   .customer-page-header {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    padding: 40px 0; border-bottom: 1px solid #eee; margin-bottom: 40px;
+    background: #ffffff;
+    padding: 32px 60px;
+    border-bottom: 1px solid #f1f5f9;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .customer-page-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 42px; color: #0a1628; line-height: 1;
+    font-size: 38px; 
+    color: #0f172a; 
+    line-height: 1.2;
+    margin: 0;
   }
   
   .customer-page-subtitle {
-    font-size: 14px; color: #718096; margin-top: 8px; letter-spacing: 0.05em;
+    font-size: 15px; 
+    color: #64748b; 
+    margin-top: 6px;
   }
 
   .customer-gold-btn {
-    background: #0a1628; color: #f0d48a; border: none;
-    padding: 12px 24px; border-radius: 4px; font-size: 12px;
-    font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em;
-    cursor: pointer; transition: all 0.3s; text-decoration: none;
-    display: inline-flex; align-items: center; gap: 8px;
+    background: #0f172a; 
+    color: #fff; 
+    border: none;
+    padding: 14px 28px; 
+    border-radius: 10px; 
+    font-size: 14px;
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: all 0.2s; 
+    text-decoration: none;
+    display: inline-flex; 
+    align-items: center; 
+    gap: 10px;
   }
-  .customer-gold-btn:hover { background: #1a2a3a; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(10,22,40,0.1); }
+  
+  .customer-gold-btn:hover { 
+    background: #1e293b; 
+    transform: translateY(-1px); 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+  }
+
+  /* BODY CONTENT */
+  .customer-page-body {
+    padding: 0 60px 100px 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
 
   .res-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-    gap: 30px; margin-bottom: 60px;
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 32px; 
   }
 
   .customer-card {
-    background: #fff; border: 1px solid #f0f0f0; border-radius: 8px;
-    padding: 30px; transition: all 0.3s; position: relative;
-    overflow: hidden;
+    background: #fff; 
+    border: 1px solid #e2e8f0; 
+    border-radius: 16px;
+    padding: 32px; 
+    transition: all 0.3s ease; 
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
   }
-  .customer-card:hover { border-color: #f0d48a; box-shadow: 0 15px 40px rgba(0,0,0,0.04); }
+  
+  .customer-card:hover { 
+    border-color: #0f172a; 
+    box-shadow: 0 12px 24px rgba(0,0,0,0.06); 
+  }
 
   .customer-card-title {
-    font-size: 11px; font-weight: 700; color: #c5a367;
-    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 15px;
-    display: flex; justify-content: space-between;
+    font-size: 12px; 
+    font-weight: 700; 
+    color: #94a3b8;
+    letter-spacing: 0.15em; 
+    text-transform: uppercase; 
+    margin-bottom: 20px;
+    display: flex; 
+    justify-content: space-between;
   }
 
   .customer-card-meta {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 24px; color: #0a1628; font-weight: 500;
+    font-size: 28px; 
+    color: #0f172a; 
+    font-weight: 600;
   }
 
   .customer-card-rate {
-    margin-top: 20px; padding-top: 20px; border-top: 1px dashed #eee;
-    font-weight: 600; color: #0a1628; font-size: 18px;
+    margin-top: 24px; 
+    padding-top: 24px; 
+    border-top: 1px solid #f1f5f9;
+    font-weight: 700; 
+    color: #0f172a; 
+    font-size: 20px;
   }
 
   /* Modal Edit Design */
   .edit-modal {
     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
     z-index: 100; width: 100%; max-width: 600px;
-    background: #fff; padding: 50px; border-radius: 4px;
-    box-shadow: 0 30px 90px rgba(0,0,0,0.25);
+    background: #fff; padding: 48px; border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
   }
 
   .customer-form-label {
-    display: block; font-size: 11px; font-weight: 700; color: #0a1628;
-    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;
+    display: block; font-size: 13px; font-weight: 600; color: #334155;
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;
   }
 
   .customer-form-input {
-    width: 100%; padding: 12px 16px; background: #f9f9f9;
-    border: 1px solid #e2e8f0; border-radius: 4px; font-size: 14px;
-    transition: all 0.3s;
+    width: 100%; padding: 12px 16px; background: #f8fafc;
+    border: 1px solid #e2e8f0; border-radius: 10px; font-size: 15px;
+    transition: all 0.2s;
   }
-  .customer-form-input:focus { outline: none; border-color: #f0d48a; background: #fff; }
+  .customer-form-input:focus { outline: none; border-color: #0f172a; background: #fff; }
 
   .bill-preview {
-    background: #0a1628; color: #f0d48a; padding: 20px;
-    border-radius: 4px; margin: 25px 0;
+    background: #0f172a; color: #fff; padding: 24px;
+    border-radius: 12px; margin: 24px 0;
   }
 
   .overlay {
-    position: fixed; inset: 0; background: rgba(10,22,40,0.8);
-    backdrop-filter: blur(4px); z-index: 90;
+    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px); z-index: 90;
   }
 `
 
@@ -208,77 +259,30 @@ export default function Reservations() {
     }, editForm)
     if (errs) {
       const msg = Object.values(errs)[0]
-      setEditError(msg)
-      showValidationAlert(msg)
-      return
+      setEditError(msg); showValidationAlert(msg); return
     }
     const dateErr = validations.dateAfter(editForm.checkOutDate, editForm.checkInDate)
-    if (dateErr) {
-      setEditError(dateErr)
-      showValidationAlert(dateErr)
-      return
-    }
-    if (nights <= 0) {
-      const msg = 'Please select valid check-in and check-out dates'
-      setEditError(msg)
-      showValidationAlert(msg)
-      return
-    }
-    const nicErr = validations.nic(editForm.nicNumber)
-    if (nicErr) {
-      setEditError(nicErr)
-      showValidationAlert(nicErr)
-      return
-    }
-    const phoneErr = validations.phone(editForm.contactNumber)
-    if (phoneErr) {
-      setEditError(phoneErr)
-      showValidationAlert(phoneErr)
-      return
-    }
+    if (dateErr) { setEditError(dateErr); showValidationAlert(dateErr); return }
+    
     setEditLoading(true)
     try {
       const payload = {
-        guestName: editForm.guestName.trim(),
-        address: editForm.address.trim(),
-        nicNumber: editForm.nicNumber.trim(),
-        contactNumber: editForm.contactNumber.trim(),
-        roomType: editForm.roomType.trim(),
-        roomId: null,
-        checkInDate: editForm.checkInDate,
-        checkInTime: parseTime(editForm.checkInTime) ? `${parseTime(editForm.checkInTime)}:00` : '14:00:00',
-        checkOutDate: editForm.checkOutDate,
-        checkOutTime: parseTime(editForm.checkOutTime) ? `${parseTime(editForm.checkOutTime)}:00` : '11:00:00'
+        ...editForm,
+        checkInTime: `${parseTime(editForm.checkInTime)}:00`,
+        checkOutTime: `${parseTime(editForm.checkOutTime)}:00`
       }
       const id = getReservationId(editingReservation)
-      if (!id) {
-        setEditError('Invalid reservation')
-        setEditLoading(false)
-        return
-      }
       const res = await api(`/api/reservations/${id}`, {
         method: 'PUT',
         body: JSON.stringify(payload)
       })
-      const raw = await res.text()
-      let data = {}
-      try {
-        if (raw) data = JSON.parse(raw) || {}
-      } catch (_) {
-        if (!res.ok && raw) data = { error: raw }
-      }
-      if (!res.ok) {
-        const msg = data?.error || data?.message || `Failed to update (${res.status})`
-        throw new Error(msg)
-      }
+      if (!res.ok) throw new Error('Update failed')
+      const data = await res.json()
       setEditingReservation(null)
-      setEditForm(emptyEditForm)
-      const updatedId = data.id ?? data._id
-      setList(prev => prev.map(item => (item.id ?? item._id) === updatedId ? { ...data, id: updatedId } : item))
-      setEditSuccess(`Reservation updated. Bill recalculated: LKR ${(data.totalBill ?? 0).toLocaleString()}.`)
+      fetchList()
+      setEditSuccess('Itinerary updated successfully.')
     } catch (err) {
-      setEditError(err.message)
-      showValidationAlert(err.message)
+      setEditError(err.message); showValidationAlert(err.message)
     } finally {
       setEditLoading(false)
     }
@@ -303,13 +307,14 @@ export default function Reservations() {
     <>
       <style>{css}</style>
       <div className="res-container">
+        {/* NEW ADMIN-STYLE HEADER BAR */}
         <div className="customer-page-header">
           <div>
             <h1 className="customer-page-title">My Itinerary</h1>
             <div className="customer-page-subtitle">Personalized reservations at Ocean View</div>
           </div>
           <Link to="/reservations/new" className="customer-gold-btn">
-            <span>+</span> New Reservation
+            <span style={{fontSize: '18px'}}>+</span> New Reservation
           </Link>
         </div>
 
@@ -318,10 +323,10 @@ export default function Reservations() {
           {editSuccess && <Alert type="success" message={editSuccess} onDismiss={() => setEditSuccess('')} />}
           
           {loading ? (
-            <p style={{ textAlign: 'center', padding: '100px', color: '#a0aec0' }}>Refining your itinerary...</p>
+            <p style={{ textAlign: 'center', padding: '100px', color: '#94a3b8' }}>Refining your itinerary...</p>
           ) : list.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '100px', background: '#fcfaf7', borderRadius: '8px' }}>
-              <p style={{ color: '#718096', marginBottom: '20px' }}>Your travel journal is currently empty.</p>
+            <div style={{ textAlign: 'center', padding: '100px', background: '#fff', border: '1px dashed #e2e8f0', borderRadius: '16px' }}>
+              <p style={{ color: '#64748b', marginBottom: '24px', fontSize: '16px' }}>Your travel journal is currently empty.</p>
               <Link to="/reservations/new" className="customer-gold-btn">Begin Your Journey</Link>
             </div>
           ) : (
@@ -330,21 +335,23 @@ export default function Reservations() {
                 <div key={getReservationId(r)} className="customer-card">
                   <div className="customer-card-title">
                     <span>{r.reservationNumber}</span>
-                    <span style={{color: '#48bb78'}}>Confirmed</span>
+                    <span style={{color: '#10b981', fontWeight: 700}}>✓ Confirmed</span>
                   </div>
                   <div className="customer-card-meta">{r.roomType} Suite</div>
-                  <div style={{ fontSize: '13px', color: '#718096', marginTop: '10px' }}>
+                  <div style={{ fontSize: '15px', color: '#64748b', marginTop: '12px', lineHeight: 1.6 }}>
                     {format(new Date(r.checkInDate), 'MMMM do')} — {format(new Date(r.checkOutDate), 'MMMM do, yyyy')}
-                    <br /> {r.nights} Nights · {r.guestName}
+                    <br /> <strong style={{color: '#334155'}}>{r.nights} Nights</strong> · {r.guestName}
                   </div>
                   <div className="customer-card-rate">LKR {r.totalBill?.toLocaleString()}</div>
                   
-                  <div style={{ marginTop: '25px', display: 'flex', gap: '12px' }}>
-                    <button onClick={() => setEditingReservation(r)} className="customer-gold-btn" style={{flex: 1, justifyContent: 'center'}}>Edit</button>
+                  <div style={{ marginTop: '32px', display: 'flex', gap: '12px' }}>
+                    <button onClick={() => setEditingReservation(r)} className="customer-gold-btn" style={{flex: 1, justifyContent: 'center'}}>Edit Stay</button>
                     <button 
                       onClick={() => handleDelete(r)} 
                       disabled={deleteLoadingId === getReservationId(r)}
-                      style={{ padding: '12px', background: 'transparent', border: '1px solid #e2e8f0', color: '#e53e3e', borderRadius: '4px', cursor: 'pointer', fontSize: '12px', fontWeight: '600' }}
+                      style={{ padding: '0 20px', background: 'transparent', border: '1px solid #e2e8f0', color: '#ef4444', borderRadius: '10px', cursor: 'pointer', fontSize: '14px', fontWeight: '600', transition: 'all 0.2s' }}
+                      onMouseOver={(e) => e.target.style.background = '#fef2f2'}
+                      onMouseOut={(e) => e.target.style.background = 'transparent'}
                     >
                       {deleteLoadingId === getReservationId(r) ? '...' : 'Cancel'}
                     </button>
@@ -360,43 +367,43 @@ export default function Reservations() {
         <>
           <div className="overlay" onClick={() => setEditingReservation(null)} />
           <div className="edit-modal">
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px' }}>
-              <h3 style={{ fontFamily: 'Cormorant Garamond', fontSize: '28px', margin: 0 }}>Modify Reservation</h3>
-              <button onClick={() => setEditingReservation(null)} style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer' }}>×</button>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '32px' }}>
+              <h3 style={{ fontFamily: 'Cormorant Garamond', fontSize: '32px', margin: 0, fontWeight: 600 }}>Modify Stay</h3>
+              <button onClick={() => setEditingReservation(null)} style={{ background: 'none', border: 'none', fontSize: '28px', cursor: 'pointer', color: '#94a3b8' }}>×</button>
             </div>
             
             <form onSubmit={handleEditSubmit}>
               {editError && <Alert message={editError} onDismiss={() => setEditError('')} />}
               
-              <div style={{ marginBottom: '20px' }}>
+              <div style={{ marginBottom: '24px' }}>
                 <label className="customer-form-label">Primary Guest</label>
                 <input name="guestName" value={editForm.guestName} onChange={handleEditChange} className="customer-form-input" />
               </div>
 
-              <div className="res-grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '0' }}>
-                <div style={{ marginBottom: '20px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+                <div>
                   <label className="customer-form-label">NIC / Passport</label>
                   <input name="nicNumber" value={editForm.nicNumber} onChange={handleEditChange} className="customer-form-input" />
                 </div>
-                <div style={{ marginBottom: '20px' }}>
+                <div>
                   <label className="customer-form-label">Contact</label>
                   <input name="contactNumber" value={editForm.contactNumber} onChange={handleEditChange} className="customer-form-input" />
                 </div>
               </div>
 
-              <div style={{ marginBottom: '20px' }}>
+              <div style={{ marginBottom: '24px' }}>
                 <label className="customer-form-label">Suite Preference</label>
                 <select name="roomType" value={editForm.roomType} onChange={handleEditChange} className="customer-form-input">
                   {roomTypes.map(t => <option key={t} value={t}>{t}</option>)}
                 </select>
               </div>
 
-              <div className="res-grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '0' }}>
-                <div style={{ marginBottom: '20px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+                <div>
                   <label className="customer-form-label">Check-in</label>
                   <input name="checkInDate" type="date" value={editForm.checkInDate} onChange={handleEditChange} className="customer-form-input" />
                 </div>
-                <div style={{ marginBottom: '20px' }}>
+                <div>
                   <label className="customer-form-label">Check-out</label>
                   <input name="checkOutDate" type="date" value={editForm.checkOutDate} onChange={handleEditChange} className="customer-form-input" />
                 </div>
@@ -404,14 +411,14 @@ export default function Reservations() {
 
               {nights > 0 && (
                 <div className="bill-preview">
-                  <div style={{fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.8, marginBottom: '5px'}}>Estimated Total</div>
-                  <div style={{fontSize: '22px', fontWeight: '600'}}>LKR {totalBill.toLocaleString()}</div>
-                  <div style={{fontSize: '12px', opacity: 0.7, marginTop: '5px'}}>{nights} Nights at LKR {selectedRate?.toLocaleString()}/night</div>
+                  <div style={{fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.8, marginBottom: '8px'}}>Updated Estimated Total</div>
+                  <div style={{fontSize: '28px', fontWeight: '700'}}>LKR {totalBill.toLocaleString()}</div>
+                  <div style={{fontSize: '14px', opacity: 0.8, marginTop: '8px'}}>{nights} Nights at LKR {selectedRate?.toLocaleString()}/night</div>
                 </div>
               )}
 
-              <button type="submit" disabled={editLoading} className="customer-gold-btn" style={{ width: '100%', justifyContent: 'center', padding: '16px' }}>
-                {editLoading ? 'Updating Itinerary...' : 'Confirm Changes'}
+              <button type="submit" disabled={editLoading} className="customer-gold-btn" style={{ width: '100%', justifyContent: 'center', padding: '18px' }}>
+                {editLoading ? 'Updating Stay...' : 'Confirm Changes'}
               </button>
             </form>
           </div>
