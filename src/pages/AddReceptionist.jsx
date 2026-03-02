@@ -4,117 +4,161 @@ import { Alert, showValidationAlert } from '../components/Alert'
 import { validations, validateForm } from '../utils/validation'
 
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap');
 
-  .provisioning-container { font-family: 'Inter', sans-serif; color: #1e293b; }
+  /* FULL PAGE WRAPPER WITH RESORT BACKGROUND */
+  .provisioning-container { 
+    font-family: 'Inter', sans-serif; 
+    color: #1e293b; 
+    min-height: 100vh;
+    background: linear-gradient(rgba(253, 250, 245, 0.45), rgba(253, 250, 245, 0.45)), 
+                url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+  }
 
+  /* FROSTED GLASS HEADER */
   .admin-page-header {
-    padding: 48px 0;
-    padding-left: 60px; 
-    border-bottom: 1px solid #f1f5f9;
-    margin-bottom: 48px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 40px 60px;
+    border-bottom: 1px solid rgba(229, 222, 201, 0.5);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    z-index: 10;
   }
 
   .admin-page-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 38px;
+    font-size: 42px;
+    font-weight: 700;
     color: #0f172a;
     margin: 0;
   }
 
   .admin-page-subtitle {
-    font-size: 16px;
-    color: #64748b;
-    margin-top: 6px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #d4af7a;
+    font-weight: 700;
+    margin-top: 8px;
   }
 
+  /* CENTERED BODY CONTENT */
   .admin-page-body {
-    padding-left: 60px; /* SPACE FOR SIDEBAR */
-    padding-right: 60px;
-    padding-bottom: 100px;
-    display: flex;        /* ADDED FOR CENTERING */
-    justify-content: center; /* ALIGN HORIZONTALLY */
-    align-items: flex-start; /* KEEP AT TOP OF PAGE */
+    flex: 1;
+    padding: 60px;
+    background: rgba(253, 250, 245, 0.6); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
   }
 
+  /* PREMIUM FORM CARD */
   .form-card {
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.95);
     border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 48px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-    width: 100%;           /* ENSURE RESPONSIVENESS */
-    max-width: 580px;      /* CONTROLLED WIDTH */
+    border-radius: 24px;
+    padding: 50px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 580px;
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .info-banner {
-    background: #f8fafc;
-    border-left: 4px solid #0f172a;
-    padding: 20px;
-    border-radius: 4px 12px 12px 4px;
-    margin-bottom: 32px;
+    background: #0f172a;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(212, 175, 122, 0.3);
   }
 
   .info-banner p {
-    font-size: 14px;
-    color: #475569;
-    line-height: 1.7;
+    font-size: 13px;
+    color: #cbd5e1;
+    line-height: 1.6;
     margin: 0;
   }
 
+  .info-banner strong {
+    color: #d4af7a;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 8px;
+  }
+
   .form-group {
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
 
   .admin-form-label {
     display: block;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #475569;
+    letter-spacing: 0.1em;
+    color: #64748b;
     margin-bottom: 10px;
   }
 
   .admin-form-input {
     width: 100%;
-    padding: 14px 18px;
-    border: 1px solid #cbd5e1;
-    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
     font-size: 15px;
-    transition: all 0.2s;
+    transition: all 0.3s;
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
+    background: #fcfcfd;
   }
 
   .admin-form-input:focus {
     outline: none;
-    border-color: #0f172a;
-    box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.08);
+    border-color: #d4af7a;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(212, 175, 122, 0.15);
   }
 
   .admin-gold-btn {
     width: 100%;
     background: #0f172a;
-    color: #ffffff;
-    border: none;
-    padding: 16px;
-    border-radius: 10px;
+    color: #d4af7a;
+    border: 1px solid rgba(212, 175, 122, 0.3);
+    padding: 18px;
+    border-radius: 12px;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     cursor: pointer;
-    transition: all 0.2s;
-    margin-top: 12px;
+    transition: all 0.3s;
+    margin-top: 15px;
   }
 
   .admin-gold-btn:hover {
-    background: #1e293b;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    background: #d4af7a;
+    color: #0f172a;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(212, 175, 122, 0.2);
   }
 
-  .admin-gold-btn:active {
-    transform: scale(0.99);
+  .admin-gold-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 `
 
@@ -123,56 +167,67 @@ export default function AddReceptionist() {
   const [form, setForm] = useState({ username: '', password: '', fullName: '', email: '' })
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
     setSuccess(false)
+    setLoading(true)
+
     const errs = validateForm({
       username: (v) => validations.username(v),
       password: (v) => validations.password(v),
       fullName: (v) => validations.required(v, 'Full name'),
       email: (v) => validations.email(v)
     }, form)
+
     if (errs) {
       const msg = Object.values(errs)[0]
       setError(msg)
       showValidationAlert(msg)
+      setLoading(false)
       return
     }
+
     try {
       const res = await api('/api/users/receptionist', {
         method: 'POST',
         body: JSON.stringify(form)
       })
+      
       const text = await res.text()
       let data = {}
       try { data = text ? JSON.parse(text) : {} } catch { data = {} }
-      if (!res.ok) throw new Error(data.error || Object.values(data)[0] || 'Failed')
+      
+      if (!res.ok) throw new Error(data.error || 'Failed to provision account')
+      
       setSuccess(true)
       setForm({ username: '', password: '', fullName: '', email: '' })
     } catch (err) {
-      const msg = err.message || 'Failed to add receptionist'
-      setError(msg)
-      showValidationAlert(msg)
+      setError(err.message)
+      showValidationAlert(err.message)
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
     <div className="provisioning-container">
       <style>{css}</style>
-      <div className="admin-page-header">
+      
+      <header className="admin-page-header">
         <div>
-          <h1 className="admin-page-title">Add Receptionist</h1>
-          <div className="admin-page-subtitle">Create a new receptionist account for front desk staff</div>
+          <h1 className="admin-page-title">Receptionist Provisioning</h1>
+          <div className="admin-page-subtitle">Security protocol for front desk authorization</div>
         </div>
-      </div>
+      </header>
 
-      <div className="admin-page-body">
+      <main className="admin-page-body">
         <div className="form-card">
           <div className="info-banner">
             <p>
-              <strong>Security Protocol: Access Level — Receptionist</strong><br />
+              <strong>Access Level — Concierge & Front Desk</strong>
               New accounts are authorized for walk-in bookings and live availability checks. 
               Financial ledgers and core system configurations remain restricted to Super Admin roles.
             </p>
@@ -183,34 +238,32 @@ export default function AddReceptionist() {
             {success && <Alert type="success" message="Receptionist account provisioned successfully." onDismiss={() => setSuccess(false)} />}
             
             <div className="form-group">
-              <label className="admin-form-label">System Username *</label>
+              <label className="admin-form-label">System Username</label>
               <input 
-                placeholder="e.g. jdoe_frontdesk"
+                placeholder="e.g. frontdesk_sam"
                 value={form.username} 
                 onChange={e => setForm(f => ({ ...f, username: e.target.value }))} 
                 required 
-                minLength={3} 
                 className="admin-form-input" 
               />
             </div>
 
             <div className="form-group">
-              <label className="admin-form-label">Temporary Password *</label>
+              <label className="admin-form-label">Temporary Password</label>
               <input 
                 type="password" 
-                placeholder="••••••••"
+                placeholder="Minimum 6 characters"
                 value={form.password} 
                 onChange={e => setForm(f => ({ ...f, password: e.target.value }))} 
                 required 
-                minLength={6} 
                 className="admin-form-input" 
               />
             </div>
 
             <div className="form-group">
-              <label className="admin-form-label">Full Legal Name *</label>
+              <label className="admin-form-label">Full Legal Name</label>
               <input 
-                placeholder="Jane Doe"
+                placeholder="As per identification"
                 value={form.fullName} 
                 onChange={e => setForm(f => ({ ...f, fullName: e.target.value }))} 
                 required 
@@ -222,17 +275,19 @@ export default function AddReceptionist() {
               <label className="admin-form-label">Official Email</label>
               <input 
                 type="email" 
-                placeholder="jane@hotel.com"
+                placeholder="staff@luxuryresort.com"
                 value={form.email} 
                 onChange={e => setForm(f => ({ ...f, email: e.target.value }))} 
                 className="admin-form-input" 
               />
             </div>
 
-            <button type="submit" className="admin-gold-btn">Provision Account</button>
+            <button type="submit" className="admin-gold-btn" disabled={loading}>
+              {loading ? 'Authorizing...' : 'Provision Account'}
+            </button>
           </form>
         </div>
-      </div>
+      </main>
     </div>
   )
 }
