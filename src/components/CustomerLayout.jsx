@@ -2,152 +2,159 @@ import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 const CUSTOMER_STYLES = `
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
 
   .customer-root {
-    font-family: 'DM Sans', sans-serif;
-    background: #f0ede8;
+    font-family: 'Inter', sans-serif;
+    background: #fdfaf5; /* MATCHES FORM BACKGROUND */
     min-height: 100vh;
     display: flex;
   }
 
+  /* SIDEBAR REDESIGN - DEEP NAVY */
   .customer-sidebar {
-    width: 260px; /* INCREASED FROM 220px */
+    width: 280px; 
     min-height: 100vh;
-    background: #0d2137;
+    background: #0f172a; /* Deep Navy to match Price Summary */
     display: flex;
     flex-direction: column;
     padding: 0;
     position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    flex-shrink: 0;
-    z-index: 10;
-    isolation: isolate;
+    top: 0; left: 0; bottom: 0;
+    z-index: 100;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1);
   }
 
   .customer-sidebar-logo {
-    padding: 32px 24px; /* INCREASED */
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    flex-shrink: 0;
+    padding: 40px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    background: rgba(0,0,0,0.2);
   }
 
   .customer-sidebar-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 22px; /* INCREASED FROM 18px */
-    font-weight: 600;
-    color: #d4af7a;
-    letter-spacing: 0.04em;
+    font-size: 24px;
+    font-weight: 700;
+    color: #d4af7a; /* Gold Accent */
+    letter-spacing: 0.02em;
     line-height: 1.2;
   }
 
   .customer-sidebar-sub {
-    font-size: 11px; /* INCREASED FROM 10px */
-    color: rgba(255,255,255,0.5);
-    letter-spacing: 0.15em;
+    font-size: 11px;
+    color: rgba(212, 175, 122, 0.6);
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    margin-top: 4px;
+    margin-top: 6px;
+    font-weight: 700;
   }
 
   .customer-sidebar-user {
-    font-size: 13px; /* INCREASED FROM 11px */
-    color: rgba(255,255,255,0.5);
-    margin-top: 10px;
-    text-transform: none;
-    letter-spacing: 0;
+    font-size: 13px;
+    color: #94a3b8;
+    margin-top: 15px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 6px;
+    display: inline-block;
   }
 
   .customer-sidebar-nav {
     flex: 1;
-    padding: 24px 0;
+    padding: 30px 15px;
   }
 
   .customer-nav-link {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 14px 24px; /* INCREASED PADDING */
-    color: rgba(255,255,255,0.5);
-    font-size: 15px; /* INCREASED FROM 13px */
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    transition: all 0.2s;
-    border-left: 3px solid transparent;
+    gap: 14px;
+    padding: 14px 20px;
+    color: #94a3b8;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
     text-decoration: none;
+    border-radius: 10px;
+    margin-bottom: 8px;
   }
 
   .customer-nav-link:hover {
-    color: rgba(255,255,255,0.9);
-    background: rgba(255,255,255,0.04);
+    color: #ffffff;
+    background: rgba(255,255,255,0.05);
   }
 
   .customer-nav-link.active {
-    color: #d4af7a;
-    border-left-color: #d4af7a;
-    background: rgba(212,175,122,0.08);
-    font-weight: 500;
+    color: #0f172a;
+    background: #d4af7a; /* Gold background for active state */
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(212, 175, 122, 0.3);
   }
 
   .customer-nav-icon {
-    font-size: 18px; /* INCREASED FROM 15px */
-    width: 20px;
+    font-size: 20px;
+    width: 24px;
     text-align: center;
-    opacity: 0.7;
   }
 
   .customer-sidebar-footer {
     padding: 24px;
-    border-top: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.2);
   }
 
   .customer-sidebar-back {
     display: block;
     width: 100%;
-    padding: 10px;
-    background: rgba(255,255,255,0.05);
+    padding: 12px;
+    background: transparent;
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 8px;
-    font-size: 13px; /* INCREASED */
+    font-size: 13px;
     cursor: pointer;
     transition: all 0.2s;
-    font-family: 'DM Sans', sans-serif;
-    color: rgba(255,255,255,0.7);
+    color: #94a3b8;
     text-decoration: none;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+  }
+
+  .customer-sidebar-back:hover {
+    border-color: #d4af7a;
+    color: #d4af7a;
   }
 
   .customer-logout-btn {
     width: 100%;
-    padding: 10px;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.1);
-    color: rgba(248,113,113,0.95);
+    padding: 12px;
+    background: rgba(248, 113, 113, 0.1);
+    border: 1px solid rgba(248, 113, 113, 0.2);
+    color: #f87171;
     border-radius: 8px;
-    font-size: 13px; /* INCREASED */
+    font-size: 13px;
     cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
   }
 
   .customer-logout-btn:hover {
-    background: rgba(248,113,113,0.15);
-    color: #f87171;
+    background: #f87171;
+    color: #ffffff;
   }
 
   .customer-main {
     flex: 1;
-    margin-left: 260px; /* MATCH SIDEBAR WIDTH */
-    overflow-y: auto;
+    margin-left: 280px; 
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
+  /* CONTENT SYYLING */
   .customer-page-header {
-    background: white;
-    border-bottom: 1px solid #e8e3dc;
-    padding: 32px 48px; /* INCREASED FROM 24px */
+    background: #ffffff;
+    border-bottom: 1px solid #e5dec9;
+    padding: 30px 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -155,110 +162,23 @@ const CUSTOMER_STYLES = `
 
   .customer-page-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 38px; /* INCREASED FROM 28px (Matches Admin) */
-    font-weight: 600;
-    color: #1a1a1a;
-    letter-spacing: -0.01em;
+    font-size: 34px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
   }
 
   .customer-page-subtitle {
-    font-size: 15px; /* INCREASED FROM 12.5px */
-    color: #9a8f83;
-    margin-top: 6px;
-    letter-spacing: 0.01em;
-  }
-
-  .customer-page-body {
-    padding: 48px; /* INCREASED */
-  }
-
-  .customer-gold-btn {
-    background: #0d2137;
-    color: #d4af7a;
-    border: 1px solid rgba(212,175,122,0.3);
-    padding: 12px 24px; /* INCREASED */
-    border-radius: 8px;
-    font-size: 15px; /* INCREASED FROM 13px */
-    font-weight: 500;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.2s;
-    font-family: 'DM Sans', sans-serif;
-    text-decoration: none;
-  }
-
-  .customer-form-label {
-    display: block;
-    font-size: 13px; /* INCREASED */
-    font-weight: 600;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 10px;
-  }
-
-  .customer-form-input {
-    width: 100%;
-    padding: 12px 16px; /* INCREASED */
-    border: 1px solid #e0dbd4;
-    border-radius: 8px;
-    font-size: 15px; /* INCREASED FROM 13.5px */
-    font-family: 'DM Sans', sans-serif;
-    color: #1a1a1a;
-    background: #faf9f7;
-    transition: all 0.2s;
-    box-sizing: border-box;
-  }
-
-  .customer-card {
-    background: white;
-    border-radius: 16px; /* ROUNDER */
-    padding: 32px; /* INCREASED */
-    border: 1px solid #e8e3dc;
-    transition: all 0.3s ease;
-  }
-
-  .customer-card-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px; /* INCREASED FROM 20px */
-    font-weight: 600;
-    color: #0d2137;
-  }
-
-  .customer-card-meta {
-    font-size: 14px; /* INCREASED */
-    color: #9a8f83;
-    margin-top: 6px;
-  }
-
-  .customer-card-rate {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 32px; /* INCREASED FROM 26px */
-    font-weight: 600;
-    color: #0d2137;
-    margin-top: 16px;
-  }
-
-  .customer-help-section h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px; /* INCREASED FROM 20px */
-    font-weight: 600;
-    margin-bottom: 12px;
-  }
-
-  .customer-help-section p,
-  .customer-help-section ul {
-    font-size: 16px; /* INCREASED FROM 13.5px */
-    line-height: 1.8;
+    font-size: 14px;
+    color: #64748b;
+    margin-top: 4px;
   }
 `
 
 const NAV_ITEMS = [
   { to: '/reservations', label: 'My Reservations', icon: '⊞' },
-  { to: '/reservations/new', label: 'Book Now', icon: '⊕' },
-  { to: '/reservations/help', label: 'Help Center', icon: '⊘' }
+  { to: '/reservations/new', label: 'Book a Suite', icon: '⊕' },
+  { to: '/reservations/help', label: 'Guest Support', icon: '⊘' }
 ]
 
 export default function CustomerLayout() {
@@ -272,12 +192,13 @@ export default function CustomerLayout() {
       <div className="customer-root">
         <aside className="customer-sidebar">
           <div className="customer-sidebar-logo">
-            <div className="customer-sidebar-title">Ocean View Hotel</div>
-            <div className="customer-sidebar-sub">Guest Portal</div>
+            <div className="customer-sidebar-title">Ocean View</div>
+            <div className="customer-sidebar-sub">Luxury Collection</div>
             {user?.username && (
-              <div className="customer-sidebar-user">Signed in as: {user.username}</div>
+              <div className="customer-sidebar-user">Welcome, {user.username}</div>
             )}
           </div>
+          
           <nav className="customer-sidebar-nav">
             {NAV_ITEMS.map((item) => {
               const isActive = location.pathname === item.to || 
@@ -294,17 +215,19 @@ export default function CustomerLayout() {
               )
             })}
           </nav>
+          
           <div className="customer-sidebar-footer">
-            <Link to="/" className="customer-sidebar-back">← Back to Main Site</Link>
+            <Link to="/" className="customer-sidebar-back">Main Website</Link>
             <button
               type="button"
               className="customer-logout-btn"
-              onClick={() => { logout(); navigate('/', { state: { logoutSuccess: true } }) }}
+              onClick={() => { logout(); navigate('/') }}
             >
-              Sign Out
+              Log Out
             </button>
           </div>
         </aside>
+        
         <main className="customer-main">
           <Outlet />
         </main>
