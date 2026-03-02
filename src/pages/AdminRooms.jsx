@@ -6,119 +6,178 @@ import { validations, validateForm } from '../utils/validation'
 const emptyForm = { roomNumber: '', roomType: '', ratePerNight: '', description: '', imageUrl: '' }
 
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@300;400;500;600;700&display=swap');
 
-  .room-mgmt-container { font-family: 'Inter', sans-serif; color: #1e293b; }
+  :root {
+    --brand-dark: #0f172a;
+    --brand-accent: #6366f1;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --bg-soft: #f8fafc;
+    --border-color: #e2e8f0;
+    --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .room-mgmt-container { font-family: 'Inter', sans-serif; color: var(--text-main); background: #fff; min-height: 100vh; }
   
+  /* Header Alignment */
   .admin-page-header {
     display: flex; 
-    justify-content: flex-start; /* CHANGED FROM space-between TO ALIGN LEFT */
+    justify-content: space-between;
     align-items: flex-end;
-    gap: 40px; /* SPACE BETWEEN TITLE AND BUTTON */
-    padding: 48px 0; 
-    padding-left: 60px; 
-    border-bottom: 1px solid #e5e7eb; 
+    padding: 60px; 
+    border-bottom: 1px solid var(--border-color); 
     margin-bottom: 40px;
   }
 
   .admin-page-title {
     font-family: 'Cormorant Garamond', serif; 
-    font-size: 38px; 
-    color: #111827; 
+    font-size: 42px; 
+    color: var(--brand-dark); 
     margin: 0;
-    line-height: 1.1;
+    line-height: 1;
   }
 
   .admin-page-subtitle { 
     font-size: 16px; 
-    color: #6b7280; 
-    margin-top: 6px; 
+    color: var(--text-muted); 
+    margin-top: 12px; 
   }
 
   .admin-page-body {
-    padding-left: 60px; 
-    padding-right: 40px;
-    padding-bottom: 100px;
+    padding: 0 60px 100px 60px;
+    max-width: 1600px;
+    margin: 0 auto;
   }
 
+  /* Buttons */
   .admin-gold-btn {
-    background: #111827; 
+    background: var(--brand-dark); 
     color: #fff; 
     border: none; 
-    padding: 14px 28px;
-    border-radius: 8px; 
-    font-size: 15px; 
-    font-weight: 600; 
+    padding: 16px 32px;
+    border-radius: 12px; 
+    font-size: 14px; 
+    font-weight: 700; 
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     cursor: pointer;
-    transition: all 0.2s; 
+    transition: var(--transition-smooth); 
     display: flex; 
     align-items: center; 
-    gap: 8px;
-    margin-bottom: 4px; /* ALIGN BETTER WITH BOTTOM OF TEXT */
+    gap: 10px;
   }
   
   .admin-gold-btn:hover { 
-    background: #1f2937; 
-    transform: translateY(-1px); 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+    transform: translateY(-2px); 
+    box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.2); 
+    background: #1e293b;
   }
 
+  /* Room Grid & Cards */
   .room-grid {
     display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); 
     gap: 32px;
   }
 
   .room-card {
     background: #fff; 
-    border-radius: 16px; 
-    border: 1px solid #e5e7eb;
+    border-radius: 24px; 
+    border: 1px solid var(--border-color);
     overflow: hidden; 
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    transition: var(--transition-smooth);
+    position: relative;
   }
-  .room-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+
+  .room-card:hover { 
+    transform: translateY(-10px); 
+    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.1); 
+    border-color: #cbd5e1;
+  }
+
+  .room-image-container {
+    height: 260px;
+    background: var(--bg-soft);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .room-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .room-card:hover .room-card-img {
+    transform: scale(1.05);
+  }
 
   .room-badge {
-    position: absolute; top: 16px; left: 16px; padding: 6px 12px;
-    border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.05em; backdrop-filter: blur(8px);
+    position: absolute; 
+    top: 20px; 
+    left: 20px; 
+    padding: 8px 16px;
+    border-radius: 100px; 
+    font-size: 11px; 
+    font-weight: 800; 
+    text-transform: uppercase;
+    letter-spacing: 0.08em; 
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  /* Form & Modal */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); 
+    zIndex: 100; backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+
+  .admin-form-card {
+    background: #fff;
+    padding: 48px;
+    border-radius: 32px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 40px 100px -20px rgba(0,0,0,0.25);
   }
 
   .admin-form-label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
+    display: block; font-size: 11px; font-weight: 800; color: var(--text-muted);
+    margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.1em;
   }
 
   .admin-form-input {
-    width: 100%; 
-    padding: 14px 18px; 
-    border: 1px solid #d1d5db; 
-    border-radius: 10px;
-    font-size: 15px; 
-    transition: all 0.2s;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    width: 100%; padding: 16px 20px; border: 1px solid var(--border-color); 
+    border-radius: 14px; font-size: 15px; transition: var(--transition-smooth);
+    font-family: 'Inter', sans-serif; background: var(--bg-soft);
   }
-  .admin-form-input:focus { outline: none; border-color: #111827; box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.08); }
+
+  .admin-form-input:focus { 
+    outline: none; border-color: var(--brand-dark); background: #fff;
+    box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.05); 
+  }
 
   .delete-btn {
-    padding: 12px 18px; 
-    font-size: 14px; 
-    font-weight: 600; 
-    color: #991b1b;
-    background: #fef2f2; 
-    border: 1px solid #fee2e2; 
-    border-radius: 10px; 
-    cursor: pointer;
-    transition: all 0.2s;
+    padding: 14px 20px; font-size: 14px; font-weight: 600; color: #ef4444;
+    background: #fff; border: 1px solid #fee2e2; border-radius: 12px; 
+    cursor: pointer; transition: all 0.2s;
   }
-  .delete-btn:hover { background: #fee2e2; color: #7f1d1d; }
+  .delete-btn:hover { background: #fef2f2; border-color: #fecaca; }
+
+  @media (max-width: 768px) {
+    .admin-page-header { padding: 40px 24px; flex-direction: column; align-items: flex-start; gap: 24px; }
+    .admin-page-body { padding: 0 24px 60px 24px; }
+    .room-grid { grid-template-columns: 1fr; }
+  }
 `
 
 export default function AdminRooms() {
@@ -135,8 +194,7 @@ export default function AdminRooms() {
     api('/api/rooms')
       .then(async r => {
         const t = await r.text()
-        try { return t ? JSON.parse(t) : [] }
-        catch { return [] }
+        try { return t ? JSON.parse(t) : [] } catch { return [] }
       })
       .then(setRooms)
       .catch(() => setRooms([]))
@@ -149,9 +207,8 @@ export default function AdminRooms() {
     const file = e.target.files?.[0]
     if (!file || !file.type.startsWith('image/')) return
     if (file.size > 5 * 1024 * 1024) {
-      const msg = 'Image must be under 5MB'; setError(msg); showValidationAlert(msg); return
+      showValidationAlert('Image must be under 5MB'); return
     }
-    setError('')
     setUploading(true)
     try {
       const formData = new FormData()
@@ -162,68 +219,62 @@ export default function AdminRooms() {
         headers: t ? { Authorization: `Bearer ${t}` } : {},
         body: formData
       })
-      const data = await res.json().catch(() => ({}))
+      const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Upload failed')
       setForm(f => ({ ...f, imageUrl: data.imageUrl || '' }))
     } catch (err) {
-      const msg = err.message || 'Failed to upload image'; setError(msg); showValidationAlert(msg)
+      showValidationAlert(err.message)
     } finally {
       setUploading(false); e.target.value = ''
     }
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); setError('')
+    e.preventDefault()
     const errs = validateForm({
       roomNumber: (v) => validations.required(v, 'Room number'),
       roomType: (v) => validations.required(v, 'Room type'),
       ratePerNight: (v) => validations.positiveNumber(v, 'Rate per night')
     }, form)
-    if (errs) { const msg = Object.values(errs)[0]; setError(msg); showValidationAlert(msg); return }
+    if (errs) { showValidationAlert(Object.values(errs)[0]); return }
 
     const body = { ...form, ratePerNight: parseFloat(form.ratePerNight) }
     const res = editing
       ? await api(`/api/admin/rooms/${editing.id}`, { method: 'PUT', body: JSON.stringify(body) })
       : await api('/api/admin/rooms', { method: 'POST', body: JSON.stringify(body) })
 
-    const text = await res.text()
-    let data = {}
-    try { data = text ? JSON.parse(text) : {} } catch { data = {} }
-
     if (!res.ok) {
-      const msg = typeof data === 'object' ? (data.error || Object.values(data)[0] || 'Failed') : 'Failed'
-      setError(msg); showValidationAlert(msg); return
+      const data = await res.json().catch(() => ({}))
+      showValidationAlert(data.error || 'Operation failed'); return
     }
-    setForm(emptyForm); setEditing(null); setShowForm(false); load()
+    closeForm(); load()
   }
 
   const handleDelete = async (id) => {
-    if (!confirm('Delete this room? This cannot be undone.')) return
+    if (!confirm('Delete this room permanently?')) return
     try {
       const res = await api(`/api/admin/rooms/${id}`, { method: 'DELETE' })
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({})); throw new Error(data.error || 'Failed to delete room')
-      }
+      if (!res.ok) throw new Error('Failed to delete')
       load()
-    } catch (e) { showValidationAlert(e?.message || 'Failed to delete room') }
+    } catch (e) { showValidationAlert(e.message) }
   }
 
-  const openAddForm = () => { setEditing(null); setForm(emptyForm); setError(''); setShowForm(true) }
+  const openAddForm = () => { setEditing(null); setForm(emptyForm); setShowForm(true) }
   const openEditForm = (room) => {
-    setEditing(room); setForm({
-      roomNumber: room.roomNumber, roomType: room.roomType,
-      ratePerNight: String(room.ratePerNight), description: room.description || '', imageUrl: room.imageUrl || ''
-    }); setError(''); setShowForm(true)
+    setEditing(room); 
+    setForm({ ...room, ratePerNight: String(room.ratePerNight) }); 
+    setShowForm(true)
   }
   const closeForm = () => { setShowForm(false); setEditing(null); setForm(emptyForm); setError('') }
 
   return (
     <div className="room-mgmt-container">
       <style>{css}</style>
+      
       <div className="admin-page-header">
         <div>
           <h1 className="admin-page-title">Inventory Control</h1>
-          <div className="admin-page-subtitle">Managing {rooms.length} active hotel accommodations</div>
+          <div className="admin-page-subtitle">Refining the portfolio of {rooms.length} accommodations</div>
         </div>
         <button type="button" onClick={openAddForm} className="admin-gold-btn">
           <span>+ Add New Unit</span>
@@ -231,47 +282,45 @@ export default function AdminRooms() {
       </div>
 
       <div className="admin-page-body">
-        {error && <Alert message={error} onDismiss={() => setError('')} />}
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '100px 0', color: '#6b7280', fontSize: '18px', fontWeight: '500' }}>Initializing inventory...</div>
-        ) : rooms.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '100px 0', border: '2px dashed #e5e7eb', borderRadius: '20px' }}>
-            <p style={{ color: '#6b7280', fontSize: '18px' }}>The portfolio is currently empty.</p>
-          </div>
+          <div style={{ textAlign: 'center', padding: '100px 0', color: '#94a3b8' }}>Syncing global inventory...</div>
         ) : (
           <div className="room-grid">
             {rooms.map((room) => (
               <div key={room.id} className="room-card">
-                <div style={{ height: 240, background: '#f3f4f6', position: 'relative' }}>
+                <div className="room-image-container">
                   {room.imageUrl ? (
-                    <img src={room.imageUrl} alt={room.roomNumber} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <img src={room.imageUrl} alt={room.roomNumber} className="room-card-img" />
                   ) : (
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#9ca3af', fontSize: '14px', background: 'linear-gradient(45deg, #f8fafc, #f1f5f9)' }}>
-                      No Image Provided
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#94a3b8', fontSize: '13px', background: '#f1f5f9' }}>
+                      Image Placeholder
                     </div>
                   )}
                   <div className="room-badge" style={{ 
-                    background: room.available ? 'rgba(236, 253, 245, 0.95)' : 'rgba(254, 242, 242, 0.95)', 
+                    background: room.available ? 'rgba(236, 253, 245, 0.9)' : 'rgba(254, 242, 242, 0.9)', 
                     color: room.available ? '#065f46' : '#991b1b',
                     border: `1px solid ${room.available ? '#a7f3d0' : '#fecaca'}`
                   }}>
-                    {room.available ? '● Ready' : '● Booked'}
+                    <span style={{width: 6, height: 6, borderRadius: '50%', background: 'currentColor'}}></span>
+                    {room.available ? 'Ready' : 'Occupied'}
                   </div>
                 </div>
-                <div style={{ padding: '28px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+
+                <div style={{ padding: '32px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
                     <div>
-                      <div style={{ fontSize: '24px', fontWeight: '600', color: '#111827' }}>Room {room.roomNumber}</div>
-                      <div style={{ fontSize: '15px', color: '#6b7280', fontWeight: '500', marginTop: '4px' }}>{room.roomType}</div>
+                      <div style={{ fontSize: '22px', fontWeight: '700', color: 'var(--brand-dark)' }}>Unit {room.roomNumber}</div>
+                      <div style={{ fontSize: '14px', color: 'var(--text-muted)', marginTop: '4px', fontWeight: '500' }}>{room.roomType}</div>
                     </div>
                     <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: '20px', fontWeight: '700', color: '#111827' }}>LKR {Number(room.ratePerNight).toLocaleString()}</div>
-                      <div style={{ fontSize: '12px', color: '#9ca3af', fontWeight: '600', textTransform: 'uppercase' }}>per night</div>
+                      <div style={{ fontSize: '18px', fontWeight: '800', color: 'var(--brand-dark)' }}>LKR {Number(room.ratePerNight).toLocaleString()}</div>
+                      <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '700', textTransform: 'uppercase', marginTop: '2px' }}>Net / Night</div>
                     </div>
                   </div>
-                  <div style={{ marginTop: '28px', display: 'flex', gap: '12px' }}>
-                    <button type="button" onClick={() => openEditForm(room)} style={{ flex: 1, padding: '14px', background: '#fff', border: '1px solid #d1d5db', borderRadius: '10px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s' }}>Edit Unit</button>
-                    <button type="button" onClick={() => handleDelete(room.id)} className="delete-btn">Remove</button>
+                  
+                  <div style={{ display: 'flex', gap: '12px' }}>
+                    <button type="button" onClick={() => openEditForm(room)} style={{ flex: 1, padding: '14px', background: '#fff', border: '1px solid var(--border-color)', borderRadius: '12px', fontSize: '13px', fontWeight: '700', cursor: 'pointer', transition: 'all 0.2s' }}>EDIT DETAILS</button>
+                    <button type="button" onClick={() => handleDelete(room.id)} className="delete-btn">REMOVE</button>
                   </div>
                 </div>
               </div>
@@ -281,54 +330,52 @@ export default function AdminRooms() {
       </div>
 
       {showForm && (
-        <>
-          <div style={{ position: 'fixed', inset: 0, background: 'rgba(17, 24, 39, 0.6)', zIndex: 40, backdropFilter: 'blur(12px)' }} onClick={closeForm} />
-          <div className="room-card" style={{ 
-            position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 
-            zIndex: 50, width: '95vw', maxWidth: '550px', maxHeight: '90vh', overflowY: 'auto', padding: '48px' 
-          }}>
-            <div style={{ marginBottom: '32px' }}>
-              <h3 style={{ margin: 0, fontSize: '32px', fontFamily: 'Cormorant Garamond, serif' }}>{editing ? 'Modify Accommodation' : 'New Inventory Entry'}</h3>
-              <p style={{ color: '#6b7280', fontSize: '15px', margin: '8px 0 0' }}>Ensure all technical details are accurate before publishing.</p>
+        <div className="modal-overlay" onClick={closeForm}>
+          <div className="admin-form-card" onClick={e => e.stopPropagation()}>
+            <div style={{ marginBottom: '40px' }}>
+              <h3 style={{ margin: 0, fontSize: '36px', fontFamily: 'Cormorant Garamond, serif', color: 'var(--brand-dark)' }}>
+                {editing ? 'Refine Entry' : 'New Inventory'}
+              </h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '15px', marginTop: '8px' }}>Global synchronization occurs upon confirmation.</p>
             </div>
             
             <form onSubmit={handleSubmit}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
                 <div>
-                  <label className="admin-form-label">Room Number *</label>
-                  <input name="roomNumber" value={form.roomNumber} onChange={e => setForm(f => ({ ...f, roomNumber: e.target.value }))} className="admin-form-input" placeholder="101" />
+                  <label className="admin-form-label">Identifier *</label>
+                  <input value={form.roomNumber} onChange={e => setForm(f => ({ ...f, roomNumber: e.target.value }))} className="admin-form-input" placeholder="e.g. 402" />
                 </div>
                 <div>
-                  <label className="admin-form-label">Room Type *</label>
-                  <input name="roomType" value={form.roomType} onChange={e => setForm(f => ({ ...f, roomType: e.target.value }))} className="admin-form-input" placeholder="Luxury Suite" />
+                  <label className="admin-form-label">Classification *</label>
+                  <input value={form.roomType} onChange={e => setForm(f => ({ ...f, roomType: e.target.value }))} className="admin-form-input" placeholder="e.g. Deluxe" />
                 </div>
               </div>
 
               <div style={{ marginBottom: '24px' }}>
                 <label className="admin-form-label">Nightly Rate (LKR) *</label>
-                <input name="ratePerNight" type="number" value={form.ratePerNight} onChange={e => setForm(f => ({ ...f, ratePerNight: e.target.value }))} className="admin-form-input" placeholder="0.00" />
+                <input type="number" value={form.ratePerNight} onChange={e => setForm(f => ({ ...f, ratePerNight: e.target.value }))} className="admin-form-input" placeholder="0.00" />
               </div>
 
               <div style={{ marginBottom: '24px' }}>
-                <label className="admin-form-label">Amenities & Description</label>
-                <textarea name="description" value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} className="admin-form-input" rows={3} placeholder="Sea view, king bed, mini-bar..." />
+                <label className="admin-form-label">Specifications</label>
+                <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} className="admin-form-input" rows={3} placeholder="Describe amenities..." />
               </div>
 
-              <div style={{ marginBottom: '36px', padding: '24px', background: '#f9fafb', borderRadius: '12px', border: '1px dashed #d1d5db' }}>
-                <label className="admin-form-label">Property Image</label>
-                <input type="file" accept="image/*" onChange={handleImageSelect} disabled={uploading} style={{ fontSize: '14px', color: '#6b7280' }} />
-                {form.imageUrl && <div style={{ marginTop: '16px' }}><img src={form.imageUrl} style={{ width: '100%', height: '140px', objectFit: 'cover', borderRadius: '10px', border: '1px solid #e5e7eb' }} alt="Preview" /></div>}
+              <div style={{ marginBottom: '40px', padding: '32px', background: 'var(--bg-soft)', borderRadius: '20px', border: '2px dashed var(--border-color)', textAlign: 'center' }}>
+                <label className="admin-form-label" style={{marginBottom: '16px'}}>Unit Media</label>
+                <input type="file" accept="image/*" onChange={handleImageSelect} disabled={uploading} style={{ fontSize: '13px' }} />
+                {form.imageUrl && <img src={form.imageUrl} style={{ marginTop: '20px', width: '100%', height: '160px', objectFit: 'cover', borderRadius: '12px' }} alt="Preview" />}
               </div>
 
               <div style={{ display: 'flex', gap: '16px' }}>
-                <button type="button" onClick={closeForm} style={{ flex: 1, padding: '16px', background: '#fff', border: '1px solid #d1d5db', borderRadius: '10px', fontSize: '15px', fontWeight: '600', cursor: 'pointer' }}>Cancel</button>
+                <button type="button" onClick={closeForm} style={{ flex: 1, padding: '18px', background: '#fff', border: '1px solid var(--border-color)', borderRadius: '14px', fontSize: '14px', fontWeight: '700', cursor: 'pointer' }}>DISCARD</button>
                 <button type="submit" className="admin-gold-btn" style={{ flex: 2, justifyContent: 'center' }}>
-                  {editing ? 'Update Inventory' : 'Confirm & Add'}
+                  {editing ? 'SAVE CHANGES' : 'PUBLISH UNIT'}
                 </button>
               </div>
             </form>
           </div>
-        </>
+        </div>
       )}
     </div>
   )

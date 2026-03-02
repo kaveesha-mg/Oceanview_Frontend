@@ -5,128 +5,152 @@ import { Alert, showValidationAlert } from '../components/Alert'
 import { validations, validateForm } from '../utils/validation'
 
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
 
-  .booking-container { font-family: 'Inter', sans-serif; background: #fcfcfd; min-height: 100vh; }
-  
-  /* DASHBOARD STYLE HEADER */
-  .customer-page-header {
-    background: #ffffff;
-    padding: 32px 60px;
-    border-bottom: 1px solid #f1f5f9;
-    margin-bottom: 40px;
+  .booking-container { 
+    font-family: 'Inter', sans-serif; 
+    background: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.65)), 
+                url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=100');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-  }
-
-  .customer-page-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 38px; 
-    color: #0f172a; 
-    line-height: 1.2;
-    margin: 0;
-  }
-  
-  .customer-page-subtitle {
-    font-size: 15px; 
-    color: #64748b; 
-    margin-top: 6px;
-    text-transform: none;
-    letter-spacing: normal;
-  }
-
-  .booking-content-area {
-    padding: 0 60px 100px 60px;
-    max-width: 1000px;
+    padding: 60px 20px;
+    box-sizing: border-box;
   }
 
   .booking-form-wrap {
-    background: #fff; 
-    border: 1px solid #e2e8f0; 
+    position: relative;
+    background: #fdfaf5; 
     border-radius: 16px;
-    padding: 48px; 
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    padding: 50px 60px; 
+    max-width: 750px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+    border: 1px solid #e5dec9;
+  }
+
+  /* HIGH VISIBILITY TITLE */
+  .form-main-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px; 
+    font-weight: 700;
+    color: #0f172a; /* Deep Navy */
+    margin: 0;
+    text-shadow: 0.5px 0.5px 0px rgba(0,0,0,0.1);
+  }
+
+  .form-main-subtitle {
+    font-size: 15px;
+    font-weight: 500;
+    color: #475569; /* Dark Slate Grey */
+    margin-top: 8px;
+    margin-bottom: 40px;
   }
 
   .form-section-label {
-    font-size: 13px; 
-    font-weight: 700; 
-    color: #d4af7a;
-    letter-spacing: 0.1em; 
+    font-size: 14px; 
+    font-weight: 800; 
+    color: #8b7355; /* Rich Bronze */
+    letter-spacing: 0.15em; 
     text-transform: uppercase;
-    margin-bottom: 32px; 
+    margin-bottom: 30px; 
     display: flex; 
     align-items: center; 
     gap: 15px;
   }
-  .form-section-label::after { content: ''; flex: 1; height: 1px; background: #f1f5f9; }
+  .form-section-label::after { content: ''; flex: 1; height: 2px; background: rgba(139, 115, 85, 0.3); }
 
+  /* BOLD LABELS FOR VISIBILITY */
   .customer-form-label {
-    display: block; font-size: 13px; font-weight: 600; color: #334155;
-    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;
+    display: block; 
+    font-size: 13px; 
+    font-weight: 700; 
+    color: #1a1a1a; /* Pure Dark Contrast */
+    text-transform: uppercase; 
+    letter-spacing: 0.05em; 
+    margin-bottom: 10px;
   }
 
   .customer-form-input {
-    width: 100%; padding: 14px 18px; background: #f8fafc;
-    border: 1px solid #e2e8f0; border-radius: 10px; font-size: 15px;
-    transition: all 0.2s; color: #1e293b;
+    width: 100%; 
+    padding: 16px; 
+    background: #ffffff; 
+    border: 2px solid #d1d5db; /* Darker border */
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500; /* Thicker text inside input */
+    transition: all 0.2s ease; 
+    color: #000000; /* Black text for maximum readability */
     box-sizing: border-box;
   }
-  .customer-form-input:focus { outline: none; border-color: #0f172a; background: #fff; box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.05); }
+  
+  .customer-form-input:focus { 
+    outline: none; 
+    border-color: #0f172a; 
+    box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.1);
+  }
+
+  /* FOR DATE INPUTS READABILITY */
+  .customer-form-input[type="date"] {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+  }
 
   .price-summary {
-    background: #0f172a; color: #fff; padding: 32px;
-    border-radius: 12px; margin: 40px 0; display: flex; justify-content: space-between; align-items: center;
+    background: #0f172a; 
+    color: #ffffff; 
+    padding: 30px;
+    margin: 35px 0; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    border-radius: 10px;
+    border-left: 5px solid #d4af7a;
   }
+
+  .summary-text { font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+  .summary-price { font-size: 28px; font-weight: 700; color: #d4af7a; }
 
   .customer-gold-btn {
-    background: #0f172a; color: #fff; border: none;
-    padding: 18px 32px; border-radius: 12px; font-size: 15px;
-    font-weight: 600; cursor: pointer; transition: all 0.2s; 
-    display: inline-flex; align-items: center; gap: 10px;
-    text-decoration: none;
+    background: #d4af7a; 
+    color: #0f172a; /* Dark text on gold button for contrast */
+    border: none;
+    padding: 20px; 
+    font-size: 16px;
+    font-weight: 800; 
+    cursor: pointer; 
+    transition: 0.3s; 
+    text-transform: uppercase; 
+    letter-spacing: 3px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(212, 175, 122, 0.4);
   }
-  .customer-gold-btn:hover { background: #1e293b; transform: translateY(-1px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
-
-  /* Boarding Pass confirmation */
-  .boarding-pass {
-    background: #fff; border: 1px solid #e2e8f0; border-radius: 20px;
-    overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
-  }
-  .pass-header { background: #0f172a; padding: 40px; color: #fff; display: flex; justify-content: space-between; align-items: center; }
-  .pass-body { padding: 48px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
   
-  @media print {
-    .no-print { display: none; }
-    .customer-page-header { display: none; }
-    .boarding-pass { box-shadow: none; border: 1px solid #000; margin: 0; }
+  .customer-gold-btn:hover { 
+    background: #0f172a; 
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .booking-form-wrap { padding: 40px 20px; }
+    .form-main-title { font-size: 28px; }
   }
 `
 
-function parseTime(str) {
-  if (!str) return null
-  const m = str.match(/(\d+):(\d+)\s*(AM|PM)/i)
-  if (!m) return null
-  let h = parseInt(m[1], 10)
-  const min = parseInt(m[2], 10)
-  if (m[3].toUpperCase() === 'PM' && h !== 12) h += 12
-  if (m[3].toUpperCase() === 'AM' && h === 12) h = 0
-  return `${h.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}`
-}
-
 export default function NewReservation() {
   const { api } = useAuth()
-  const navigate = useNavigate()
   const [rooms, setRooms] = useState([])
   const [form, setForm] = useState({
     guestName: '', address: '', nicNumber: '', contactNumber: '',
-    roomType: '', checkInDate: '', checkInTime: '02:00 PM',
-    checkOutDate: '', checkOutTime: '11:00 AM'
+    roomType: '', checkInDate: '', checkOutDate: ''
   })
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [confirmed, setConfirmed] = useState(null)
 
   useEffect(() => {
     fetch('/api/rooms/available')
@@ -143,180 +167,74 @@ export default function NewReservation() {
   const totalBill = selectedRate && nights > 0 ? selectedRate * nights : 0
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setForm(prev => ({ ...prev, [name]: value }))
-    setError('')
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError('')
-    const errs = validateForm({
-      guestName: (v) => validations.required(v, 'Guest name'),
-      address: (v) => validations.required(v, 'Address'),
-      nicNumber: (v) => validations.required(v, 'NIC number'),
-      contactNumber: (v) => validations.required(v, 'Contact number'),
-      roomType: (v) => validations.required(v, 'Room type'),
-      checkInDate: (v) => validations.required(v, 'Check-in date'),
-      checkOutDate: (v) => validations.required(v, 'Check-out date')
-    }, form)
-    
-    if (errs) {
-      const msg = Object.values(errs)[0]; setError(msg); showValidationAlert(msg); return
-    }
-    if (nights <= 0) {
-      const msg = 'Please select valid check-in and check-out dates'; setError(msg); showValidationAlert(msg); return
-    }
-    
-    setLoading(true)
-    try {
-      const res = await api('/api/reservations', {
-        method: 'POST',
-        body: JSON.stringify({
-          ...form,
-          roomId: rooms.find(r => r.roomType === form.roomType)?.id,
-          checkInTime: `${parseTime(form.checkInTime)}:00`,
-          checkOutTime: `${parseTime(form.checkOutTime)}:00`
-        })
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Failed to create reservation')
-      setConfirmed(data)
-    } catch (err) {
-      setError(err.message); showValidationAlert(err.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  if (confirmed) {
-    return (
-      <div className="booking-container">
-        <style>{css}</style>
-        <div className="customer-page-header">
-          <div>
-            <h1 className="customer-page-title">Booking Confirmed</h1>
-            <div className="customer-page-subtitle">Your stay at Ocean View has been secured.</div>
-          </div>
-        </div>
-        
-        <div className="booking-content-area">
-          <div className="boarding-pass">
-            <div className="pass-header">
-              <div>
-                <div style={{fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', opacity: 0.7}}>Reservation Reference</div>
-                <div style={{fontSize: '32px', fontWeight: '700', color: '#fff'}}>{confirmed.reservationNumber}</div>
-              </div>
-              <div style={{textAlign: 'right'}}>
-                <div style={{fontSize: '28px', fontWeight: '700', color: '#fff'}}>LKR {confirmed.totalBill?.toLocaleString()}</div>
-                <div style={{fontSize: '13px', opacity: 0.8}}>Paid via Portal</div>
-              </div>
-            </div>
-            
-            <div className="pass-body">
-              {[
-                { label: 'Guest Name', val: confirmed.guestName },
-                { label: 'Room Type', val: confirmed.roomType },
-                { label: 'Check-in', val: `${confirmed.checkInDate} at ${confirmed.checkInTime}` },
-                { label: 'Check-out', val: `${confirmed.checkOutDate} at ${confirmed.checkOutTime}` },
-                { label: 'Nights', val: confirmed.nights },
-                { label: 'ID Number', val: confirmed.nicNumber },
-              ].map(item => (
-                <div key={item.label}>
-                  <dt style={{ fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', fontSize: '11px', marginBottom: '6px' }}>{item.label}</dt>
-                  <dd style={{ fontSize: '18px', color: '#0f172a', fontWeight: '500', margin: 0 }}>{item.val}</dd>
-                </div>
-              ))}
-            </div>
-            
-            <div style={{ padding: '32px 48px', borderTop: '1px dashed #e2e8f0', background: '#f8fafc', display: 'flex', gap: '16px' }} className="no-print">
-              <button onClick={() => window.print()} className="customer-gold-btn">Print Details</button>
-              <button onClick={() => navigate('/reservations')} style={{ padding: '16px 28px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', cursor: 'pointer', fontWeight: '600', fontSize: '15px' }}>View My Itinerary</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
   return (
     <div className="booking-container">
       <style>{css}</style>
-      <div className="customer-page-header">
-        <div>
-          <h1 className="customer-page-title">Reserve a Suite</h1>
-          <div className="customer-page-subtitle">Experience luxury at Ocean View Hotel</div>
-        </div>
-      </div>
       
-      <div className="booking-content-area">
-        <div className="booking-form-wrap">
-          <form onSubmit={handleSubmit}>
-            {error && <Alert message={error} onDismiss={() => setError('')} />}
-            
-            <div className="form-section-label">Guest Information</div>
-            <div style={{ marginBottom: 32 }}>
-              <label className="customer-form-label">Full Name</label>
-              <input name="guestName" value={form.guestName} onChange={handleChange} placeholder="Enter your full name" className="customer-form-input" />
-            </div>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 32 }}>
-              <div>
-                <label className="customer-form-label">NIC / Passport</label>
-                <input name="nicNumber" value={form.nicNumber} onChange={handleChange} className="customer-form-input" />
-              </div>
-              <div>
-                <label className="customer-form-label">Phone Number</label>
-                <input name="contactNumber" value={form.contactNumber} onChange={handleChange} className="customer-form-input" />
-              </div>
-            </div>
-
-            <div style={{ marginBottom: 48 }}>
-              <label className="customer-form-label">Address</label>
-              <input name="address" value={form.address} onChange={handleChange} className="customer-form-input" />
-            </div>
-
-            <div className="form-section-label">Stay Details</div>
-            
-            <div style={{ marginBottom: 32 }}>
-              <label className="customer-form-label">Room Category</label>
-              <select name="roomType" value={form.roomType} onChange={handleChange} className="customer-form-input">
-                <option value="">Select a Suite...</option>
-                {roomTypes.map((t) => (
-                  <option key={t} value={t}>{t} (LKR {rooms.find((r) => r.roomType === t)?.ratePerNight?.toLocaleString()}/night)</option>
-                ))}
-              </select>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 32 }}>
-              <div>
-                <label className="customer-form-label">Check-in Date</label>
-                <input name="checkInDate" type="date" value={form.checkInDate} onChange={handleChange} className="customer-form-input" />
-              </div>
-              <div>
-                <label className="customer-form-label">Check-out Date</label>
-                <input name="checkOutDate" type="date" value={form.checkOutDate} onChange={handleChange} min={form.checkInDate} className="customer-form-input" />
-              </div>
-            </div>
-
-            {nights > 0 && selectedRate && (
-              <div className="price-summary">
-                <div>
-                  <div style={{fontSize: '13px', textTransform: 'uppercase', opacity: 0.8, marginBottom: '4px'}}>Duration</div>
-                  <div style={{fontSize: '24px', fontWeight: '500'}}>{nights} Night(s)</div>
-                </div>
-                <div style={{textAlign: 'right'}}>
-                  <div style={{fontSize: '13px', textTransform: 'uppercase', opacity: 0.8, marginBottom: '4px'}}>Total Amount</div>
-                  <div style={{fontSize: '32px', fontWeight: '700'}}>LKR {totalBill.toLocaleString()}</div>
-                </div>
-              </div>
-            )}
-
-            <button type="submit" disabled={loading} className="customer-gold-btn" style={{ width: '100%', justifyContent: 'center' }}>
-              {loading ? 'Processing...' : 'Confirm Reservation'}
-            </button>
-          </form>
+      <div className="booking-form-wrap">
+        <div style={{ textAlign: 'center' }}>
+          <h1 className="form-main-title">Reservation Inquiry</h1>
+          <p className="form-main-subtitle">Please provide your details to secure your suite</p>
         </div>
+
+        <form>
+          <div className="form-section-label">1. Guest Information</div>
+          <div style={{ marginBottom: 25 }}>
+            <label className="customer-form-label">Full Name</label>
+            <input name="guestName" value={form.guestName} onChange={handleChange} placeholder="e.g. Johnathan Doe" className="customer-form-input" />
+          </div>
+          
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 25, marginBottom: 25 }}>
+            <div>
+              <label className="customer-form-label">Identification (NIC/Passport)</label>
+              <input name="nicNumber" value={form.nicNumber} onChange={handleChange} className="customer-form-input" />
+            </div>
+            <div>
+              <label className="customer-form-label">Active Contact Number</label>
+              <input name="contactNumber" value={form.contactNumber} onChange={handleChange} placeholder="+94 ..." className="customer-form-input" />
+            </div>
+          </div>
+
+          <div className="form-section-label">2. Stay Details</div>
+          <div style={{ marginBottom: 25 }}>
+            <label className="customer-form-label">Preferred Suite Category</label>
+            <select name="roomType" value={form.roomType} onChange={handleChange} className="customer-form-input">
+              <option value="">Choose a room...</option>
+              {roomTypes.map(t => <option key={t} value={t}>{t}</option>)}
+            </select>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 25, marginBottom: 35 }}>
+            <div>
+              <label className="customer-form-label">Arrival Date</label>
+              <input name="checkInDate" type="date" value={form.checkInDate} onChange={handleChange} className="customer-form-input" />
+            </div>
+            <div>
+              <label className="customer-form-label">Departure Date</label>
+              <input name="checkOutDate" type="date" value={form.checkOutDate} onChange={handleChange} min={form.checkInDate} className="customer-form-input" />
+            </div>
+          </div>
+
+          {nights > 0 && (
+            <div className="price-summary">
+              <div>
+                <div className="summary-text">Duration of Stay</div>
+                <div style={{fontSize: '20px', fontWeight: '700'}}>{nights} Night(s)</div>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <div className="summary-text">Total Investment</div>
+                <div className="summary-price">LKR {totalBill.toLocaleString()}</div>
+              </div>
+            </div>
+          )}
+
+          <button type="button" className="customer-gold-btn">
+            Finalize Reservation
+          </button>
+        </form>
       </div>
     </div>
   )

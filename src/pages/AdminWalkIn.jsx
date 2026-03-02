@@ -4,59 +4,84 @@ import { Alert, showValidationAlert } from '../components/Alert'
 import { validations, validateForm } from '../utils/validation'
 
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap');
 
-  .walkin-container { font-family: 'Inter', sans-serif; color: #1e293b; background: #fcfcfd; min-height: 100vh; }
+  /* FULL PAGE WRAPPER WITH BACKGROUND */
+  .walkin-container { 
+    font-family: 'Inter', sans-serif; 
+    color: #1e293b; 
+    min-height: 100vh;
+    background: linear-gradient(rgba(253, 250, 245, 0.4), rgba(253, 250, 245, 0.4)), 
+                url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+  }
 
+  /* FROSTED GLASS HEADER */
   .admin-page-header {
-    padding: 48px 0;
-    padding-left: 60px; 
-    border-bottom: 1px solid #f1f5f9;
-    margin-bottom: 32px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 40px 60px;
+    border-bottom: 1px solid rgba(229, 222, 201, 0.5);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    z-index: 10;
   }
 
   .admin-page-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 38px;
+    font-size: 42px;
+    font-weight: 700;
     color: #0f172a;
     margin: 0;
   }
 
   .admin-page-subtitle {
-    font-size: 16px;
-    color: #64748b;
-    margin-top: 6px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #d4af7a;
+    font-weight: 700;
+    margin-top: 8px;
   }
 
+  /* BLUR BODY CONTENT */
   .admin-page-body {
-    padding-left: 60px; /* SIDEBAR SPACE */
-    padding-right: 60px;
-    padding-bottom: 100px;
-    display: flex;         /* ENABLE CENTERING */
+    flex: 1;
+    padding: 60px;
+    background: rgba(253, 250, 245, 0.6); 
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
     justify-content: center;
+    align-items: flex-start;
   }
 
+  /* LIGHT GLASS FORM WRAPPER */
   .reservation-form-wrapper {
     width: 100%;
-    max-width: 800px;      /* CENTERED FORM WIDTH */
-    background: #ffffff;
-    padding: 48px;
-    border-radius: 20px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    max-width: 850px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 50px;
+    border-radius: 24px;
+    border: 1px solid #ffffff;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
   }
 
   .form-section-label {
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: #94a3b8;
-    margin: 40px 0 24px 0;
+    letter-spacing: 0.15em;
+    color: #d4af7a;
+    margin: 45px 0 25px 0;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
   }
 
   .form-section-label:first-of-type { margin-top: 0; }
@@ -65,94 +90,111 @@ const css = `
     content: "";
     flex: 1;
     height: 1px;
-    background: #f1f5f9;
+    background: rgba(212, 175, 122, 0.2);
   }
 
   .admin-form-label {
     display: block;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
     margin-bottom: 10px;
-    color: #334155;
+    color: #64748b;
+    text-transform: uppercase;
   }
 
   .admin-form-input {
     width: 100%;
-    padding: 14px 16px;
+    padding: 14px 18px;
     border: 1px solid #e2e8f0;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 15px;
-    transition: all 0.2s;
-    background: #fcfcfd;
+    transition: all 0.3s;
+    background: #fff;
     box-sizing: border-box;
-    color: #1e293b;
+    color: #0f172a;
     font-family: 'Inter', sans-serif;
   }
 
   .admin-form-input:focus {
     outline: none;
-    border-color: #0f172a;
-    background: #fff;
-    box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.08);
+    border-color: #d4af7a;
+    box-shadow: 0 0 0 4px rgba(212, 175, 122, 0.15);
   }
 
+  /* MIDNIGHT BILLING SUMMARY */
   .billing-summary {
     background: #0f172a;
-    border-radius: 12px;
-    padding: 28px;
+    border: 1px solid #d4af7a;
+    border-radius: 16px;
+    padding: 30px;
     margin: 40px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   }
 
   .bill-amount {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 600;
-    color: #fff;
+    color: #d4af7a;
   }
 
+  /* CONFIRMATION CARD (MIDNIGHT STYLE) */
   .confirmation-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 60px 40px;
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid #d4af7a;
+    border-radius: 24px;
+    padding: 60px;
     text-align: center;
-    max-width: 550px;
-    margin: 60px auto;
-    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+    max-width: 600px;
+    margin: 40px auto;
+    color: white;
   }
 
   .res-number {
     font-family: 'JetBrains Mono', monospace;
-    background: #f1f5f9;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-size: 24px;
-    color: #0f172a;
+    background: rgba(212, 175, 122, 0.1);
+    padding: 12px 24px;
+    border: 1px solid rgba(212, 175, 122, 0.3);
+    border-radius: 8px;
+    font-size: 26px;
+    color: #d4af7a;
     display: inline-block;
     margin: 24px 0;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
   }
 
   .admin-gold-btn {
     background: #0f172a;
-    color: white;
-    padding: 16px 32px;
-    border-radius: 10px;
-    border: none;
-    font-size: 16px;
-    font-weight: 600;
+    color: #d4af7a;
+    padding: 18px 36px;
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 122, 0.4);
+    font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
   }
 
   .admin-gold-btn:hover {
-    background: #1e293b;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background: #d4af7a;
+    color: #0f172a;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(212, 175, 122, 0.25);
+  }
+
+  @media (max-width: 768px) {
+    .admin-page-header { padding: 30px 20px; }
+    .admin-page-body { padding: 30px 20px; }
+    .reservation-form-wrapper { padding: 30px 20px; }
   }
 `
 
@@ -239,20 +281,22 @@ export default function AdminWalkIn() {
     return (
       <div className="walkin-container">
         <style>{css}</style>
-        <div className="confirmation-card">
-          <div style={{ fontSize: 48, marginBottom: 16, color: '#10b981' }}>✓</div>
-          <h1 className="admin-page-title">Booking Confirmed</h1>
-          <p className="admin-page-subtitle">Reference number generated successfully</p>
-          <div className="res-number">{confirmed.reservationNumber}</div>
-          <div style={{ margin: '32px 0', padding: '24px', borderTop: '1px solid #f1f5f9' }}>
-            <span style={{ color: '#64748b', fontSize: 14, fontWeight: 500 }}>Total Collection</span>
-            <div style={{ fontSize: 32, fontWeight: 700, color: '#0f172a', marginTop: '8px' }}>LKR {confirmed.totalBill?.toLocaleString()}</div>
+        <main className="admin-page-body" style={{ alignItems: 'center' }}>
+          <div className="confirmation-card">
+            <div style={{ fontSize: 60, marginBottom: 20, color: '#d4af7a' }}>✦</div>
+            <h1 className="admin-page-title" style={{ color: 'white' }}>Check-in Successful</h1>
+            <p style={{ color: '#94a3b8', marginTop: '10px' }}>Guest dossier and reservation folio generated</p>
+            <div className="res-number">{confirmed.reservationNumber}</div>
+            <div style={{ margin: '35px 0', padding: '30px', borderTop: '1px solid rgba(212, 175, 122, 0.2)' }}>
+              <span style={{ color: '#d4af7a', fontSize: 13, fontWeight: 700, letterSpacing: '0.1em' }}>TOTAL COLLECTION DUE</span>
+              <div style={{ fontSize: 36, fontWeight: 800, color: 'white', marginTop: '10px' }}>LKR {confirmed.totalBill?.toLocaleString()}</div>
+            </div>
+            <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
+              <button type="button" onClick={() => window.print()} className="admin-gold-btn">Print Folio</button>
+              <button type="button" onClick={() => setConfirmed(null)} style={{ padding: '14px 28px', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 12, background: 'transparent', color: 'white', fontSize: 15, cursor: 'pointer', fontWeight: 600 }}>New Check-in</button>
+            </div>
           </div>
-          <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
-            <button type="button" onClick={() => window.print()} className="admin-gold-btn">Print Folio</button>
-            <button type="button" onClick={() => setConfirmed(null)} style={{ padding: '14px 28px', border: '1px solid #e2e8f0', borderRadius: 8, background: 'white', fontSize: 16, cursor: 'pointer', fontWeight: 600 }}>New Check-in</button>
-          </div>
-        </div>
+        </main>
       </div>
     )
   }
@@ -260,46 +304,46 @@ export default function AdminWalkIn() {
   return (
     <div className="walkin-container">
       <style>{css}</style>
-      <div className="admin-page-header">
+      <header className="admin-page-header">
         <div>
-          <h1 className="admin-page-title">Walk-in Reservation</h1>
-          <div className="admin-page-subtitle">Direct front-desk guest registration and billing</div>
+          <h1 className="admin-page-title">Direct Walk-in</h1>
+          <div className="admin-page-subtitle">Concierge Desk Management System</div>
         </div>
-      </div>
+      </header>
 
       <div className="admin-page-body">
         <div className="reservation-form-wrapper">
           <form onSubmit={handleSubmit}>
             {error && <Alert message={error} onDismiss={() => setError('')} />}
             
-            <div className="form-section-label">Guest Information</div>
+            <div className="form-section-label">Guest Dossier</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
               <div>
-                <label className="admin-form-label">Guest Full Name *</label>
-                <input name="guestName" value={form.guestName} onChange={handleChange} required className="admin-form-input" placeholder="e.g. John Doe" />
+                <label className="admin-form-label">Full Legal Name</label>
+                <input name="guestName" value={form.guestName} onChange={handleChange} required className="admin-form-input" placeholder="Guest Name" />
               </div>
               <div>
-                <label className="admin-form-label">Contact Number *</label>
+                <label className="admin-form-label">Primary Contact</label>
                 <input name="contactNumber" value={form.contactNumber} onChange={handleChange} required className="admin-form-input" placeholder="+94 ..." />
               </div>
             </div>
             
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 24, marginBottom: 24 }}>
               <div>
-                <label className="admin-form-label">Address *</label>
+                <label className="admin-form-label">Permanent Address</label>
                 <input name="address" value={form.address} onChange={handleChange} required className="admin-form-input" placeholder="City, Country" />
               </div>
               <div>
-                <label className="admin-form-label">NIC / Passport *</label>
+                <label className="admin-form-label">NIC / Passport No.</label>
                 <input name="nicNumber" value={form.nicNumber} onChange={handleChange} required className="admin-form-input" placeholder="ID Number" />
               </div>
             </div>
 
-            <div className="form-section-label">Stay Details</div>
+            <div className="form-section-label">Allocation & Duration</div>
             <div style={{ marginBottom: 24 }}>
-              <label className="admin-form-label">Available Room Category *</label>
+              <label className="admin-form-label">Suite Category Selection</label>
               <select name="roomType" value={form.roomType} onChange={handleChange} required className="admin-form-input">
-                <option value="">Select a category</option>
+                <option value="">Select available suite...</option>
                 {roomTypes.map(t => (
                   <option key={t} value={t}>
                     {t} — LKR {rooms.find(r=>r.roomType===t)?.ratePerNight?.toLocaleString()} / night
@@ -309,12 +353,12 @@ export default function AdminWalkIn() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                <div><label className="admin-form-label">Check-in Date</label><input name="checkInDate" type="date" value={form.checkInDate} onChange={handleChange} required className="admin-form-input" /></div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 12 }}>
+                <div><label className="admin-form-label">Arrival Date</label><input name="checkInDate" type="date" value={form.checkInDate} onChange={handleChange} required className="admin-form-input" /></div>
                 <div><label className="admin-form-label">Time</label><input name="checkInTime" value={form.checkInTime} onChange={handleChange} className="admin-form-input" /></div>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                <div><label className="admin-form-label">Check-out Date</label><input name="checkOutDate" type="date" value={form.checkOutDate} onChange={handleChange} required min={form.checkInDate} className="admin-form-input" /></div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 12 }}>
+                <div><label className="admin-form-label">Departure Date</label><input name="checkOutDate" type="date" value={form.checkOutDate} onChange={handleChange} required min={form.checkInDate} className="admin-form-input" /></div>
                 <div><label className="admin-form-label">Time</label><input name="checkOutTime" value={form.checkOutTime} onChange={handleChange} className="admin-form-input" /></div>
               </div>
             </div>
@@ -322,18 +366,18 @@ export default function AdminWalkIn() {
             {nights > 0 && selectedRate && (
               <div className="billing-summary">
                 <div>
-                  <div style={{ fontSize: 12, opacity: 0.8, fontWeight: 700, letterSpacing: '0.05em' }}>STAY DURATION</div>
-                  <div style={{ fontSize: 18, fontWeight: 600, marginTop: '4px' }}>{nights} Night{nights > 1 ? 's' : ''}</div>
+                  <div style={{ fontSize: 11, opacity: 0.8, fontWeight: 800, letterSpacing: '0.1em', color: '#d4af7a' }}>TOTAL NIGHTS</div>
+                  <div style={{ fontSize: 20, fontWeight: 700, marginTop: '4px' }}>{nights} Night{nights > 1 ? 's' : ''}</div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: 12, opacity: 0.8, fontWeight: 700, letterSpacing: '0.05em' }}>TOTAL PAYABLE</div>
+                  <div style={{ fontSize: 11, opacity: 0.8, fontWeight: 800, letterSpacing: '0.1em', color: '#d4af7a' }}>PAYABLE TOTAL</div>
                   <div className="bill-amount" style={{ marginTop: '4px' }}>LKR {totalBill.toLocaleString()}</div>
                 </div>
               </div>
             )}
 
             <button type="submit" disabled={loading} className="admin-gold-btn" style={{ width: '100%', marginTop: 12, opacity: loading ? 0.7 : 1 }}>
-              {loading ? 'Processing Check-in...' : 'Confirm Reservation & Generate Bill'}
+              {loading ? 'Processing Transaction...' : 'Finalize Check-in & Generate Receipt'}
             </button>
           </form>
         </div>

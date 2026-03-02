@@ -6,45 +6,67 @@ import { Alert, showValidationAlert } from '../components/Alert'
 import { validations, validateForm } from '../utils/validation'
 
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
 
-  .res-container { font-family: 'Inter', sans-serif; background: #fcfcfd; min-height: 100vh; }
+  /* FULL PAGE WRAPPER WITH BACKGROUND */
+  .res-container { 
+    font-family: 'Inter', sans-serif; 
+    min-height: 100vh; 
+    background: linear-gradient(rgba(253, 250, 245, 0.4), rgba(253, 250, 245, 0.4)), 
+                url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+  }
   
-  /* ADMIN-STYLE HEADER BAR */
+  /* FROSTED GLASS HEADER */
   .customer-page-header {
-    background: #ffffff;
-    padding: 32px 60px;
-    border-bottom: 1px solid #f1f5f9;
-    margin-bottom: 40px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 30px 50px;
+    border-bottom: 1px solid rgba(229, 222, 201, 0.5);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .header-left-group { display: flex; flex-direction: column; gap: 4px; }
+
+  .breadcrumb-text {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #d4af7a;
+    font-weight: 800;
   }
 
   .customer-page-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: 38px; 
+    font-weight: 700;
     color: #0f172a; 
-    line-height: 1.2;
+    line-height: 1;
     margin: 0;
   }
-  
-  .customer-page-subtitle {
-    font-size: 15px; 
-    color: #64748b; 
-    margin-top: 6px;
-  }
 
+  /* BUTTON STYLING */
   .customer-gold-btn {
     background: #0f172a; 
-    color: #fff; 
-    border: none;
-    padding: 14px 28px; 
-    border-radius: 10px; 
+    color: #d4af7a;
+    border: 1px solid rgba(212, 175, 122, 0.3);
+    padding: 12px 24px; 
+    border-radius: 8px; 
     font-size: 14px;
     font-weight: 600; 
     cursor: pointer; 
-    transition: all 0.2s; 
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     text-decoration: none;
     display: inline-flex; 
     align-items: center; 
@@ -52,94 +74,106 @@ const css = `
   }
   
   .customer-gold-btn:hover { 
-    background: #1e293b; 
-    transform: translateY(-1px); 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+    background: #d4af7a; 
+    color: #0f172a;
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 20px rgba(212, 175, 122, 0.3); 
   }
 
-  /* BODY CONTENT */
+  /* BLUR BODY CONTENT */
   .customer-page-body {
-    padding: 0 60px 100px 60px;
-    max-width: 1400px;
-    margin: 0 auto;
+    flex: 1;
+    padding: 60px 50px;
+    background: rgba(253, 250, 245, 0.6); 
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   .res-grid {
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 32px; 
+    gap: 30px; 
+    max-width: 1300px;
+    margin: 0 auto;
   }
 
+  /* MIDNIGHT GLASS CARDS */
   .customer-card {
-    background: #fff; 
-    border: 1px solid #e2e8f0; 
-    border-radius: 16px;
-    padding: 32px; 
-    transition: all 0.3s ease; 
+    background: rgba(15, 23, 42, 0.85); 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 35px; 
+    transition: all 0.4s ease; 
     position: relative;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   }
   
   .customer-card:hover { 
-    border-color: #0f172a; 
-    box-shadow: 0 12px 24px rgba(0,0,0,0.06); 
+    border-color: #d4af7a; 
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); 
   }
 
-  .customer-card-title {
-    font-size: 12px; 
-    font-weight: 700; 
-    color: #94a3b8;
-    letter-spacing: 0.15em; 
-    text-transform: uppercase; 
-    margin-bottom: 20px;
-    display: flex; 
-    justify-content: space-between;
+  .status-badge {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 12px;
+    background: rgba(22, 163, 74, 0.2);
+    color: #4ade80;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 
   .customer-card-meta {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 28px; 
-    color: #0f172a; 
-    font-weight: 600;
+    font-size: 30px; 
+    color: #ffffff; 
+    font-weight: 700;
+    margin: 20px 0 8px 0;
   }
 
   .customer-card-rate {
-    margin-top: 24px; 
-    padding-top: 24px; 
-    border-top: 1px solid #f1f5f9;
-    font-weight: 700; 
-    color: #0f172a; 
-    font-size: 20px;
+    margin-top: 25px; 
+    padding-top: 20px; 
+    border-top: 1px solid rgba(212, 175, 122, 0.2);
+    font-weight: 800; 
+    color: #d4af7a; 
+    font-size: 24px;
   }
 
-  /* Modal Edit Design */
+  /* MODAL STYLING */
   .edit-modal {
     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    z-index: 100; width: 100%; max-width: 600px;
-    background: #fff; padding: 48px; border-radius: 20px;
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-  }
-
-  .customer-form-label {
-    display: block; font-size: 13px; font-weight: 600; color: #334155;
-    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;
-  }
-
-  .customer-form-input {
-    width: 100%; padding: 12px 16px; background: #f8fafc;
-    border: 1px solid #e2e8f0; border-radius: 10px; font-size: 15px;
-    transition: all 0.2s;
-  }
-  .customer-form-input:focus { outline: none; border-color: #0f172a; background: #fff; }
-
-  .bill-preview {
-    background: #0f172a; color: #fff; padding: 24px;
-    border-radius: 12px; margin: 24px 0;
+    z-index: 100; width: 90%; max-width: 550px;
+    background: #ffffff; padding: 40px; border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    border: 1px solid #d4af7a;
   }
 
   .overlay {
-    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(8px); z-index: 90;
+    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(6px); z-index: 90;
+  }
+
+  .customer-form-label {
+    display: block; font-size: 12px; font-weight: 700; color: #64748b; 
+    margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  .customer-form-input {
+    width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px;
+    font-family: inherit; font-size: 14px; outline: none; transition: border 0.3s;
+  }
+
+  .customer-form-input:focus { border-color: #d4af7a; }
+
+  @media (max-width: 768px) {
+    .customer-page-header { padding: 25px; flex-direction: column; align-items: flex-start; gap: 20px; }
+    .res-grid { grid-template-columns: 1fr; }
+    .customer-page-body { padding: 30px 20px; }
   }
 `
 
@@ -177,7 +211,7 @@ function getReservationId(r) {
 }
 
 export default function Reservations() {
-  const { api } = useAuth()
+  const { api, user } = useAuth()
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -277,7 +311,6 @@ export default function Reservations() {
         body: JSON.stringify(payload)
       })
       if (!res.ok) throw new Error('Update failed')
-      const data = await res.json()
       setEditingReservation(null)
       fetchList()
       setEditSuccess('Itinerary updated successfully.')
@@ -307,50 +340,59 @@ export default function Reservations() {
     <>
       <style>{css}</style>
       <div className="res-container">
-        {/* NEW ADMIN-STYLE HEADER BAR */}
-        <div className="customer-page-header">
-          <div>
+        
+        {/* GLASS HEADER */}
+        <header className="customer-page-header">
+          <div className="header-left-group">
+            <span className="breadcrumb-text">Guest Resources</span>
             <h1 className="customer-page-title">My Itinerary</h1>
-            <div className="customer-page-subtitle">Personalized reservations at Ocean View</div>
           </div>
-          <Link to="/reservations/new" className="customer-gold-btn">
-            <span style={{fontSize: '18px'}}>+</span> New Reservation
-          </Link>
-        </div>
+          
+          <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+             <div style={{ textAlign: 'right', borderRight: '1px solid rgba(212, 175, 122, 0.3)', paddingRight: '20px' }}>
+                <div style={{ fontSize: '12px', fontWeight: '800', color: '#0f172a' }}>{user?.username}</div>
+                <div style={{ fontSize: '11px', color: '#10b981', fontWeight: '800' }}>● ONLINE</div>
+             </div>
+             <Link to="/reservations/new" className="customer-gold-btn">
+               <span style={{fontSize: '20px'}}>⊕</span> New Booking
+             </Link>
+          </div>
+        </header>
 
-        <div className="customer-page-body">
+        {/* BLUR BODY */}
+        <main className="customer-page-body">
           {error && <Alert message={error} onDismiss={() => setError('')} />}
           {editSuccess && <Alert type="success" message={editSuccess} onDismiss={() => setEditSuccess('')} />}
           
           {loading ? (
-            <p style={{ textAlign: 'center', padding: '100px', color: '#94a3b8' }}>Refining your itinerary...</p>
+            <p style={{ textAlign: 'center', padding: '100px', color: '#64748b', fontSize: '18px', fontFamily: 'Cormorant Garamond' }}>Curating your travel journal...</p>
           ) : list.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '100px', background: '#fff', border: '1px dashed #e2e8f0', borderRadius: '16px' }}>
-              <p style={{ color: '#64748b', marginBottom: '24px', fontSize: '16px' }}>Your travel journal is currently empty.</p>
+            <div style={{ textAlign: 'center', padding: '100px', background: 'rgba(255,255,255,0.4)', border: '2px dashed #d4af7a', borderRadius: '24px', backdropFilter: 'blur(10px)' }}>
+              <p style={{ color: '#0f172a', marginBottom: '24px', fontSize: '24px', fontFamily: 'Cormorant Garamond', fontWeight: 700 }}>Your itinerary is currently empty.</p>
               <Link to="/reservations/new" className="customer-gold-btn">Begin Your Journey</Link>
             </div>
           ) : (
             <div className="res-grid">
               {list.map((r) => (
                 <div key={getReservationId(r)} className="customer-card">
-                  <div className="customer-card-title">
-                    <span>{r.reservationNumber}</span>
-                    <span style={{color: '#10b981', fontWeight: 700}}>✓ Confirmed</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '12px', color: '#d4af7a', fontWeight: 800, letterSpacing: '0.15em' }}>RESERVATION #{r.reservationNumber}</span>
+                    <span className="status-badge">Confirmed</span>
                   </div>
                   <div className="customer-card-meta">{r.roomType} Suite</div>
-                  <div style={{ fontSize: '15px', color: '#64748b', marginTop: '12px', lineHeight: 1.6 }}>
+                  <div style={{ fontSize: '15px', color: '#cbd5e1', marginTop: '15px', lineHeight: 1.8 }}>
                     {format(new Date(r.checkInDate), 'MMMM do')} — {format(new Date(r.checkOutDate), 'MMMM do, yyyy')}
-                    <br /> <strong style={{color: '#334155'}}>{r.nights} Nights</strong> · {r.guestName}
+                    <br /> <strong style={{color: '#ffffff'}}>{r.nights} Nights</strong> · Registered to {r.guestName}
                   </div>
                   <div className="customer-card-rate">LKR {r.totalBill?.toLocaleString()}</div>
                   
-                  <div style={{ marginTop: '32px', display: 'flex', gap: '12px' }}>
-                    <button onClick={() => setEditingReservation(r)} className="customer-gold-btn" style={{flex: 1, justifyContent: 'center'}}>Edit Stay</button>
+                  <div style={{ marginTop: '35px', display: 'flex', gap: '12px' }}>
+                    <button onClick={() => setEditingReservation(r)} className="customer-gold-btn" style={{flex: 1, justifyContent: 'center'}}>Modify Stay</button>
                     <button 
                       onClick={() => handleDelete(r)} 
                       disabled={deleteLoadingId === getReservationId(r)}
-                      style={{ padding: '0 20px', background: 'transparent', border: '1px solid #e2e8f0', color: '#ef4444', borderRadius: '10px', cursor: 'pointer', fontSize: '14px', fontWeight: '600', transition: 'all 0.2s' }}
-                      onMouseOver={(e) => e.target.style.background = '#fef2f2'}
+                      style={{ padding: '0 18px', background: 'transparent', border: '1px solid #f87171', color: '#f87171', borderRadius: '8px', cursor: 'pointer', fontSize: '12px', fontWeight: '800', transition: '0.3s' }}
+                      onMouseOver={(e) => e.target.style.background = 'rgba(248, 113, 113, 0.1)'}
                       onMouseOut={(e) => e.target.style.background = 'transparent'}
                     >
                       {deleteLoadingId === getReservationId(r) ? '...' : 'Cancel'}
@@ -360,27 +402,28 @@ export default function Reservations() {
               ))}
             </div>
           )}
-        </div>
+        </main>
       </div>
 
+      {/* EDIT MODAL */}
       {editingReservation && (
         <>
           <div className="overlay" onClick={() => setEditingReservation(null)} />
           <div className="edit-modal">
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '32px' }}>
-              <h3 style={{ fontFamily: 'Cormorant Garamond', fontSize: '32px', margin: 0, fontWeight: 600 }}>Modify Stay</h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px', borderBottom: '1px solid #f1f5f9', paddingBottom: '15px' }}>
+              <h3 style={{ fontFamily: 'Cormorant Garamond', fontSize: '30px', margin: 0, fontWeight: 700, color: '#0f172a' }}>Modify Reservation</h3>
               <button onClick={() => setEditingReservation(null)} style={{ background: 'none', border: 'none', fontSize: '28px', cursor: 'pointer', color: '#94a3b8' }}>×</button>
             </div>
             
             <form onSubmit={handleEditSubmit}>
               {editError && <Alert message={editError} onDismiss={() => setEditError('')} />}
               
-              <div style={{ marginBottom: '24px' }}>
+              <div style={{ marginBottom: '20px' }}>
                 <label className="customer-form-label">Primary Guest</label>
                 <input name="guestName" value={editForm.guestName} onChange={handleEditChange} className="customer-form-input" />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '20px' }}>
                 <div>
                   <label className="customer-form-label">NIC / Passport</label>
                   <input name="nicNumber" value={editForm.nicNumber} onChange={handleEditChange} className="customer-form-input" />
@@ -391,14 +434,14 @@ export default function Reservations() {
                 </div>
               </div>
 
-              <div style={{ marginBottom: '24px' }}>
+              <div style={{ marginBottom: '20px' }}>
                 <label className="customer-form-label">Suite Preference</label>
                 <select name="roomType" value={editForm.roomType} onChange={handleEditChange} className="customer-form-input">
                   {roomTypes.map(t => <option key={t} value={t}>{t}</option>)}
                 </select>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '20px' }}>
                 <div>
                   <label className="customer-form-label">Check-in</label>
                   <input name="checkInDate" type="date" value={editForm.checkInDate} onChange={handleEditChange} className="customer-form-input" />
@@ -410,15 +453,15 @@ export default function Reservations() {
               </div>
 
               {nights > 0 && (
-                <div className="bill-preview">
-                  <div style={{fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.8, marginBottom: '8px'}}>Updated Estimated Total</div>
-                  <div style={{fontSize: '28px', fontWeight: '700'}}>LKR {totalBill.toLocaleString()}</div>
-                  <div style={{fontSize: '14px', opacity: 0.8, marginTop: '8px'}}>{nights} Nights at LKR {selectedRate?.toLocaleString()}/night</div>
+                <div style={{ background: '#0f172a', color: '#d4af7a', padding: '20px', borderRadius: '12px', marginBottom: '25px', border: '1px solid #d4af7a' }}>
+                  <div style={{fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.15em', opacity: 0.8, marginBottom: '5px'}}>Updated Estimated Total</div>
+                  <div style={{fontSize: '26px', fontWeight: '800'}}>LKR {totalBill.toLocaleString()}</div>
+                  <div style={{fontSize: '12px', opacity: 0.8, marginTop: '4px'}}>{nights} Nights at LKR {selectedRate?.toLocaleString()}/night</div>
                 </div>
               )}
 
-              <button type="submit" disabled={editLoading} className="customer-gold-btn" style={{ width: '100%', justifyContent: 'center', padding: '18px' }}>
-                {editLoading ? 'Updating Stay...' : 'Confirm Changes'}
+              <button type="submit" disabled={editLoading} className="customer-gold-btn" style={{ width: '100%', justifyContent: 'center', padding: '16px', fontSize: '16px' }}>
+                {editLoading ? 'Synchronizing...' : 'Confirm Changes'}
               </button>
             </form>
           </div>
