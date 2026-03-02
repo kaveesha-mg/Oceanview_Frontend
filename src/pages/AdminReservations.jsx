@@ -6,172 +6,215 @@ import { Alert, showValidationAlert } from '../components/Alert'
 import { validations, validateForm } from '../utils/validation'
 
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-  .reservations-container { font-family: 'Inter', sans-serif; color: #1e293b; }
+  /* FULL PAGE WRAPPER WITH RESORT BACKGROUND */
+  .reservations-container { 
+    font-family: 'Inter', sans-serif; 
+    color: #1e293b; 
+    min-height: 100vh;
+    background: linear-gradient(rgba(253, 250, 245, 0.45), rgba(253, 250, 245, 0.45)), 
+                url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+  }
 
+  /* FROSTED GLASS HEADER */
   .admin-page-header {
-    padding: 48px 0;
-    padding-left: 60px; /* CONSISTENT SIDEBAR GAP */
-    border-bottom: 1px solid #f0f0f0;
-    margin-bottom: 40px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 40px 60px;
+    border-bottom: 1px solid rgba(229, 222, 201, 0.5);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    z-index: 10;
   }
 
   .admin-page-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 38px; /* INCREASED FROM 32px */
-    color: #111;
+    font-size: 42px;
+    font-weight: 700;
+    color: #0f172a;
     margin: 0;
   }
 
   .admin-page-subtitle {
-    font-size: 16px; /* INCREASED FROM 14px */
-    color: #64748b;
-    margin-top: 6px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #d4af7a;
+    font-weight: 700;
+    margin-top: 8px;
   }
 
+  /* BLUR BODY CONTENT */
   .admin-page-body {
-    padding-left: 60px; /* CONSISTENT SIDEBAR GAP */
-    padding-right: 40px;
-    padding-bottom: 100px;
+    flex: 1;
+    padding: 60px;
+    background: rgba(253, 250, 245, 0.6); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   .res-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
     gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 
+  /* ELEVATED RESERVATION CARDS */
   .res-card {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 28px;
-    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 32px;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     position: relative;
-    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
   }
 
   .res-card:hover {
-    border-color: #111;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-    transform: translateY(-2px);
+    border-color: #d4af7a;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    transform: translateY(-5px);
   }
 
+  /* UPDATED: REFERENCE NUMBER TAG */
   .res-number {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    background: #f3f4f6;
-    padding: 6px 10px;
-    border-radius: 4px;
-    color: #374151;
+    font-size: 11px;
+    background: #0f172a; /* Dark Midnight */
+    color: #ffffff;      /* PURE WHITE AS REQUESTED */
+    padding: 6px 14px;
+    border-radius: 6px;
     display: inline-block;
-    margin-bottom: 14px;
-    font-weight: 500;
+    margin-bottom: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border: 1px solid rgba(212, 175, 122, 0.3);
   }
 
   .guest-name {
-    font-size: 20px; /* INCREASED SIZE */
-    font-weight: 600;
-    color: #111;
-    margin-bottom: 4px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 6px;
   }
 
   .room-tag {
-    font-size: 14px; /* INCREASED SIZE */
-    color: #6b7280;
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   .date-row {
     margin: 24px 0;
-    padding: 16px 0;
-    border-top: 1px dashed #e5e7eb;
-    border-bottom: 1px dashed #e5e7eb;
+    padding: 20px 0;
+    border-top: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f1f5f9;
     display: flex;
     justify-content: space-between;
   }
 
   .date-label {
-    font-size: 11px;
+    font-size: 10px;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #9ca3af;
-    margin-bottom: 6px;
-    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #94a3b8;
+    margin-bottom: 8px;
+    font-weight: 800;
   }
 
   .date-value {
     font-size: 15px;
-    font-weight: 500;
-    color: #374151;
+    font-weight: 600;
+    color: #1e293b;
   }
 
   .bill-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 8px;
+    margin-top: 10px;
   }
 
   .total-amt {
-    font-size: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
     font-weight: 700;
-    color: #059669;
+    color: #0f172a;
   }
 
   .admin-gold-btn {
-    background: #111;
-    color: #fff;
-    border: none;
+    background: #0f172a;
+    color: #d4af7a;
+    border: 1px solid rgba(212, 175, 122, 0.3);
     padding: 12px 24px;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s;
   }
 
-  .admin-gold-btn:hover { background: #333; transform: translateY(-1px); }
+  .admin-gold-btn:hover { 
+    background: #d4af7a; 
+    color: #0f172a;
+    transform: translateY(-2px);
+  }
 
   .delete-link {
     background: none;
     border: none;
     color: #ef4444;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
     cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+    transition: opacity 0.2s;
   }
 
+  .delete-link:hover { opacity: 1; text-decoration: underline; }
+
+  /* MODAL STYLES */
   .modal-overlay {
     position: fixed; inset: 0;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(8px);
-    z-index: 40;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+    z-index: 100;
   }
 
   .modal-content {
     position: fixed; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    background: #fff; border-radius: 16px;
-    width: 95vw; maxWidth: 550px;
-    maxHeight: 90vh; overflowY: auto;
-    padding: 40px; z-index: 50;
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    background: #fff; border-radius: 24px;
+    width: 90vw; max-width: 600px;
+    max-height: 90vh; overflow-y: auto;
+    padding: 50px; z-index: 101;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2);
   }
 
-  .form-group { margin-bottom: 20px; }
-  .admin-form-label { font-size: 15px; font-weight: 600; color: #374151; margin-bottom: 8px; display: block; }
+  .form-group { margin-bottom: 24px; }
+  .admin-form-label { font-size: 12px; font-weight: 800; color: #64748b; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
   .admin-form-input { 
-    width: 100%; padding: 12px; border: 1px solid #d1d5db; 
-    border-radius: 8px; font-family: 'Inter'; font-size: 15px;
-    box-sizing: border-box;
+    width: 100%; padding: 14px; border: 1px solid #e2e8f0; 
+    border-radius: 12px; font-family: 'Inter'; font-size: 15px;
+    box-sizing: border-box; background: #fcfcfd;
   }
-  .admin-form-input:focus { outline: none; border-color: #111; ring: 2px solid #f3f4f6; }
+  .admin-form-input:focus { outline: none; border-color: #d4af7a; box-shadow: 0 0 0 4px rgba(212, 175, 122, 0.1); }
 `
 
 function parseTime(str) {
@@ -299,24 +342,9 @@ export default function AdminReservations() {
       return
     }
     const dateErr = validations.dateAfter(form.checkOutDate, form.checkInDate)
-    if (dateErr) {
-      setEditError(dateErr)
-      return
-    }
-    if (nights <= 0) {
-      setEditError('Please select valid check-in and check-out dates')
-      return
-    }
-    const nicErr = validations.nic(form.nicNumber)
-    if (nicErr) {
-      setEditError(nicErr)
-      return
-    }
-    const phoneErr = validations.phone(form.contactNumber)
-    if (phoneErr) {
-      setEditError(phoneErr)
-      return
-    }
+    if (dateErr) { setEditError(dateErr); return; }
+    if (nights <= 0) { setEditError('Please select valid check-in and check-out dates'); return; }
+    
     setEditLoading(true)
     try {
       const payload = {
@@ -332,135 +360,78 @@ export default function AdminReservations() {
         checkOutTime: parseTime(form.checkOutTime) ? `${parseTime(form.checkOutTime)}:00` : '11:00:00'
       }
       const id = getReservationId(editing)
-      if (!id) {
-        setEditError('Invalid reservation')
-        setEditLoading(false)
-        return
-      }
       const res = await api(`/api/admin/reservations/${id}`, {
         method: 'PUT',
         body: JSON.stringify(payload)
       })
-      const raw = await res.text()
-      let data = {}
-      try {
-        if (raw) data = JSON.parse(raw) || {}
-      } catch (_) {}
-      if (!res.ok) {
-        const rawShort = typeof raw === 'string' && raw.length > 200 ? raw.substring(0, 200) + '…' : raw
-        const msg = data.error || data.message ||
-          (typeof data === 'object' && Object.keys(data).length > 0 ? Object.values(data).join('. ') : null) ||
-          (res.status === 401 ? 'Please log in again.' : null) ||
-          (res.status === 403 ? 'Access denied. Please log in again as admin.' : null) ||
-          (res.status === 404 ? 'Reservation not found.' : null) ||
-          (res.status >= 500 ? `Server error (${res.status}). Try again later.` : null) ||
-          (rawShort && !rawShort.startsWith('<') ? rawShort : null) ||
-          `Failed to update reservation (${res.status})`
-        throw new Error(msg)
-      }
-      const updatedId = data.id ?? data._id
-      setList(prev => prev.map(item => (item.id ?? item._id) === updatedId ? { ...data, id: updatedId } : item))
-      setEditSuccess(`Reservation updated. Bill recalculated: LKR ${(data.totalBill ?? 0).toLocaleString()}.`)
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.message || 'Update failed')
+      
+      setList(prev => prev.map(item => (item.id ?? item._id) === id ? { ...data, id } : item))
+      setEditSuccess(`Reservation updated.`)
       setEditing(null)
-      setForm(emptyForm)
     } catch (err) {
-      setEditError(err.message || 'Failed to update reservation')
-      showValidationAlert(err.message || 'Failed to update reservation')
+      setEditError(err.message)
     } finally {
       setEditLoading(false)
     }
   }
 
   const handleDelete = async (r) => {
-    if (!confirm(`Delete reservation ${r.reservationNumber}? This cannot be undone.`)) return
+    if (!confirm(`Remove record for ${r.guestName}?`)) return
     const id = getReservationId(r)
-    if (!id) {
-      setError('Invalid reservation')
-      return
-    }
     setDeleteLoadingId(id)
     try {
       const res = await api(`/api/admin/reservations/${id}`, { method: 'DELETE' })
-      const text = await res.text()
-      let data = {}
-      try { if (text) data = JSON.parse(text) } catch (_) {}
-      if (!res.ok) {
-        const textShort = typeof text === 'string' && text.length > 200 ? text.substring(0, 200) + '…' : text
-        const msg = data.error || data.message ||
-          (typeof data === 'object' && Object.keys(data).length > 0 ? Object.values(data).join('. ') : null) ||
-          (res.status === 401 ? 'Please log in again.' : null) ||
-          (res.status === 403 ? 'Access denied. Please log in again as admin.' : null) ||
-          (res.status === 404 ? 'Reservation not found.' : null) ||
-          (res.status >= 500 ? `Server error (${res.status}). Try again later.` : null) ||
-          (textShort && !textShort.startsWith('<') ? textShort : null) ||
-          `Failed to delete (${res.status})`
-        throw new Error(msg)
-      }
-      const deletedId = getReservationId(r)
-      setList(prev => prev.filter(x => (x.id ?? x._id) !== deletedId))
+      if (!res.ok) throw new Error('Delete failed')
+      setList(prev => prev.filter(x => (x.id ?? x._id) !== id))
     } catch (err) {
-      setError(err.message || 'Failed to delete reservation')
-      showValidationAlert(err.message || 'Failed to delete reservation')
+      setError(err.message)
     } finally {
       setDeleteLoadingId(null)
     }
   }
 
-  const closeEdit = () => {
-    setEditing(null)
-    setForm(emptyForm)
-    setEditError('')
-  }
-
   return (
     <div className="reservations-container">
       <style>{css}</style>
-      <div className="admin-page-header">
+      
+      <header className="admin-page-header">
         <div>
           <h1 className="admin-page-title">Reservations Ledger</h1>
-          <div className="admin-page-subtitle">Managing {list.length} active and upcoming guest stays</div>
+          <div className="admin-page-subtitle">Managing active and upcoming guest stays</div>
         </div>
-      </div>
+      </header>
 
-      <div className="admin-page-body">
-        {error && (
-          <div style={{ marginBottom: 32 }}>
-            <Alert message={error} onDismiss={() => setError('')} />
-            {(error.includes('Access denied') || error.includes('log in again')) && (
-              <div style={{ marginTop: 16 }}>
-                <button type="button" onClick={() => { logout(); navigate('/login', { state: { logoutSuccess: true } }); }} className="admin-gold-btn">Log out and sign in again</button>
-              </div>
-            )}
-          </div>
-        )}
-        
+      <main className="admin-page-body">
+        {error && <Alert message={error} onDismiss={() => setError('')} />}
         {editSuccess && <Alert type="success" message={editSuccess} onDismiss={() => setEditSuccess('')} />}
         
         {loading ? (
-          <p style={{ color: '#9ca3af', textAlign: 'center', padding: '100px 0', fontSize: '16px' }}>Syncing with server...</p>
+          <p style={{ textAlign: 'center', padding: '100px 0', fontSize: '18px', fontFamily: 'Cormorant Garamond', fontWeight: 600 }}>Syncing ledger...</p>
         ) : list.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '100px 0', border: '2px dashed #e5e7eb', borderRadius: '12px' }}>
-            <p style={{ color: '#9ca3af', fontSize: '18px' }}>No guest records found.</p>
+          <div style={{ textAlign: 'center', padding: '100px 0', border: '2px dashed #d4af7a', borderRadius: '24px', background: 'rgba(255,255,255,0.4)' }}>
+            <p style={{ color: '#0f172a', fontSize: '20px', fontFamily: 'Cormorant Garamond', fontWeight: 600 }}>No guest records found.</p>
           </div>
         ) : (
           <div className="res-grid">
             {list.map((r) => (
               <div key={getReservationId(r) || r.reservationNumber} className="res-card">
-                <span className="res-number">#{r.reservationNumber}</span>
+                <span className="res-number">REF: {r.reservationNumber}</span>
                 <div className="guest-name">{r.guestName}</div>
                 <div className="room-tag">
-                  <span>{r.roomType}</span>
+                  <span>{r.roomType} Suite</span>
                   <span>•</span>
                   <span>{r.nights} {r.nights === 1 ? 'Night' : 'Nights'}</span>
                 </div>
 
                 <div className="date-row">
                   <div className="date-box">
-                    <div className="date-label">Check In</div>
+                    <div className="date-label">Arrival</div>
                     <div className="date-value">{format(new Date(r.checkInDate), 'MMM dd, yyyy')}</div>
                   </div>
                   <div className="date-box" style={{ textAlign: 'right' }}>
-                    <div className="date-label">Check Out</div>
+                    <div className="date-label">Departure</div>
                     <div className="date-value">{format(new Date(r.checkOutDate), 'MMM dd, yyyy')}</div>
                   </div>
                 </div>
@@ -468,14 +439,14 @@ export default function AdminReservations() {
                 <div className="bill-section">
                   <div className="total-amt">LKR {Number(r.totalBill).toLocaleString()}</div>
                   <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-                    <button type="button" onClick={() => setEditing(r)} className="admin-gold-btn">Edit</button>
+                    <button type="button" onClick={() => setEditing(r)} className="admin-gold-btn">Edit Folio</button>
                     <button 
                       type="button" 
                       onClick={() => handleDelete(r)} 
                       disabled={deleteLoadingId === getReservationId(r)} 
                       className="delete-link"
                     >
-                      {deleteLoadingId === getReservationId(r) ? '...' : 'Delete'}
+                      {deleteLoadingId === getReservationId(r) ? '...' : 'Remove'}
                     </button>
                   </div>
                 </div>
@@ -483,74 +454,53 @@ export default function AdminReservations() {
             ))}
           </div>
         )}
-      </div>
+      </main>
 
       {editing && (
         <>
-          <div className="modal-overlay" onClick={closeEdit} />
+          <div className="modal-overlay" onClick={() => setEditing(null)} />
           <div className="modal-content">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
-              <h3 style={{ margin: 0, fontSize: '26px', fontFamily: 'Cormorant Garamond, serif' }}>Edit Folio: {editing.reservationNumber}</h3>
-              <button type="button" onClick={closeEdit} style={{ border: 'none', background: 'none', fontSize: '32px', cursor: 'pointer', color: '#9ca3af' }}>×</button>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 35 }}>
+              <h3 style={{ margin: 0, fontSize: '30px', fontFamily: 'Cormorant Garamond, serif', fontWeight: 700 }}>Update Guest Folio</h3>
+              <button type="button" onClick={() => setEditing(null)} style={{ border: 'none', background: 'none', fontSize: '32px', cursor: 'pointer', color: '#94a3b8' }}>×</button>
             </div>
             
             <form onSubmit={handleEditSubmit}>
               {editError && <Alert message={editError} onDismiss={() => setEditError('')} />}
-              
               <div className="form-group">
-                <label className="admin-form-label">Guest Legal Name *</label>
+                <label className="admin-form-label">Full Guest Name</label>
                 <input name="guestName" value={form.guestName} onChange={handleFormChange} required className="admin-form-input" />
               </div>
-
-              <div className="form-group">
-                <label className="admin-form-label">Physical Address *</label>
-                <input name="address" value={form.address} onChange={handleFormChange} required className="admin-form-input" />
-              </div>
-
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
                 <div className="form-group">
-                  <label className="admin-form-label">NIC / Passport *</label>
+                  <label className="admin-form-label">NIC / Passport No.</label>
                   <input name="nicNumber" value={form.nicNumber} onChange={handleFormChange} required className="admin-form-input" />
                 </div>
                 <div className="form-group">
-                  <label className="admin-form-label">Contact Number *</label>
+                  <label className="admin-form-label">Phone Contact</label>
                   <input name="contactNumber" value={form.contactNumber} onChange={handleFormChange} required className="admin-form-input" />
                 </div>
               </div>
-
               <div className="form-group">
-                <label className="admin-form-label">Assigned Room Type *</label>
+                <label className="admin-form-label">Suite Allocation</label>
                 <select name="roomType" value={form.roomType} onChange={handleFormChange} required className="admin-form-input">
-                  <option value="">Select room category</option>
-                  {roomTypes.map((t) => (
-                    <option key={t} value={t}>{t} – LKR {rooms.find(r => r.roomType === t)?.ratePerNight?.toLocaleString()}/night</option>
-                  ))}
+                  <option value="">Select Category</option>
+                  {roomTypes.map((t) => <option key={t} value={t}>{t} Suite</option>)}
                 </select>
               </div>
-
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
                 <div className="form-group">
-                  <label className="admin-form-label">Arrival Date *</label>
+                  <label className="admin-form-label">Check-in</label>
                   <input name="checkInDate" type="date" value={form.checkInDate} onChange={handleFormChange} required className="admin-form-input" />
                 </div>
                 <div className="form-group">
-                  <label className="admin-form-label">Departure Date *</label>
+                  <label className="admin-form-label">Check-out</label>
                   <input name="checkOutDate" type="date" value={form.checkOutDate} onChange={handleFormChange} required min={form.checkInDate} className="admin-form-input" />
                 </div>
               </div>
-
-              {nights > 0 && selectedRate && (
-                <div style={{ padding: 20, background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, marginBottom: 24 }}>
-                  <div style={{ fontSize: '13px', color: '#64748b', marginBottom: 6, fontWeight: '600', textTransform: 'uppercase' }}>Bill Projection</div>
-                  <div style={{ fontSize: '16px', color: '#1e293b' }}>
-                    <strong>{nights} nights</strong> at {selectedRate.toLocaleString()} = <strong>LKR {totalBill.toLocaleString()}</strong>
-                  </div>
-                </div>
-              )}
-
               <div style={{ display: 'flex', gap: 16, marginTop: 10 }}>
-                <button type="button" onClick={closeEdit} style={{ flex: 1, padding: '14px', border: '1px solid #e5e7eb', background: '#fff', borderRadius: 8, cursor: 'pointer', fontWeight: '600', fontSize: '15px' }}>Discard</button>
-                <button type="submit" disabled={editLoading} className="admin-gold-btn" style={{ flex: 2, fontSize: '15px' }}>{editLoading ? 'Processing...' : 'Update Reservation'}</button>
+                <button type="button" onClick={() => setEditing(null)} style={{ flex: 1, padding: '14px', border: '1px solid #e2e8f0', background: '#fff', borderRadius: 12, fontWeight: '700' }}>Cancel</button>
+                <button type="submit" disabled={editLoading} className="admin-gold-btn" style={{ flex: 2 }}>{editLoading ? 'Updating...' : 'Save Changes'}</button>
               </div>
             </form>
           </div>
